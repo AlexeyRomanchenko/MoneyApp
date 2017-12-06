@@ -9,7 +9,7 @@ namespace PVT.Money.GITTest
 {
     class TestClass
     {
-        private float testProperty;
+        private float testProp;
         public float TestProperty
         {
             get
@@ -27,7 +27,7 @@ namespace PVT.Money.GITTest
         }
 
         public decimal MoneyMethod() {
-            return lot_of_money;
+            return 4;
         }
         
     }
