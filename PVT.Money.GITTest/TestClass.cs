@@ -8,30 +8,6 @@ namespace PVT.Money.GITTest
     {
         float testProperty;
 
-        public float TestProperty
-        {
-            get
-            {
-                return testProperty;
-            }
-            set
-            {
-                testProperty = value;
-            }
-        }
-
-        public void TestMethod(int number, string text)
-        {
-
-        }
-
-        public decimal MoneyBack()
-        {
-            return 5;
-        }
-    }
-}
-
 namespace PVT.Money.GITTest
 {
     class TestClass
