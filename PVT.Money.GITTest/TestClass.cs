@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PVT.Money.GITTest
 {
-    class TestClass
+    class TestClass1
     {
         float testProperty;
 
@@ -31,9 +31,6 @@ namespace PVT.Money.GITTest
         }
     }
 }
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PVT.Money.GITTest
 {
