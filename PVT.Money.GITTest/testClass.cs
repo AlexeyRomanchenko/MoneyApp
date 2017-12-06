@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PVT.Money.GITTest
-{
-    class TestClass
-    {
-        float testProperty;
+
+
 
 namespace PVT.Money.GITTest
 {
