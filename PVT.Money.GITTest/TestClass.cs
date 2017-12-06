@@ -5,7 +5,6 @@ using System.Text;
 
 
 
-
 namespace PVT.Money.GITTest
 {
     class TestClass
@@ -15,11 +14,11 @@ namespace PVT.Money.GITTest
         {
             get
             {
-                return testProperty;
+                return testProp;
             }
             set
             {
-                testProperty = value;
+                testProp = value;
             }
         }
 
