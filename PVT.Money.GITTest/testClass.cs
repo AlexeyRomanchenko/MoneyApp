@@ -14,22 +14,20 @@ namespace PVT.Money.GITTest
         {
             get
             {
-                return testProperty;
+                return testProp;
             }
             set
             {
-                testProperty = value;
+                testProp = value;
             }
         }
 
-        public void TestMethod(int number, string text)
-        {
-
+        public void TestMethod(int a, string b) {
+          
         }
 
-        public decimal MoneyBack()
-        {
-            return 5;
+        public decimal MoneyMethod() {
+            return lot_of_money;
         }
         
     }
