@@ -2,41 +2,34 @@
 using System.Collections.Generic;
 using System.Text;
 
+
+
+
 namespace PVT.Money.GITTest
 {
-    class testClass
+    class TestClass
     {
-     
-        public decimal lot_of_money = 1000;
-    }
-
-    namespace PVT.Money.GITTest
-    {
-        class TestClass
+        private float testProp;
+        public float TestProperty
         {
-            private float testProperty;
-            public float TestProperty
+            get
             {
-                get
-                {
-                    return testProperty;
-                }
-                set
-                {
-                    testProperty = value;
-                }
+                return testProp;
             }
+            set
+            {
+                testProp = value;
+            }
+        }
 
             public void TestMethod(int number, string text)
             {
 
             }
 
-            public decimal MoneyMethod()
-            {
-                return 10;
-            }
-
+        public decimal MoneyMethod() {
+            return 4;
         }
+        
     }
 }
