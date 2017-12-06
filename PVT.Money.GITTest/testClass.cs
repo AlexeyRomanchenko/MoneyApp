@@ -6,35 +6,37 @@ namespace PVT.Money.GITTest
 {
     class testClass
     {
-        public float testProp;
-        public float value;
+     
         public decimal lot_of_money = 1000;
+    }
 
-namespace PVT.Money.GITTest
-{
-    class TestClass
+    namespace PVT.Money.GITTest
     {
-        private float testProperty;
-        public float TestProperty
+        class TestClass
         {
-            get
+            private float testProperty;
+            public float TestProperty
             {
-                return testProp;
+                get
+                {
+                    return testProperty;
+                }
+                set
+                {
+                    testProperty = value;
+                }
             }
-            set
-            {
-                testProp = value;
-            }
-        }
 
             public void TestMethod(int number, string text)
             {
 
             }
 
-        public decimal MoneyMethod() {
-            return lot_of_money;
+            public decimal MoneyMethod()
+            {
+                return 10;
+            }
+
         }
-        
     }
 }
