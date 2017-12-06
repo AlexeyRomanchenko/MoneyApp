@@ -8,6 +8,11 @@ namespace PVT.Money.GITTest
     {
         float testProperty;
 
+namespace PVT.Money.GITTest
+{
+    class TestClass
+    {
+        private float testProperty;
         public float TestProperty
         {
             get
@@ -29,5 +34,6 @@ namespace PVT.Money.GITTest
         {
             return 5;
         }
+        
     }
 }
