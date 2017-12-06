@@ -4,30 +4,30 @@ using System.Text;
 
 namespace PVT.Money.GITTest
 {
-    class TestClass
+    class testClass
     {
-        float testProperty;
+        public float testProp;
+        public float value;
+        public decimal lot_of_money = 1000;
 
         public float TestProperty
         {
             get
             {
-                return testProperty;
+                return testProp;
             }
             set
             {
-                testProperty = value;
+                testProp = value;
             }
         }
 
-        public void TestMethod(int number, string text)
-        {
-
+        public void TestMethod(int a, string b) {
+          
         }
 
-        public decimal MoneyBack()
-        {
-            return 5;
+        public decimal MoneyMethod() {
+            return lot_of_money;
         }
     }
 }
