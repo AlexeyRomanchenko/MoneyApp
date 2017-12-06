@@ -49,14 +49,14 @@ namespace PVT.Money.GITTest
             }
         }
 
-        public void TestMethod( int a, string str)
+        public void TestMethod(int number, string text)
         {
 
         }
 
-        public decimal AnyMethod()
+        public decimal MoneyBack()
         {
-            return 10000000000000000000m;
+            return 5;
         }
         
     }
