@@ -4,13 +4,7 @@ using System.Text;
 
 namespace PVT.Money.GITTest
 {
-    class TestClass
-    {
-        float testProperty;
-
-namespace PVT.Money.GITTest
-{
-    class TestClass
+    class MyClass
     {
         private float testProperty;
         public float TestProperty
@@ -25,15 +19,14 @@ namespace PVT.Money.GITTest
             }
         }
 
-        public void TestMethod(int number, string text)
+        private void TestMethod(int id, string title)
         {
 
         }
 
-        public decimal MoneyBack()
+        public decimal Money()
         {
-            return 5;
+            return 3;
         }
-        
     }
 }

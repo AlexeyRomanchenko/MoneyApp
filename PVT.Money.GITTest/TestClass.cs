@@ -10,6 +10,11 @@ namespace PVT.Money.GITTest
         public float value;
         public decimal lot_of_money = 1000;
 
+namespace PVT.Money.GITTest
+{
+    class TestClass
+    {
+        private float testProperty;
         public float TestProperty
         {
             get
@@ -29,5 +34,6 @@ namespace PVT.Money.GITTest
         public decimal MoneyMethod() {
             return lot_of_money;
         }
+        
     }
 }
