@@ -14,19 +14,11 @@ namespace PVT.Money.Business.Tests
         {
             string login = "tdfgdfg";
             string password = "123abc123";
-            string name = "Vasya";
-            Enums.UserRoles uRoleAdmin = Enums.UserRoles.Admin;
 
-            Models.UserModel uModel = new Models.UserModel();
             User userCheck = new User();
 
-            uModel.Login = login;
-            uModel.Password = password;
-            uModel.Name = name;
-            uModel.Role = uRoleAdmin;
-
-            Autentification autentification = new Autentification(uModel.Login, uModel.Password);
-            userCheck = autentification.CheckAutentification();
+            Autentification autentification = new Autentification(login, password);
+            userCheck = autentification.CheckAutentification(); 
         }
     }
 }
