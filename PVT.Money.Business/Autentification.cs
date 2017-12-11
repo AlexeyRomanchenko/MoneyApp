@@ -9,7 +9,6 @@ namespace PVT.Money.Business
 
         private string login;
         private string password;
-        //private 
         private List<User> users;
 
         public Autentification(string login, string password)
@@ -51,10 +50,10 @@ namespace PVT.Money.Business
         }
 
 
-        //public bool CheckRole(string role)
-        //{
-
-        //}
+        public bool CheckRole(string role, User user)
+        {
+            return (user.Role == role);            
+        }
 
     }
 }
