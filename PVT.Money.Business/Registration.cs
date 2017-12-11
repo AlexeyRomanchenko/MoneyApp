@@ -1,45 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PVT.Money.Business.Models;
+using PVT.Money.Business.Enums;
 
 namespace PVT.Money.Business
 {
-    class Registration
+    public class Registration
     {
         string name;
-        string email;
         string login;
-        string password1;
-        string password2;      
+        string password;    
 
-        public Registration()
+        public Registration(string name, string login, string password)
         {
-            // Конструктор
+            this.login = login;
+            this.name = name;
+            this.password = password;
         }
 
-        public bool IsLoginCorrect()
+        private bool IsLoginCorrect()
         {
-            // Логика метода
+            // проверка на существования пользователя с таким же именем
+            // проверка на корректность введенных данных
             return true;
         }
 
-        public bool IsPasswordCorrect()
+        private bool IsPasswordCorrect()
         {
-            // Логика метода
-            return true;
-        }
-
-        public bool IsPasswordCoinside()
-        {
-            // Логика метода
+            // проверка на корректность введенного пароля
             return true;
         }
         
-        public User UserCreate()
+        public UserModel UserCreate()
         {
-            // Логика метода
-            return User;
+            UserModel newUser = new UserModel();
+            newUser.Login = this.login;
+            newUser.Name = this.name;
+            newUser.Password = this.password;
+            newUser.Role = UserRoles.Guest;
+            return newUser;
         }
-
     }
 }
