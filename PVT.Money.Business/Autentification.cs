@@ -10,27 +10,26 @@ namespace PVT.Money.Business
         private string login;
         private string password;
         private List<User> users;
+        private User user;
 
         public Autentification(string login, string password)
         {
             this.login = login;
             this.password = password;
 
-            // for test
             users = new List<User>();
+            AddUser("Sergey", "1234", "Admin");
+            AddUser("Sasha", "4321", "User");
 
-            User user = new User();
-            user.Login = "Sergey";
-            user.Password = "1234";
-            user.Role = "Admin";
-            users.Add(user);
+        }
 
+        private void AddUser(string login, string password, string role)
+        {
             user = new User();
-            user.Login = "Sasha";
-            user.Password = "4321";
-            user.Role = "User";
+            user.Login = login;
+            user.Password = password;
+            user.Role = role;
             users.Add(user);
-
         }
 
         public User CheckAutentification()
@@ -55,5 +54,6 @@ namespace PVT.Money.Business
             return (user.Role == role);            
         }
 
+        
     }
 }
