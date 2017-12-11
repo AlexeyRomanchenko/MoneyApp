@@ -4,11 +4,12 @@ using System.Text;
 
 namespace PVT.Money.Business
 {
-    class Autentification
+    public class Autentification
     {
 
         private string login;
         private string password;
+        //private 
         private List<User> users;
 
         public Autentification(string login, string password)
@@ -49,7 +50,11 @@ namespace PVT.Money.Business
             return userResult;
         }
 
-        
+
+        //public bool CheckRole(string role)
+        //{
+
+        //}
 
     }
 }
