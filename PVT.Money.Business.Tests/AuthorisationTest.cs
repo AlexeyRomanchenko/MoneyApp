@@ -7,18 +7,32 @@ using PVT.Money.Business;
 namespace PVT.Money.Business.Tests
 {
     [TestFixture]
-    public class AuthorisationTest
+    public class AuthorizationTest
     {
         [Test]
-        public void AuthorisationOK()
+        public void AuthorizationOK()
         {
-            string login = "tdfgdfg";
-            string password = "123abc123";
+            string login = "Sergey";
+            string password = "1234";
+            User userCheck = null;
 
-            User userCheck = new User();
+            Authentication autentification = new Authentication();
+            userCheck = autentification.CheckAuthentication(login, password);
 
-            Autentification autentification = new Autentification(login, password);
-            userCheck = autentification.CheckAutentification(); 
+            Assert.NotNull(userCheck);
+        }
+
+        [Test]
+        public void AuthorizationOFailed()
+        {
+            string login = "Sergey2";
+            string password = "1234";
+            User userCheck = null;
+
+            Authentication autentification = new Authentication();
+            userCheck = autentification.CheckAuthentication(login, password);
+
+            Assert.Null(userCheck);
         }
     }
 }
