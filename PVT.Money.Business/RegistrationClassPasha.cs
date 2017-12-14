@@ -3,31 +3,70 @@ using System.Collections.Generic;
 using System.Text;
 using PVT.Money.Business.Models;
 using PVT.Money.Business.Enums;
+using System.Text.RegularExpressions;
 
 namespace PVT.Money.Business
 {
     class RegistrationClassPasha
-    { 
-        private bool IsLoginCorrect()
+    {
+        private List<UserModel> users = new List<UserModel>();
+
+        // Check for the existence of a user with the same login
+        private bool IsLoginCorrect(string login)
         {
-            // проверка на существования пользователя с таким же именем
-            // проверка на корректность введенных данных
+            foreach (UserModel user in users)
+            {
+                if (user.Login == login)
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
-        private bool IsPasswordCorrect()
+        // Check for the password complexity
+        private bool IsPasswordCorrect(string password)
         {
-            // проверка на корректность введенного пароля
-            return true;
+            int letterCount = 0, numberCount = 0, upperLetterCount = 0;
+            if (password.Length >= 8)
+            {
+                for (int i = 0; i < password.Length; i++)
+                {
+                    if (char.IsLetter(password[i]))
+                    {
+                        letterCount++;
+                    }
+                    if (char.IsNumber(password[i]))
+                    {
+                        numberCount++;
+                    }
+                    if (char.IsUpper(password[i]))
+                    {
+                        upperLetterCount++;
+                    }
+                }
+                if (letterCount > 0 && numberCount > 0 && upperLetterCount > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
+        // Creating a new user
         public void CreateNewUser(string name, string login, string password, UserRoles role)
         {
-            UserModel newUser = new UserModel();
-            newUser.Name = name;
-            newUser.Login = login;
-            newUser.Password = password;
-            newUser.Role = role;
+            if (IsLoginCorrect(login) && (IsPasswordCorrect(password)))
+            {
+                UserModel newUser = new UserModel
+                {
+                    Name = name,
+                    Login = login,
+                    Password = password,
+                    Role = role
+                };
+                users.Add(newUser);
+            }
         }
     }
 }
