@@ -1,4 +1,4 @@
-﻿namespace PVT.Money.Business.Enums
+﻿namespace PVT.Money.Business
 {
     public enum UserRoles
     {

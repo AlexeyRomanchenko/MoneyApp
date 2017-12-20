@@ -11,11 +11,11 @@ namespace PVT.Money.Business
         public Authentication()
         {
             users = new List<User>();
-            AddUser("Sergey", "1234", "Admin");
-            AddUser("Sasha", "4321", "User");
+            AddUser("Sergey", "1234", UserRoles.Admin);
+            AddUser("Sasha", "4321", UserRoles.User);
         }
 
-        private void AddUser(string login, string password, string role)
+        private void AddUser(string login, string password, UserRoles role)
         {
             User user = new User();
             user.Login = login;
@@ -40,7 +40,7 @@ namespace PVT.Money.Business
         }
 
 
-        public bool CheckRole(string role, User user)
+        public bool CheckRole(UserRoles role, User user)
         {
             return (user.Role == role);            
         }

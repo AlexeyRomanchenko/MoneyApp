@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PVT.Money.Business.Models;
-using PVT.Money.Business.Enums;
 
 namespace PVT.Money.Business
 {
     public class Registration
     {
-        private List<UserModel> users = new List<UserModel>();
+        private List<User> users = new List<User>();
 
         // Check for the existence of a user with the same login
         public bool IsLoginCorrect(string login)
         {
-            foreach (UserModel user in users)
+            foreach (User user in users)
             {
                 if (user.Login == login)
                 {
@@ -57,9 +55,8 @@ namespace PVT.Money.Business
         {
             if (IsLoginCorrect(login) && (IsPasswordCorrect(password)))
             {
-                UserModel newUser = new UserModel
+                User newUser = new User
                 {
-                    Name = name,
                     Login = login,
                     Password = password,
                     Role = role
