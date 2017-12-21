@@ -6,7 +6,7 @@ namespace PVT.Money.Business
 { // Класс обмена валют
     public class CurrExchange
     {
-        private decimal secondNominal;
+        public decimal secondNominal;
 
         //Получаем коэффициент исходя ил двух наименований валют
         private decimal GetKoeff(string frst, string sec) {
@@ -17,12 +17,12 @@ namespace PVT.Money.Business
                 {
                     case "AUD":
                         {
-                            koef = 10m;
+                            koef = 0.5m;
                             break;
                         }
                     case "EUR":
                         {
-                            koef = 1.3m;
+                            koef = 0.8m;
                             break;
                         }
                 }
@@ -34,12 +34,12 @@ namespace PVT.Money.Business
                 {
                     case "USD":
                         {
-                            koef = 0.3m;
+                            koef = 2m;
                             break;
                         }
                     case "EUR":
                         {
-                            koef = 0.5m;
+                            koef = 1.7m;
                             break;
                         }
                 }
@@ -51,12 +51,12 @@ namespace PVT.Money.Business
                 {
                     case "AUD":
                         {
-                            koef = 6.3m;
+                            koef = 0.3m;
                             break;
                         }
                     case "USD":
                         {
-                            koef = 5m;
+                            koef = 2m;
                             break;
                         }
                 }

@@ -51,7 +51,7 @@ namespace PVT.Money.Business.Tests
         }
 
         [Test]
-        public void ConvertMoney()
+        public void ConvertMoneyFromAUDToUSD()
         {
             //arrange
             MoneyClass australian_dollar = new MoneyClass(100.5m,"AUD");
@@ -59,8 +59,33 @@ namespace PVT.Money.Business.Tests
             //act
             CurrExchange new_operation =new CurrExchange(australian_dollar, "USD");
 
-        //assert
-        
+            //assert
+            Assert.AreNotEqual(new_operation, 0);
+            Assert.AreEqual(new_operation.secondNominal, 50.25);
+        }
+
+        [Test]
+        public void ConvertMoneyFromEURToUSD()
+        {
+            //arrange
+            MoneyClass euro = new MoneyClass(100.5m, "EUR");
+
+            //act
+            CurrExchange new_operation = new CurrExchange(euro, "USD");
+
+            //assert
+            Assert.AreNotEqual(new_operation, 0);
+            Assert.AreEqual(new_operation.secondNominal, 80.4);
+        }
+
+        [Test]
+        public void currExchangeClassFailed()
+        {
+            MoneyClass euro = new MoneyClass(100.5m, "EUR");
+          //  CurrExchange new_operation = new CurrExchange(euro, "UAH");
+            //assert
+            Assert.Throws<Exception>(() => new CurrExchange(euro, "UAH"));
+
         }
     }
 }
