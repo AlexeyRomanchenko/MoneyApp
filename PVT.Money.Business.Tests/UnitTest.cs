@@ -9,11 +9,6 @@ namespace PVT.Money.Business.Tests
     [TestFixture]
     class UnitTest
     {
-        [Test]
-        public void SystemCheck()
-        {
-            Assert.Pass("Проверка системы тестирования");
-        }
 
         [Test]
         public void MoneyClassTest() {
@@ -29,18 +24,10 @@ namespace PVT.Money.Business.Tests
             Assert.AreNotEqual(EUR_test, 0);
         }
 
-        [Test]
-        public void MoneyClassFailed() {
-            
-            //arrange
-            
-            //act
-            //decimal USD_test = USD.nominal;
-
-            //assert
-            Assert.Throws<ArgumentNullException>(() => new MoneyClass(0, "USD"));
+            // В таком assert  отлавливаем Exception  (only for me)
+            // Assert.Throws<ArgumentNullException>(() => new MoneyClass(0, "USD"));
     
-        }
+
 
         [Test]
         public void MoneyClassFailedCurrency()
@@ -51,41 +38,20 @@ namespace PVT.Money.Business.Tests
         }
 
         [Test]
-        public void ConvertMoneyFromAUDToUSD()
+        public void ConvertMoneyFrom()
         {
             //arrange
             MoneyClass australian_dollar = new MoneyClass(100.5m,"AUD");
-
+            MoneyClass euro = new MoneyClass(100.5m, "EUR");
             //act
             CurrExchange new_operation =new CurrExchange(australian_dollar, "USD");
+            CurrExchange new_operation_2 = new CurrExchange(euro, "USD");
 
             //assert
-            Assert.AreNotEqual(new_operation, 0);
-            Assert.AreEqual(new_operation.secondNominal, 50.25);
-        }
-
-        [Test]
-        public void ConvertMoneyFromEURToUSD()
-        {
-            //arrange
-            MoneyClass euro = new MoneyClass(100.5m, "EUR");
-
-            //act
-            CurrExchange new_operation = new CurrExchange(euro, "USD");
-
-            //assert
-            Assert.AreNotEqual(new_operation, 0);
-            Assert.AreEqual(new_operation.secondNominal, 80.4);
-        }
-
-        [Test]
-        public void currExchangeClassFailed()
-        {
-            MoneyClass euro = new MoneyClass(100.5m, "EUR");
-          //  CurrExchange new_operation = new CurrExchange(euro, "UAH");
-            //assert
-            Assert.Throws<Exception>(() => new CurrExchange(euro, "UAH"));
+            Assert.AreEqual(new_operation.GetSecondNominal(), 50.25);
+            Assert.AreEqual(new_operation_2.GetSecondNominal(), 80.4);
 
         }
+
     }
 }

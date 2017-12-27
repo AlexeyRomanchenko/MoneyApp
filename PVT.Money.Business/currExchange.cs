@@ -6,7 +6,15 @@ namespace PVT.Money.Business
 { // Класс обмена валют
     public class CurrExchange
     {
-        public decimal secondNominal;
+        private decimal secondNominal;
+
+        public decimal SetSecondNominal(decimal nom) {
+            this.secondNominal = nom;
+            return this.secondNominal;
+        }
+        public decimal GetSecondNominal() {
+            return this.secondNominal;
+        }
 
         //Получаем коэффициент исходя ил двух наименований валют
         private decimal GetKoeff(string frst, string sec) {
