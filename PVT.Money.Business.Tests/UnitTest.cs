@@ -22,8 +22,8 @@ namespace PVT.Money.Business.Tests
            MoneyClass EUR = new MoneyClass(100m, "EUR");
             //act
 
-            decimal USD_test = USD.nominal;
-            decimal EUR_test = EUR.nominal;
+            decimal USD_test = USD.GetNominal();
+            decimal EUR_test = EUR.GetNominal();
             //assert
             Assert.AreNotEqual(USD_test,0);
             Assert.AreNotEqual(EUR_test, 0);

@@ -6,7 +6,7 @@ namespace PVT.Money.Business
 { // Класс денег
     public class MoneyClass
     {
-        public decimal nominal;
+        private decimal nominal;
         public string currency;
         
         public decimal AddNominal(decimal nom)
@@ -20,6 +20,10 @@ namespace PVT.Money.Business
             {
                 throw new ArgumentNullException("Your nominal is null");
             }
+        }
+
+        public decimal GetNominal() {
+            return this.nominal;
         }
         public string AddCurrency(string curr) {
             if (curr == "USD" || curr == "EUR" || curr == "AUD") {

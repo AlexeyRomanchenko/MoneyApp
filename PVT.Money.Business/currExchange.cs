@@ -69,13 +69,13 @@ namespace PVT.Money.Business
 
         // Метод для обмена валют. Необходимо иметь класс Money и наименование валюты, в кот хотим перевести 
         private decimal Change(MoneyClass first, string secCurr) {
-            if (Convert.ToBoolean(first.nominal) == true)
-            {
+        
                 if (secCurr != first.currency)
                 {
                     try
                     {
-                        decimal old_nominal = first.nominal;
+                    decimal old_nominal = first.GetNominal();
+                        //decimal old_nominal = first.nominal;
                         string old_currency = first.currency;
                         string new_currency = secCurr;
 
@@ -94,10 +94,6 @@ namespace PVT.Money.Business
                     throw new Exception("You selected an old currency!");
                 }
 
-            }
-            else {
-                throw new ArgumentNullException("first nominal returned false");
-            }
         }
 
         //Конструктор
