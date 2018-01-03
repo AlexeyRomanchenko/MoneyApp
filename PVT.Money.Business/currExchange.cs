@@ -16,81 +16,26 @@ namespace PVT.Money.Business
             return this.secondNominal;
         }
 
-        //Получаем коэффициент исходя ил двух наименований валют
-        private decimal GetKoeff(string frst, string sec) {
-            decimal koef = -1;
-            if (frst == "USD")
-            {              
-                switch (sec)
-                {
-                    case "AUD":
-                        {
-                            koef = 0.5m;
-                            break;
-                        }
-                    case "EUR":
-                        {
-                            koef = 0.8m;
-                            break;
-                        }
-                }
-                return koef;
-            }
-            else if (frst == "AUD")
-            {
-                switch (sec)
-                {
-                    case "USD":
-                        {
-                            koef = 2m;
-                            break;
-                        }
-                    case "EUR":
-                        {
-                            koef = 1.7m;
-                            break;
-                        }
-                }
-                return koef;
-            }
-            else if (frst == "EUR")
-            {                
-                switch (sec)
-                {
-                    case "AUD":
-                        {
-                            koef = 0.3m;
-                            break;
-                        }
-                    case "USD":
-                        {
-                            koef = 2m;
-                            break;
-                        }
-                }
-                return koef;
-            }
-            else {
-                throw new Exception("We haven't such kind of money, sorry Man");
-            }
-        }
-
         // Метод для обмена валют. Необходимо иметь класс Money и наименование валюты, в кот хотим перевести 
-        private decimal Change(MoneyClass first, string secCurr) {
+        private MoneyClass Change(MoneyClass first, Currency secCurr) {
         
                 if (secCurr != first.currency)
                 {
                     try
                     {
                     decimal old_nominal = first.GetNominal();
-                        //decimal old_nominal = first.nominal;
-                        string old_currency = first.currency;
-                        string new_currency = secCurr;
+                        
+                        Currency old_currency = first.currency;
+                        Currency new_currency = secCurr;
 
-                        decimal koefficient = this.GetKoeff(new_currency, old_currency);
-                        this.secondNominal = old_nominal * koefficient;
+                    // decimal koefficient = this.GetKoeff(new_currency, old_currency);
+                        Rate rate = new Rate(old_currency,new_currency);
+                        this.secondNominal = old_nominal * rate.rateCount;
 
-                        return this.secondNominal;
+                    MoneyClass changed_money = new MoneyClass(this.secondNominal,new_currency);
+                    MyFee money_after_procents = new MyFee(changed_money);
+
+                    return changed_money;
                     }
                     catch (Exception ex)
                     {
@@ -99,14 +44,16 @@ namespace PVT.Money.Business
                 }
                 else
                 {
-                    throw new Exception("You selected an old currency!");
+                
+                return first;
                 }
 
         }
 
         //Конструктор
-        public CurrExchange(MoneyClass YourMoney,string NeedCurr) {
-            decimal res = Change(YourMoney, NeedCurr);
+        public CurrExchange(MoneyClass YourMoney,Currency NeedCurr) {
+            MoneyClass res = Change(YourMoney, NeedCurr);
+
             
         }
     }
