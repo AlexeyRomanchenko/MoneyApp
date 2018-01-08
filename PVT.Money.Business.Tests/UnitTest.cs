@@ -36,7 +36,7 @@ namespace PVT.Money.Business.Tests
 
 
             //assert
-            Assert.AreEqual(new_operation.GetSecondNominal(), 29.7);
+            Assert.AreEqual(new_operation.GetSecondNominal(), 29.7m);
 
 
         }

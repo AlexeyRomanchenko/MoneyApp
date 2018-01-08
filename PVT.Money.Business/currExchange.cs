@@ -17,7 +17,7 @@ namespace PVT.Money.Business
         }
 
         // Метод для обмена валют. Необходимо иметь класс Money и наименование валюты, в кот хотим перевести 
-        private MoneyClass Change(MoneyClass first, Currency secCurr) {
+        private decimal Change(MoneyClass first, Currency secCurr) {
         
                 if (secCurr != first.currency)
                 {
@@ -34,8 +34,9 @@ namespace PVT.Money.Business
 
                     MoneyClass changed_money = new MoneyClass(this.secondNominal,new_currency);
                     MyFee money_after_procents = new MyFee(changed_money);
+                    decimal result = money_after_procents.moneyAfter;
 
-                    return changed_money;
+                    return result;
                     }
                     catch (Exception ex)
                     {
@@ -45,14 +46,15 @@ namespace PVT.Money.Business
                 else
                 {
                 
-                return first;
+                return first.GetNominal();
                 }
 
         }
 
         //Конструктор
         public CurrExchange(MoneyClass YourMoney,Currency NeedCurr) {
-            MoneyClass res = Change(YourMoney, NeedCurr);
+            decimal res = Change(YourMoney, NeedCurr);
+            this.SetSecondNominal(res);
 
             
         }
