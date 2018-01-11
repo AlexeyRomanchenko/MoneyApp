@@ -33,6 +33,7 @@ namespace PVT.Money.Business
             try
             {
                 Wallet wallet = new Wallet();
+                wallet.Put(nominal);
 
             }
             catch(Exception ex)
@@ -49,11 +50,11 @@ namespace PVT.Money.Business
     {
         public delegate void WalletStateHandler(decimal cash);
         public event WalletStateHandler ProcentsPaid;
-        int _sum; // Тут храним сумму
+        decimal _sum; // Тут храним сумму
         // Событие, возникающее при добавление на счет
         public event WalletStateHandler Added;
 
-        public void Put(int sum)
+        public void Put(decimal sum)
         {
             _sum += sum;
             if (Added != null)
