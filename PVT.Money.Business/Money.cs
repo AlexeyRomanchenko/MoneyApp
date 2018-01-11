@@ -7,8 +7,8 @@ namespace PVT.Money.Business
     public class MoneyClass
     {
         private decimal nominal;
-        public string currency;
-        
+        public Currency currency;
+
         public decimal AddNominal(decimal nom)
         {
             if (nom > 0)
@@ -25,21 +25,37 @@ namespace PVT.Money.Business
         public decimal GetNominal() {
             return this.nominal;
         }
-        public string AddCurrency(string curr) {
-            if (curr == "USD" || curr == "EUR" || curr == "AUD") {
+        public Currency AddCurrency(Currency curr) {
+
+            try
+            {
                 this.currency = curr;
                 return this.currency;
             }
-            else {
-                throw new ArgumentNullException("Not selected currency");
+            catch (Exception ex) {
+                throw new ArgumentException("Add Currency error", ex);
             }
         }
-        // Конструктор
-        public MoneyClass(decimal nom, string curr){
 
-            this.AddNominal(nom);
-            this.AddCurrency(curr);
-        }
+
+        //public string AddCurrency(string curr) {
+        //        if (curr =="USD") { 
+        //        this.currency = curr;
+        //        return this.currency;
+        //   }
+        //    else {
+        //       throw new ArgumentNullException("Not selected currency");
+        //   }
+        //}
+
+        //Constructor
+        public MoneyClass(decimal nom, Currency currency){
+            this.nominal = nom;
+            this.AddCurrency(currency);
+}
+
+       
+       
 
 
     }
