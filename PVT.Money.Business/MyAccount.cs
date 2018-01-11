@@ -32,6 +32,7 @@ namespace PVT.Money.Business
         {
             try
             {
+                Wallet wallet = new Wallet();
 
             }
             catch(Exception ex)
