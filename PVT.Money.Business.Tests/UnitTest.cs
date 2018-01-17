@@ -14,7 +14,7 @@ namespace PVT.Money.Business.Tests
         public void MoneyClassTest() {
             //arrange
            MoneyClass USD = new MoneyClass(100.5m,Currency.USD);
-           MoneyClass EUR = new MoneyClass(100m, , Currency.EUR);
+           MoneyClass EUR = new MoneyClass(100m, Currency.EUR);
             //act
 
             decimal USD_test = USD.GetNominal();
