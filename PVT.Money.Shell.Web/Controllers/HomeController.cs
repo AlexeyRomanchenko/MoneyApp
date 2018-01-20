@@ -13,9 +13,7 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         public IActionResult Index()
         {
-          //  MoneyClass australian_dollar = new MoneyClass(100.5m, "EUR");         
-          //  CurrExchange new_operation = new CurrExchange(australian_dollar, "USD");
-            
+         
             return View();
         }
 

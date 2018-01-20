@@ -11,45 +11,21 @@ namespace PVT.Money.Business.Tests
     {
 
         [Test]
-        public void MoneyClassTest() {
-            //arrange
-           MoneyClass USD = new MoneyClass(100.5m,"USD");
-           MoneyClass EUR = new MoneyClass(100m, "EUR");
-            //act
+        public void DelegateTest() {
 
-            decimal USD_test = USD.GetNominal();
-            decimal EUR_test = EUR.GetNominal();
-            //assert
-            Assert.AreNotEqual(USD_test,0);
-            Assert.AreNotEqual(EUR_test, 0);
-        }
+            MoneyClass euro = new MoneyClass(100m, Currency.EUR);
+            CurrExchange new_operation = new CurrExchange(euro,Currency.USD);
 
-            // В таком assert  отлавливаем Exception  (only for me)
-            // Assert.Throws<ArgumentNullException>(() => new MoneyClass(0, "USD"));
-    
+            Account millions = new Account(new_operation.GetSecondNominal());
 
+            millions.RegisterDelegate(new Account.AccountDelegate(Added));
 
-        [Test]
-        public void MoneyClassFailedCurrency()
-        { 
-            //assert
-            Assert.Throws<ArgumentNullException>(() => new MoneyClass(10.5m, "UAH"));
+            void Added(decimal my_fee)
+            {
+                millions.Add(my_fee);
+            }
+            decimal my = millions.GetMoney;
 
-        }
-
-        [Test]
-        public void ConvertMoneyFrom()
-        {
-            //arrange
-            MoneyClass australian_dollar = new MoneyClass(100.5m,"AUD");
-            MoneyClass euro = new MoneyClass(100.5m, "EUR");
-            //act
-            CurrExchange new_operation =new CurrExchange(australian_dollar, "USD");
-            CurrExchange new_operation_2 = new CurrExchange(euro, "USD");
-
-            //assert
-            Assert.AreEqual(new_operation.GetSecondNominal(), 50.25);
-            Assert.AreEqual(new_operation_2.GetSecondNominal(), 80.4);
 
         }
 
