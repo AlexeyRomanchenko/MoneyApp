@@ -32,6 +32,18 @@ namespace PVT.Money.Shell.Web.Controllers
             return View();
         }
 
+        public IActionResult Signin(SignInModel model)
+        {
+            if (model.login!= null)
+            {
+                ViewData["Authorized"] = model.login;
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
