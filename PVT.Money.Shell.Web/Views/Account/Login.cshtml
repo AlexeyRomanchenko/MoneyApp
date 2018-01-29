@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<style>
+    .clear {
+        clear: both;
+    }
+</style>
+<div class="col-sm-offset-4 col-sm-4">
+    <form method="post" action="/Account/Login">
+        <h3>Please login</h3>
+
+        <input class="form-control" type="text" name="login" placeholder="Login"/>
+        <br />
+        <input class="form-control" type="password" name="password" placeholder="Password"/>
+        <br />
+        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+    </form>
+</div>
+<div class="clear"></div>
