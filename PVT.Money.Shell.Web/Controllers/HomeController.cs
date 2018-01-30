@@ -13,7 +13,8 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         public IActionResult Index()
         {
-         
+
+            
             return View();
         }
 
@@ -30,6 +31,7 @@ namespace PVT.Money.Shell.Web.Controllers
 
             return View();
         }
+
 
         public IActionResult Error()
         {
