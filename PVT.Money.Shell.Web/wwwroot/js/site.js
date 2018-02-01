@@ -1,1 +1,1 @@
-﻿$('#myForm').validator();
+﻿
