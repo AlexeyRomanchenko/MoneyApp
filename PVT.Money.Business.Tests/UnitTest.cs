@@ -11,19 +11,20 @@ namespace PVT.Money.Business.Tests
     {
 
         [Test]
-        public void MoneyClassTest() {
+        public void MoneyClassTest()
+        {
             //arrange
-           MoneyClass USD = new MoneyClass(100.5m,Currency.USD);
-           MoneyClass EUR = new MoneyClass(100m, Currency.EUR);
+            MoneyClass USD = new MoneyClass(100.5m, Currency.USD);
+            MoneyClass EUR = new MoneyClass(100m, Currency.EUR);
             //act
 
             MoneyClass euro = new MoneyClass(100m, Currency.EUR);
-            CurrExchange new_operation = new CurrExchange(euro,Currency.USD);
+            CurrExchange new_operation = new CurrExchange(euro, Currency.USD);
 
             Account millions = new Account(new_operation.GetSecondNominal());
 
-            millions.RegisterDelegate(new Account.AccountDelegate(Added));
-
+            //  millions.RegisterDelegate(new Account.AccountDelegate(Added));
+        }
 
         [Test]
         public void MoneyClassFailedCurrency()

@@ -1,23 +1,30 @@
-﻿
+﻿@model SignInModel
 @{
     ViewData["Title"] = "Log in";
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
 <div class="col-sm-offset-4 col-sm-4 wrap_login">
-    <form method="post" action="/Account/Login" data-toggle="validator">
-        <h3>Please login</h3>
+
+        <form method="post" asp-action="Login" asp-controller="Account" data-toggle="validator">
+            <h3>Please login</h3>
             <div class="form-group">
-                <input class="form-control" type="text" name="login" placeholder="Login" data-minlength="6" required />
-                <div class="help-block">Minimum of 6 characters</div>
+                <!--   <input class="form-control" type="text" name="Login" placeholder="Login" data-minlength="6" required />-->
+                @*@Html.ValidationMessageFor(model=>model.Login)*@
+                <span asp-validation-for="Login" class="text-danger"></span>
+                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Login" })
+                <div class="help-block">Not empty</div>
             </div>
             <div class="form-group">
-                <input type="password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
+                <input type="password" asp-for="Password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
                 <div class="help-block">Minimum of 6 characters</div>
             </div>
-
-
-        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
-    </form>
+            <input class="btn btn-primary btn-block" type="submit" value="Submit" /> 
+        </form>
 </div>
 <div class="clear"></div>
+
+@section Scripts
+{
+   @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } 
+}

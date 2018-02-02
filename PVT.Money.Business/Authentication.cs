@@ -12,7 +12,7 @@ namespace PVT.Money.Business
         {
             users = new List<User>();
             AddUser("Sergey", "1234", UserRoles.Admin);
-            AddUser("Sasha", "4321", UserRoles.User);
+            AddUser("Sasha", "123456", UserRoles.User);
         }
 
         private void AddUser(string login, string password, UserRoles role)
