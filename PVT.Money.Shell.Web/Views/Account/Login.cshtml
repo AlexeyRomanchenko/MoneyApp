@@ -16,6 +16,7 @@
                 <div class="help-block">Not empty</div>
             </div>
             <div class="form-group">
+                <span asp-validation-for="Password" class="text-danger"></span>
                 <input type="password" asp-for="Password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
                 <div class="help-block">Minimum of 6 characters</div>
             </div>

@@ -21,7 +21,7 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpPost]
         public IActionResult Login(SignInModel model)
         {
-            if (model.Login != null)
+            if (model.Login != null && model.Password != null)
             {
                     User user = new User();
                     
@@ -30,7 +30,8 @@ namespace PVT.Money.Shell.Web.Controllers
 
                 
                 ViewData["Authorized"] = model.Login;
-                return RedirectToAction("Index", "Home",user);
+                     return RedirectToAction("Index", "Home",user);
+                //return View();
             }
 
             return View();
