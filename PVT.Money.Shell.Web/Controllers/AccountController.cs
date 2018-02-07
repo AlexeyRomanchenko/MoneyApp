@@ -17,6 +17,11 @@ namespace PVT.Money.Shell.Web.Controllers
             LoginModel.Password = "123456";
             return View(LoginModel);
         }
+        public IActionResult Register()
+        {        
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult Login(SignInModel model)

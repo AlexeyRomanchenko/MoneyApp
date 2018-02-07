@@ -14,7 +14,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\banner1.svg" />
+    <None Include="wwwroot\images\banner2.svg" />
+    <None Include="wwwroot\images\banner3.svg" />
+    <None Include="wwwroot\images\banner4.svg" />
+    <None Include="wwwroot\vendor\sweetalert\lib\.sass-cache\7981e80cc38cc883c439302cccda55b50fb7fde4\sweet-alert.scssc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PVT.Money.Business\PVT.Money.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\moment\src\lib\create\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\duration\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\format\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\locale\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\moment\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\parse\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\units\" />
+    <Folder Include="wwwroot\vendor\moment\src\lib\utils\" />
+    <Folder Include="wwwroot\vendor\moment\src\locale\" />
+    <Folder Include="wwwroot\vendor\moment\templates\" />
+    <Folder Include="wwwroot\vendor\pdfmake\libs\FileSaver.js\" />
   </ItemGroup>
 
 </Project>
