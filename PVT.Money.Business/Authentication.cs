@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PVT.Money.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,11 +18,13 @@ namespace PVT.Money.Business
 
         private void AddUser(string login, string password, UserRoles role)
         {
-            User user = new User();
-            user.Login = login;
-            user.Password = password;
-            user.Role = role;
-            users.Add(user);
+            using (var context = new MoneyContext())
+            {
+                context.Users.Add(new UserEntity {Username = login,Password= password,Role = role.ToString() });
+                context.SaveChanges();
+            }
+               
+           
         }
 
         public User CheckAuthentication(string login, string password)
