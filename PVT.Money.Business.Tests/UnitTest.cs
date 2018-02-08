@@ -38,15 +38,15 @@ namespace PVT.Money.Business.Tests
         public void ConvertMoneyFrom()
         {
             //arrange
-          //  MoneyClass australian_dollar = new MoneyClass(100.5m,"AUD");
-           // MoneyClass euro = new MoneyClass(100.5m, "EUR");
+           MoneyClass australian_dollar = new MoneyClass(100.5m,Currency.AUD);
+           MoneyClass euro = new MoneyClass(100.5m, Currency.EUR);
             //act
-          //  CurrExchange new_operation =new CurrExchange(australian_dollar, "USD");
-          //  CurrExchange new_operation_2 = new CurrExchange(euro, "USD");
+              CurrExchange new_operation =new CurrExchange(australian_dollar, Currency.USD);
+              CurrExchange new_operation_2 = new CurrExchange(euro, Currency.USD);
 
             //assert
-       //     Assert.AreEqual(new_operation.GetSecondNominal(), 50.25);
-        //    Assert.AreEqual(new_operation_2.GetSecondNominal(), 80.4);
+               Assert.AreEqual(new_operation.GetSecondNominal(), 50.25);
+               Assert.AreEqual(new_operation_2.GetSecondNominal(), 80.4);
 
         }
 

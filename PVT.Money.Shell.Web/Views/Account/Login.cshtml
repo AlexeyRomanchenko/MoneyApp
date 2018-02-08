@@ -4,28 +4,43 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-<div class="col-sm-offset-4 col-sm-4 wrap_login">
+<!--<div class="col-sm-offset-4 col-sm-4 wrap_login">-->
+<div class="login-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md">
+                <h3>PLEASE LOGIN TO APP</h3>
+                <small>This is the best app ever!</small>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <form method="post" asp-action="Login" asp-controller="Account" data-toggle="validator">
+                      
+                        <div class="form-group">
 
-        <form method="post" asp-action="Login" asp-controller="Account" data-toggle="validator">
-            <h3>Please login</h3>
-            <div class="form-group">
-                <!--   <input class="form-control" type="text" name="Login" placeholder="Login" data-minlength="6" required />-->
-                @*@Html.ValidationMessageFor(model=>model.Login)*@
-                <span asp-validation-for="Login" class="text-danger"></span>
-                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Login" })
-                <div class="help-block">Not empty</div>
+                            @*@Html.ValidationMessageFor(model=>model.Login)*@
+                            <label class="control-label" for="username">Username</label>
+                            <span asp-validation-for="Login" class="text-danger"></span>
+                            @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Login" })
+                            <div class="help-block">Not empty</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <input type="password" asp-for="Password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
+                            <div class="help-block">Minimum of 6 characters</div>
+                        </div>
+                        <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+                        <a class="btn btn-default btn-block" href="/Account/Register">Register</a>
+                    </form>
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="form-group">
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <input type="password" asp-for="Password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
-                <div class="help-block">Minimum of 6 characters</div>
-            </div>
-            <input class="btn btn-primary btn-block" type="submit" value="Submit" /> 
-        </form>
+        </div>
+    </div>
 </div>
-<div class="clear"></div>
 
 @section Scripts
-{
-   @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } 
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

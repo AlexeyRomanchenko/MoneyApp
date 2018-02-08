@@ -41,5 +41,19 @@ namespace PVT.Money.Shell.Web.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Register(RegisterModel model)
+        {
+            if (model.Login != null && model.Password != null)
+            {
+                Registration reg_account = new Registration();
+                reg_account.CreateNewUser(model.Name, model.Login, model.Password, UserRoles.User);
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View();
+        }
+
     }
 }

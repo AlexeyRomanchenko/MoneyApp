@@ -2,6 +2,7 @@
 using System.Linq;
 
 
+
 namespace PVT.Money.Data.Tests
 {
     [TestFixture]
@@ -17,5 +18,7 @@ namespace PVT.Money.Data.Tests
                 context.SaveChanges();
             }
         }
-        }
+
+
+    }
 }

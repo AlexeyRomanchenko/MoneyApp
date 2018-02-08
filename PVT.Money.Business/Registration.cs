@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PVT.Money.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -51,20 +52,18 @@ namespace PVT.Money.Business
         }
 
         // Creating a new user
-        public bool CreateNewUser(string name, string login, string password, UserRoles role)
+        public void CreateNewUser(string name, string login, string password, UserRoles role)
         {
-            if (IsLoginCorrect(login) && (IsPasswordCorrect(password)))
-            {
-                User newUser = new User
+           // if (IsLoginCorrect(login) && (IsPasswordCorrect(password)))
+         //   {
+                using (var context = new MoneyContext())
                 {
-                    Login = login,
-                    Password = password,
-                    Role = role
-                };
-                users.Add(newUser);
-                return true;
-            }
-            return false;
+                    context.Users.Add(new UserEntity { Username = login,Name= name, Password = password, Role = role.ToString() });
+                    context.SaveChanges();
+                }
+          //      return true;
+        //    }
+        //    return false;
         }
     }
 }
