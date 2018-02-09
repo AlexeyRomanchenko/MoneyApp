@@ -18,7 +18,9 @@ namespace PVT.Money.Data
         public string Name { get; set; }
         [Column("Password")]
         public string Password { get; set; }
-        [Column("Role")]
-        public string Role { get; set; }
+        [Column("Role_Id")]
+        public int Role_Id { get; set; }
+        [ForeignKey("Role_Id")]
+        public RoleEntity Role { get; set; }
     }
 }

@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MoneyContext.cs" />
+    <Compile Include="RoleEntity.cs" />
     <Compile Include="TestModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

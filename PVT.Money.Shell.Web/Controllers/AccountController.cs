@@ -12,10 +12,7 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         public IActionResult Login()
         {
-            SignInModel LoginModel = new SignInModel();
-            LoginModel.Login = "Alexey";
-            LoginModel.Password = "123456";
-            return View(LoginModel);
+            return View();
         }
         public IActionResult Register()
         {        

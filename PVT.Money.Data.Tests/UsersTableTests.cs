@@ -14,7 +14,7 @@ namespace PVT.Money.Data.Tests
         {
             using (var context = new MoneyContext())
             {
-                context.Users.Add(new UserEntity { Username = "Alex", Password = "pswd", Role = "Admin" });
+                context.Users.Add(new UserEntity { Username = "Alex", Password = "pswd",Role_Id = 1 });
                 context.SaveChanges();
             }
         }

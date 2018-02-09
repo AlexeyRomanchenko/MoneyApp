@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PVT.Money.Business\PVT.Money.Business.csproj" />
     <ProjectReference Include="..\PVT.Money.Data\PVT.Money.Data.csproj" />
   </ItemGroup>
 

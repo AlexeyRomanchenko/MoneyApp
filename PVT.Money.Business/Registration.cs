@@ -54,16 +54,12 @@ namespace PVT.Money.Business
         // Creating a new user
         public void CreateNewUser(string name, string login, string password, UserRoles role)
         {
-           // if (IsLoginCorrect(login) && (IsPasswordCorrect(password)))
-         //   {
+
                 using (var context = new MoneyContext())
                 {
-                    context.Users.Add(new UserEntity { Username = login,Name= name, Password = password, Role = role.ToString() });
+                  //  context.Users.Add(new UserEntity { Username = login,Name= name, Password = password, Role = role.ToString() });
                     context.SaveChanges();
                 }
-          //      return true;
-        //    }
-        //    return false;
         }
     }
 }
