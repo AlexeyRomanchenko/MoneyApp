@@ -128,6 +128,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarEntity.cs" />
+    <Compile Include="EngineEntity.cs" />
     <Compile Include="MoneyContext.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="TestModel.Context.cs">
