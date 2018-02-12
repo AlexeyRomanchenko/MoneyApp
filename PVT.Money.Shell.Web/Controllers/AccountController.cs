@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
+using PVT.Money.Shell.Web.Domain;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -21,9 +22,9 @@ namespace PVT.Money.Shell.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult Login(SignInModel model)
+        public IActionResult Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
         {
-            if (model.Login != null && model.Password != null)
+            if (this.ModelState.IsValid)
             {
                     User user = new User();
                     
@@ -40,12 +41,12 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterModel model)
+        public IActionResult Register(SignInModel model)
         {
             if (model.Login != null && model.Password != null)
             {
                 Registration reg_account = new Registration();
-                reg_account.CreateNewUser(model.Name, model.Login, model.Password, UserRoles.User);
+               // reg_account.CreateNewUser(model.Name, model.Login, model.Password, UserRoles.User);
                 return RedirectToAction("Login", "Account");
             }
 
