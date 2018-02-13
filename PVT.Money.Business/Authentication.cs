@@ -33,12 +33,17 @@ namespace PVT.Money.Business
       
         public User CheckAuthentication(string login, string password)
         {
-            using (var context = CreateContext())
+            try
             {
-                UserEntity entity = context.Users.SingleOrDefault(user => user.Username ==login && user.Password == password);
-                return entity == null ? null : new User { Login = entity.Username, Password = entity.Password };
+                using (var context = CreateContext())
+                {
+                    UserEntity entity = context.Users.SingleOrDefault(user => user.Username == login && user.Password == password);
+                    return entity == null ? null : new User { Login = entity.Username, Password = entity.Password };
+                }
             }
-
+            catch {
+                return null;
+            }
                 
         }
 
