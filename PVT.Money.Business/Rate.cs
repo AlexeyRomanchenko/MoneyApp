@@ -18,12 +18,12 @@ namespace PVT.Money.Business
                 {
                     case Currency.AUD:
                         {
-                            koef = 0.5m;
+                            koef = 1.25m;
                             break;
                         }
                     case Currency.EUR:
                         {
-                            koef = 0.8m;
+                            koef = 0.81m;
                             break;
                         }
                 }
@@ -36,12 +36,12 @@ namespace PVT.Money.Business
                 {
                     case Currency.USD:
                         {
-                            koef = 2m;
+                            koef = 0.8m;
                             break;
                         }
                     case Currency.EUR:
                         {
-                            koef = 1.7m;
+                            koef = 0.65m;
                             break;
                         }
                 }
@@ -54,12 +54,12 @@ namespace PVT.Money.Business
                 {
                     case Currency.AUD:
                         {
-                            koef = 0.3m;
+                            koef = 1.53m;
                             break;
                         }
                     case Currency.USD:
                         {
-                            koef = 2m;
+                            koef = 1.23m;
                             break;
                         }
                 }

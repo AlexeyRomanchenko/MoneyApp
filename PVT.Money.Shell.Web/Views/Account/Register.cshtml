@@ -1,0 +1,55 @@
+﻿@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+
+    <div class="register-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center m-b-md">
+                    <h3>Registration</h3>
+                    <small>Please register to use your wonderful service</small>
+                </div>
+                <div class="hpanel">
+                    <div class="panel-body col-md-12">
+                        <form asp-action="Register" asp-controller="Account" id="loginForm">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label>Username</label>
+                                    <span asp-validation-for="Login" class="text-danger"></span>
+                                    <input type="text" asp-for="Login" data-minlength="6" class="form-control" id="Login" placeholder="Login" required>
+                                </div>
+                             
+                                <div class="form-group col-lg-6">
+                                    <label>Name</label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <input type="text" asp-for="Name" data-minlength="6" class="form-control" id="Name" placeholder="Name" required>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Password</label>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                    <input type="password" asp-for="Password" data-minlength="6" class="form-control" id="Password" placeholder="Password" required>
+                                </div>
+                                
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-success">Register</button>
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <strong>PVT</strong> - Money WebApp <br /> 2018 Copyright &copy;
+            </div>
+        </div>
+    </div>
+
+    
+

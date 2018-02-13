@@ -1,0 +1,35 @@
+﻿CREATE TABLE [dbo].[UserRoles]
+(
+	[Role_Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+    [Role] NVARCHAR(20) NOT NULL, 
+    [Description] NVARCHAR(50) NULL
+)
+CREATE TABLE [dbo].[Users] (
+    [Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [Username] NVARCHAR (50) NOT NULL,
+    [Name]     NVARCHAR (50) NULL,
+    [Password] NVARCHAR (50) NOT NULL,
+    [Role_Id]     INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC), 
+    CONSTRAINT [FK_Users_UserRoles] FOREIGN KEY ([Role_Id]) REFERENCES [UserRoles]([Role_Id]),
+);
+
+
+CREATE TABLE [dbo].[Cars] (
+    [Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [Car_name]  NVARCHAR (50) NOT NULL,
+    [Engine_Id] INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC), 
+    CONSTRAINT [FK_Cars_Engines] FOREIGN KEY ([Engine_Id]) REFERENCES [Engines]([Id])
+);
+
+CREATE TABLE [dbo].[Engines]
+(
+	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+    [Engine_type] NVARCHAR(50) NOT NULL, 
+    [Turbo] BIT NULL, 
+    [Volume_engine] NVARCHAR(50) NOT NULL, 
+    [Moment] NVARCHAR(50) NULL, 
+    [Capacity] NVARCHAR(50) NULL,
+		
+)

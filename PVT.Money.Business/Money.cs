@@ -36,27 +36,10 @@ namespace PVT.Money.Business
                 throw new ArgumentException("Add Currency error", ex);
             }
         }
-
-
-        //public string AddCurrency(string curr) {
-        //        if (curr =="USD") { 
-        //        this.currency = curr;
-        //        return this.currency;
-        //   }
-        //    else {
-        //       throw new ArgumentNullException("Not selected currency");
-        //   }
-        //}
-
         //Constructor
         public MoneyClass(decimal nom, Currency currency){
             this.nominal = nom;
             this.AddCurrency(currency);
 }
-
-       
-       
-
-
     }
 }

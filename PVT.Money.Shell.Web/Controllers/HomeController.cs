@@ -11,11 +11,10 @@ namespace PVT.Money.Shell.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(User user)
         {
-          //  MoneyClass australian_dollar = new MoneyClass(100.5m, "EUR");         
-          //  CurrExchange new_operation = new CurrExchange(australian_dollar, "USD");
-            
+            ViewData["UserName"] = user.Login;
             return View();
         }
 
@@ -32,6 +31,7 @@ namespace PVT.Money.Shell.Web.Controllers
 
             return View();
         }
+
 
         public IActionResult Error()
         {
