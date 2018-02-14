@@ -57,5 +57,12 @@ namespace PVT.Money.Shell.Web.Controllers
             return View();
         }
 
+       
+        public JsonResult LoginExists(string Login)
+        {
+            Authentication auth = new Authentication();
+            var res = auth.CheckUser(Login);
+            return Json(!res);
+        }
     }
 }

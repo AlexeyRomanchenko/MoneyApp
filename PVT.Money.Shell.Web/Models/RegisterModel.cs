@@ -1,4 +1,5 @@
-﻿using PVT.Money.Shell.Web.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using PVT.Money.Shell.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,7 @@ namespace PVT.Money.Shell.Web.Models
     {
         [Required(ErrorMessage = "Не должно быть пустым, от 5 до 10 символов")]
         [StringLength(10, ErrorMessage = "Oт 5 до 10 символов", MinimumLength = 5)]
+        [Remote("LoginExists", "Account", HttpMethod = "POST", ErrorMessage = "Login address already registered.")]
         public string Login { get; set; }      
         public string Password { get; set; }
         public string Name { get; set; }

@@ -47,6 +47,23 @@ namespace PVT.Money.Business
                 
         }
 
+        public bool CheckUser(string login)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    bool entity = context.Users.Any(user => user.Username == login);
+                    return entity;
+                  
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
 
         public bool CheckRole(UserRoles role, User user)
         {
