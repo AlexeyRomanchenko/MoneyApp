@@ -38,16 +38,16 @@ namespace PVT.Money.Data.Tests
 
         }
 
-        [Test]
-        public void CarTableAdd()
-        {
-            using (var context = new MoneyContext())
-            {
-                var Car_entity = new CarEntity { Car_name = "Posrshe", Engine_Id = 1 };
-                context.Cars.Add(Car_entity);
-                context.SaveChanges();
-            }
-        }
+        //[Test]
+        //public void CarTableAdd()
+        //{
+        //    using (var context = new MoneyContext())
+        //    {
+        //        var Car_entity = new CarEntity { Car_name = "Posrshe", Engine_Id = 1 };
+        //        context.Cars.Add(Car_entity);
+        //        context.SaveChanges();
+        //    }
+        //}
     }
 
 

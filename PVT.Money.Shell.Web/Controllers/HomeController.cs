@@ -14,7 +14,12 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpGet]
         public IActionResult Index(User user)
         {
-            ViewData["UserName"] = user.Login;
+            int userID = user.Id;
+            Authentication auth = new Authentication();
+            Wallet result = auth.CheckUserAccount(user.Id);
+         //   ViewBag["USD"] = result.USD_Account;
+         //   ViewBag["EUR"] = result.EUR_Account;
+          //  ViewBag["AUD"] = result.AUD_Account;
             return View();
         }
 

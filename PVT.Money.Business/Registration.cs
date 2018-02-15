@@ -55,11 +55,24 @@ namespace PVT.Money.Business
         public void CreateNewUser(string login, string name, string email, string password, int role)
         {
 
-                using (var context = new MoneyContext())
-                {
-                    context.Users.Add(new UserEntity { Username = login,Name= name, Email=email, Password = password, Role_Id = role });
-                    context.SaveChanges();
-                }
+            using (var context = new MoneyContext())
+            {
+                context.Users.Add(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
+                context.SaveChanges();
+                this.CreateUserAccount(login,password);
+
+            }
+        }
+
+        public void CreateUserAccount(string login,string password)
+        {
+            using (var context = new MoneyContext())
+            {
+                Authentication auth = new Authentication();
+                User userCheck = auth.CheckAuthentication(login, password);
+                context.Accounts.Add(new AccountEntity { UserId = userCheck.Id, USD_Account = "0", EUR_Account = "0", AUD_Account = "0" });
+                context.SaveChanges();
+            }
         }
     }
 }

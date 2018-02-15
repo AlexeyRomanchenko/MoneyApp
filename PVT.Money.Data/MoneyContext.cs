@@ -29,7 +29,8 @@ namespace PVT.Money.Data
         }
 
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<CarEntity> Cars { get; set; }
+        //public DbSet<CarEntity> Cars { get; set; }
+        public DbSet<AccountEntity> Accounts { get; set; }
         #endregion
     }
 }

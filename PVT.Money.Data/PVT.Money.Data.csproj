@@ -128,6 +128,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountEntity.cs" />
     <Compile Include="CarEntity.cs" />
     <Compile Include="EngineEntity.cs" />
     <Compile Include="MoneyContext.cs" />

@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using PVT.Money.Business;
+
+using PVT.Money.Data;
 
 namespace PVT.Money.Business.Tests
 {
@@ -33,6 +34,21 @@ namespace PVT.Money.Business.Tests
             autentification.CreateContext();
 
            User userCheck = autentification.CheckAuthentication(user.Login, user.Password);
+
+            Assert.NotNull(userCheck);
+        }
+
+        [Test]
+        public void FakeAuthenticationGetIDCreateAccountOK()
+        {
+            User user = new User();
+            user.Login = "Alexey";
+            user.Password = "1234";
+            FakeAuth autentification = new FakeAuth(user);
+            autentification.CreateContext();
+            User userCheck = autentification.CheckAuthentication(user.Login, user.Password);
+
+           
 
             Assert.NotNull(userCheck);
         }

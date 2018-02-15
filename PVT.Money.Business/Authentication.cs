@@ -25,7 +25,7 @@ namespace PVT.Money.Business
         {
             using (var context = CreateContext())
             {
-                context.Users.Add(new UserEntity {Username = login,Password= password,Role_Id = 1 });
+                context.Users.Add(new UserEntity { Username = login,Password= password,Role_Id = 1 });
                 context.SaveChanges();
             }
          }
@@ -38,7 +38,7 @@ namespace PVT.Money.Business
                 using (var context = CreateContext())
                 {
                     UserEntity entity = context.Users.SingleOrDefault(user => user.Username == login && user.Password == password);
-                    return entity == null ? null : new User { Login = entity.Username, Password = entity.Password };
+                    return entity == null ? null : new User {Id= entity.ID,Login = entity.Username, Password = entity.Password };
                 }
             }
             catch {
@@ -64,11 +64,30 @@ namespace PVT.Money.Business
             }
 
         }
-
-        public bool CheckRole(UserRoles role, User user)
+        public Wallet CheckUserAccount(int Id)
         {
-            return (user.Role == role);            
+            try
+            {
+                using (var context = CreateContext())
+                {
+                   AccountEntity entity = context.Accounts.SingleOrDefault(account => account.UserId == Id);
+                   return entity == null ? null : new Wallet { UserId = entity.UserId, USD_Account = entity.USD_Account, EUR_Account = entity.EUR_Account, AUD_Account = entity.AUD_Account };
+                   
+
+                }
+            }
+            catch
+            {
+               Wallet acc = new Wallet();
+                return acc;
+            }
+
         }
+
+        //public bool CheckRole(UserRoles role, User user)
+        //{
+        //    return (user.Role == role);            
+        //}
 
     }
 }

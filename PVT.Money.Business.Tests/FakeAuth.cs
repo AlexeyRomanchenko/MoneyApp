@@ -9,14 +9,12 @@ namespace PVT.Money.Business.Tests
     {
         public FakeAuth(params User[] user)
         {
-           // List<User[]> collection = new List<User[]>();
-           // collection.Add(user);
-
+          
             using (var context = new InMemoryContext())
             {
                 foreach (var i in user)
                 {
-                    //context.Users.Add(new UserEntity { Username = i.Login,Password = i.Password,Role = 1 });
+                    context.Users.Add(new UserEntity { Username = i.Login,Password = i.Password,Role_Id = 2 });
                 }
                 context.SaveChanges();               
             }
