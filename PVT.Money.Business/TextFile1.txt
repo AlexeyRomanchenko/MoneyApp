@@ -4,6 +4,8 @@
     [Description] NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([Role_Id] ASC)
 );
+
+
 CREATE TABLE [dbo].[Engines] (
     [Engine_Id]     INT           IDENTITY (1, 1) NOT NULL,
     [Engine_type]   NVARCHAR (50) NOT NULL,
@@ -29,9 +31,21 @@ CREATE TABLE [dbo].[Users] (
     [Id]       INT           IDENTITY (1, 1) NOT NULL,
     [Username] NVARCHAR (50) NOT NULL,
     [Name]     NVARCHAR (50) NULL,
+    [Email]    NVARCHAR (50) NULL,
     [Password] NVARCHAR (50) NOT NULL,
     [Role_Id]  INT           NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Users_UserRoles] FOREIGN KEY ([Role_Id]) REFERENCES [dbo].[UserRoles] ([Role_Id])
+);
+
+
+
+CREATE TABLE [dbo].[Accounts] (
+    [UserId]      INT           NOT NULL,
+    [USD_Account] NVARCHAR (50) NULL,
+    [EUR_Account] NCHAR (10)    NULL,
+    [AUD_Account] NCHAR (10)    NULL,
+    PRIMARY KEY CLUSTERED ([UserId] ASC),
+    CONSTRAINT [FK_Accounts_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
 
