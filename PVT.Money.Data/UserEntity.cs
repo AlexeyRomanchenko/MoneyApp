@@ -16,6 +16,8 @@ namespace PVT.Money.Data
         public string Username { get; set; }
         [Column("Name")]
         public string Name { get; set; }
+        [Column("Email")]
+        public string Email { get; set; }
         [Column("Password")]
         public string Password { get; set; }
         [Column("Role_Id")]

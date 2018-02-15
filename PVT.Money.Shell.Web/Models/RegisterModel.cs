@@ -11,11 +11,14 @@ namespace PVT.Money.Shell.Web.Models
     public class RegisterModel
     {
         [Required(ErrorMessage = "Не должно быть пустым, от 5 до 10 символов")]
-        [StringLength(10, ErrorMessage = "Oт 5 до 10 символов", MinimumLength = 5)]
+        [StringLength(10, ErrorMessage = "Oт 3 до 10 символов", MinimumLength = 3)]
         [Remote("LoginExists", "Account", HttpMethod = "POST", ErrorMessage = "Login address already registered.")]
-        public string Login { get; set; }      
-        public string Password { get; set; }
+        public string Login { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
+        [BtmLineReg(ErrorMessage = "Должен быть знак _")]
+        public string Password { get; set; }
+        
 
     }
 }

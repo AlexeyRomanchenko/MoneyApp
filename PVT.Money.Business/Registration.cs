@@ -52,12 +52,12 @@ namespace PVT.Money.Business
         }
 
         // Creating a new user
-        public void CreateNewUser(string name, string login, string password, int role)
+        public void CreateNewUser(string login, string name, string email, string password, int role)
         {
 
                 using (var context = new MoneyContext())
                 {
-                    context.Users.Add(new UserEntity { Username = login,Name= name, Password = password, Role_Id = role });
+                    context.Users.Add(new UserEntity { Username = login,Name= name, Email=email, Password = password, Role_Id = role });
                     context.SaveChanges();
                 }
         }

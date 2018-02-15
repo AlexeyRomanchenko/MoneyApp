@@ -50,7 +50,7 @@ namespace PVT.Money.Shell.Web.Controllers
             if (model.Login != null && model.Password != null)
             {
                 Registration reg_account = new Registration();
-                reg_account.CreateNewUser(model.Login, model.Name, model.Password, 1);
+                reg_account.CreateNewUser(model.Login, model.Name,model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");
             }
 
