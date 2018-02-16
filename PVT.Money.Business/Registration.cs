@@ -59,7 +59,7 @@ namespace PVT.Money.Business
             {
                 context.Users.Add(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
                 context.SaveChanges();
-                this.CreateUserAccount(login,password);
+               // this.CreateUserAccount(login,password);
 
             }
         }

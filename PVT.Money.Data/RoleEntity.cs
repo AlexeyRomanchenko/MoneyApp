@@ -17,7 +17,7 @@ namespace PVT.Money.Data
         public string Role { get; set; }
         [Column("Description")]
         public string Description { get; set; }
-      //  [ForeignKey ("Role_Id")]
-      ///  public IEnumerable<UserEntity> Users { get; set; }
+        [ForeignKey("RoleId")]
+        public ICollection<PermissionsRolesEntity> Permission { get; set; }
     }
 }
