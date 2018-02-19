@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         [HttpGet]
         public IActionResult Index(User user)
-        {
+        { 
+            
             int userID = user.Id;
             Authentication auth = new Authentication();
             Wallet result = auth.CheckUserAccount(user.Id);

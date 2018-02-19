@@ -7,9 +7,13 @@ using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using PVT.Money.Shell.Web.Domain;
 using PVT.Money.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         public IActionResult Login()
@@ -27,17 +31,25 @@ namespace PVT.Money.Shell.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                    User user = new User();
-                    
-                    Authentication auth = new Authentication();
-                  user=  auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                ClaimsPrincipal principal = new ClaimsPrincipal();
+                ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
+
+                User user = new User();                  
+                Authentication auth = new Authentication();
+
+                user =  auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                       
                 if (user == null)
                 {
                     return View();
                 }
-                
+                claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
+                claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
+                principal.AddIdentity(claims);
+                HttpContext.SignInAsync(principal).Wait();
+
                 ViewData["Authorized"] = model.Login;
-                     return RedirectToAction("Index", "Home",user);
+                return RedirectToAction("Index", "Home",user);
                 //return View();
             }
 
