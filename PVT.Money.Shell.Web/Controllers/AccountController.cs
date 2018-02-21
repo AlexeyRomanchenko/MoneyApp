@@ -7,6 +7,9 @@ using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using PVT.Money.Shell.Web.Domain;
 using PVT.Money.Data;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using System.Reflection;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -25,20 +28,42 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpPost]
         public IActionResult Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
         {
+
             if (this.ModelState.IsValid)
             {
-                    User user = new User();
-                    
-                    Authentication auth = new Authentication();
-                  user=  auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                ClaimsPrincipal principal = new ClaimsPrincipal();
+                ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
+
+                User user = new User();
+                Authentication auth = new Authentication();
+
+                Type type = typeof(User);
+                PropertyInfo field = type.GetProperty("Login");
+                object a = Activator.CreateInstance(type);
+                field.SetValue(a, "Alexey");
+
+                Type Type = typeof(ModelBinder);
+                MethodInfo modelTp = Type.GetMethod("BindModelAsync");
+              //  PropertyInfo fld = modelTp.DeclaringType
+
+                object NewObj = Activator.CreateInstance(Type);
+
+                user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                var role = auth.CheckRole(user);
+                string roleName = role.Role.Role;  
                 if (user == null)
                 {
                     return View();
                 }
-                
+                claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
+                claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
+                claims.AddClaim(new Claim(ClaimTypes.Role,roleName ));
+                principal.AddIdentity(claims);
+                HttpContext.SignInAsync(principal).Wait();
+
                 ViewData["Authorized"] = model.Login;
-                     return RedirectToAction("Index", "Home",user);
-                //return View();
+                return RedirectToAction("Index", "Home", user);
+                ;
             }
 
             return View();
@@ -50,10 +75,9 @@ namespace PVT.Money.Shell.Web.Controllers
             if (model.Login != null && model.Password != null)
             {
                 Registration reg_account = new Registration();
-                reg_account.CreateNewUser(model.Login, model.Name,model.Email, model.Password, 2);
+                reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");
             }
-
             return View();
         }
 

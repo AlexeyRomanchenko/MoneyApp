@@ -55,6 +55,33 @@ namespace PVT.Money.Data.Tests
                  
             }
         }
+
+        [Test]
+        public void CheckRoleTests()
+        {
+            using (var context = new MoneyContext())
+            {
+
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
+                string userRole = user.Role.Role;
+                
+                Authentication auth = new Authentication();
+               // auth.CheckRole(user);
+
+                //var Permis = user.Role.Permission;
+                Assert.IsNotNull(userRole);
+               
+
+            }
+        }
+
+        [Test]
+        public void ReflectTests() {
+            using (var context = new MoneyContext())
+            {
+                Type type = typeof();
+            }
+        }
     }
 
 

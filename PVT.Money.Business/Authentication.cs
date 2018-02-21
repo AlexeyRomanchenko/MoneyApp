@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PVT.Money.Business
 {
@@ -66,28 +67,42 @@ namespace PVT.Money.Business
         }
         public Wallet CheckUserAccount(int Id)
         {
+            Wallet acc = new Wallet();
             try
             {
                 using (var context = CreateContext())
                 {
-                   AccountEntity entity = context.Accounts.SingleOrDefault(account => account.UserId == Id);
-                   return entity == null ? null : new Wallet { UserId = entity.UserId, USD_Account = entity.USD_Account, EUR_Account = entity.EUR_Account, AUD_Account = entity.AUD_Account };
-                   
+                    //AccountEntity entity = context.Accounts.SingleOrDefault(account => account.UserId == Id);
+                    // return entity == null ? null : new Wallet { UserId = entity.UserId, USD_Account = entity.USD_Account, EUR_Account = entity.EUR_Account, AUD_Account = entity.AUD_Account };
 
+                    return acc;
                 }
             }
             catch
             {
-               Wallet acc = new Wallet();
+             
                 return acc;
             }
 
         }
 
-        //public bool CheckRole(UserRoles role, User user)
-        //{
-        //    return (user.Role == role);            
-        //}
+        public UserEntity CheckRole(User user)
+        {
+            UserEntity roles = new UserEntity();
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    var userName = context.Users.Include(e=>e.Role).Single(username => username.Username == user.Login);
+                    string userRole = userName.Role.Role;
+                    return userName;
+                }
+            }
+            catch
+            {
+                return roles;
+            }
+        }
 
     }
 }
