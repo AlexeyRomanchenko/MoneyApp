@@ -37,16 +37,18 @@ namespace PVT.Money.Shell.Web.Controllers
                 User user = new User();
                 Authentication auth = new Authentication();
 
-                Type type = typeof(User);
-                PropertyInfo field = type.GetProperty("Login");
-                object a = Activator.CreateInstance(type);
-                field.SetValue(a, "Alexey");
+                //Type type = typeof(User);
+                //PropertyInfo field = type.GetProperty("Login");
+                //object a = Activator.CreateInstance(type);
+                //field.SetValue(a, "Alexey");
 
-                Type Type = typeof(ModelBinder);
-                MethodInfo modelTp = Type.GetMethod("BindModelAsync");
-              //  PropertyInfo fld = modelTp.DeclaringType
+                Type type = model.GetType();
+                PropertyInfo loginInfo = type.GetProperty("Login");
+                PropertyInfo passInfo = type.GetProperty("Password");
 
-                object NewObj = Activator.CreateInstance(Type);
+                
+
+              //  object NewObj = Activator.CreateInstance(Type);
 
                 user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
                 var role = auth.CheckRole(user);

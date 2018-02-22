@@ -46,7 +46,7 @@ namespace PVT.Money.Data.Tests
             using (var context = new MoneyContext())
             {
 
-                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
 
                 user.Role.Permission = new List<PermissionsRolesEntity>();
                 user.Role.Permission.Add(new PermissionsRolesEntity { Permissions= new PermissionEntity {Rule = "Changing" } });
@@ -62,13 +62,10 @@ namespace PVT.Money.Data.Tests
             using (var context = new MoneyContext())
             {
 
-                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
                 string userRole = user.Role.Role;
-                
-                Authentication auth = new Authentication();
-               // auth.CheckRole(user);
 
-                //var Permis = user.Role.Permission;
+
                 Assert.IsNotNull(userRole);
                
 
@@ -76,12 +73,27 @@ namespace PVT.Money.Data.Tests
         }
 
         [Test]
-        public void ReflectTests() {
+        public void SelectUsers()
+        {
             using (var context = new MoneyContext())
             {
-                Type type = typeof();
+                List<UserEntity> userList = new List<UserEntity>();
+                var user = context.Users;
+                foreach (var u in user)
+                {
+                    
+                    userList.Add(u);
+                }
+                
+
+
+                Assert.IsNotNull(userList);
+
+
             }
         }
+
+        
     }
 
 

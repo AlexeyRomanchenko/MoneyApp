@@ -25,9 +25,11 @@ namespace PVT.Money.Shell.Web.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            
+            UserManager users = new UserManager();
+            var userList = users.GetUsers();
+            var s = userList.GetType();
+            return View(userList);
         }
 
         public IActionResult Contact()

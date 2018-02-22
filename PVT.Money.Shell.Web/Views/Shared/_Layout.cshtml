@@ -102,22 +102,25 @@
             <div class="profile-picture">
                 <div class="stats-label text-color">
                     <span class="font-extra-bold font-uppercase">@User.Identity.Name</span>
+                    <span class="font-extra-bold font-uppercase"></span>
                 </div>
             </div>
-            @if (!User.IsInRole("admin"))
-            {
+           
             <ul class="nav" id="side-menu">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Main Account</a></li>                
-                <li>
-                    <a href="#"><span class="nav-label">Secondary</span><span class="fa arrow"></span> </a>
-                    <ul class="nav nav-second-level">                    
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                     
-                    </ul>
-                </li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Main Account</a></li>
+                @if (User.IsInRole("admin"))
+    {
+            <li>
+                <a href="#"><span class="nav-label">Secondary</span><span class="fa arrow"></span> </a>
+                <ul class="nav nav-second-level">
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Users</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                </ul>
+            </li>
+                }
             </ul>
-            }
+           
         </div>
     </aside>
 
