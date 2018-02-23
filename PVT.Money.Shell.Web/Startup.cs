@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
+using static PVT.Money.Shell.Web.Domain.Container;
+using PVT.Money.Shell.Web.Domain;
 
 namespace PVT.Money.Shell.Web
 {
@@ -28,8 +30,9 @@ namespace PVT.Money.Shell.Web
             {
                 options.AccessDeniedPath = new PathString("/");
                 options.LoginPath = new PathString("/Account/login");
-            }
+            }         
            );
+            services.AddSingleton<IContainer, Container>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
