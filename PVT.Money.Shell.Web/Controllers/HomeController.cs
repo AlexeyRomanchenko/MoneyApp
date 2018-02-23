@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
+using System.Reflection;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
+    [Documentation("someInfo")]
     public class HomeController : Controller
     {
         [HttpGet]
@@ -34,9 +36,26 @@ namespace PVT.Money.Shell.Web.Controllers
 
         public IActionResult Contact()
         {
+           
+            DocumentationClass value = new DocumentationClass();
+            var a = Assembly.GetExecutingAssembly();
+            var b = a.DefinedTypes;
+            foreach (var t in b) {
+                foreach (var attributes in t.CustomAttributes)
+                {
+                    if (attributes.AttributeType == typeof(DocumentationAttribute))
+                    {
+                        value.ClassName = t.Name;
+                        value.Desc = "";
+                       
+                        
+                    }
+                }
+            }
+
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View(value);
         }
 
 

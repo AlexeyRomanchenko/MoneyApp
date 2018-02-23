@@ -14,7 +14,7 @@ namespace PVT.Money.Shell.Web.Controllers
 
         public BtmLineAttribute()
         {
-           // _string = Str;
+          
         }
 
        

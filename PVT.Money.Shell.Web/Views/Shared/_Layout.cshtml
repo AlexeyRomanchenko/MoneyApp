@@ -55,8 +55,7 @@
             </div>
             <form class="navbar-form-custom">
                 <div class="form-group">
-                    <input type="text" placeholder="Search something special" class="form-control" name="search">
-
+                   
                 </div>
             </form>
             <div class="mobile-menu">
@@ -111,7 +110,7 @@
                 @if (User.IsInRole("admin"))
     {
             <li>
-                <a href="#"><span class="nav-label">Secondary</span><span class="fa arrow"></span> </a>
+                <a href="#"><span class="nav-label">Admin panel</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Users</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
