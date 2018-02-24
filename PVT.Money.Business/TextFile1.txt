@@ -26,7 +26,6 @@ CREATE TABLE [dbo].[Cars] (
     CONSTRAINT [FK_Cars_Engines] FOREIGN KEY ([Engine_Id]) REFERENCES [dbo].[Engines] ([Engine_Id])
 );
 
-
 CREATE TABLE [dbo].[Users] (
     [Id]       INT           IDENTITY (1, 1) NOT NULL,
     [Username] NVARCHAR (50) NOT NULL,
@@ -49,3 +48,21 @@ CREATE TABLE [dbo].[Accounts] (
     CONSTRAINT [FK_Accounts_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
 
+CREATE TABLE [dbo].[Permissions]
+(
+	[Rule_Id] INT identity(1,1) NOT NULL Primary key,
+	[Rules] nvarchar(50) not null
+    
+
+)
+
+CREATE TABLE [dbo].[PermissionsRoles]
+(
+	[Role_Id] INT NOT NULL, 
+    [Rule_Id] INT NOT NULL, 
+    CONSTRAINT [FK_PermissionsRoles_Permissions] FOREIGN KEY ([Rule_Id]) REFERENCES [Permissions]([Rule_Id]), 
+    CONSTRAINT [FK_PermissionsRoles_UserRoles] FOREIGN KEY ([Role_Id]) REFERENCES [UserRoles]([Role_Id]), 
+    CONSTRAINT [PK_PermissionsRoles] PRIMARY KEY ([Role_Id],[Rule_Id]), 
+
+
+)

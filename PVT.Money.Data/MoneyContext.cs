@@ -29,8 +29,16 @@ namespace PVT.Money.Data
         }
 
         public DbSet<UserEntity> Users { get; set; }
-        //public DbSet<CarEntity> Cars { get; set; }
         public DbSet<AccountEntity> Accounts { get; set; }
+
+        public DbSet<PermissionEntity> Permissions { get; set;}
+        public DbSet<RoleEntity> UserRoles { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PermissionsRolesEntity>().HasKey(p=> new {p.RoleId,p.RuleId });
+          
+           
+        }
         #endregion
     }
 }

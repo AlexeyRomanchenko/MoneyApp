@@ -132,6 +132,8 @@
     <Compile Include="CarEntity.cs" />
     <Compile Include="EngineEntity.cs" />
     <Compile Include="MoneyContext.cs" />
+    <Compile Include="PermissionEntity.cs" />
+    <Compile Include="PermissionsRolesEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="TestModel.Context.cs">
       <AutoGen>True</AutoGen>

@@ -2,6 +2,8 @@ using NUnit.Framework;
 using System.Linq;
 using PVT.Money.Business;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Collections.Generic;
 
 namespace PVT.Money.Data.Tests
 {
@@ -38,16 +40,21 @@ namespace PVT.Money.Data.Tests
 
         }
 
-        //[Test]
-        //public void CarTableAdd()
-        //{
-        //    using (var context = new MoneyContext())
-        //    {
-        //        var Car_entity = new CarEntity { Car_name = "Posrshe", Engine_Id = 1 };
-        //        context.Cars.Add(Car_entity);
-        //        context.SaveChanges();
-        //    }
-        //}
+        [Test]
+        public void UserPermissions()
+        {
+            using (var context = new MoneyContext())
+            {
+
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
+
+                user.Role.Permission = new List<PermissionsRolesEntity>();
+                user.Role.Permission.Add(new PermissionsRolesEntity { Permissions= new PermissionEntity {Rule = "Changing" } });
+
+                 context.SaveChanges();
+                 
+            }
+        }
     }
 
 
