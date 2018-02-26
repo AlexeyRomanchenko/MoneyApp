@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using static PVT.Money.Shell.Web.Domain.Container;
 using PVT.Money.Shell.Web.Domain;
+using PVT.Money.Business;
 
 namespace PVT.Money.Shell.Web
 {
@@ -32,7 +33,10 @@ namespace PVT.Money.Shell.Web
                 options.LoginPath = new PathString("/Account/login");
             }         
            );
-            services.AddSingleton<IContainer, Container>();
+            Container container = new Container();
+            container.Add(Registration);
+            container.Add(Authentication);
+            services.AddSingleton<IContainer, Container>(e=>container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
