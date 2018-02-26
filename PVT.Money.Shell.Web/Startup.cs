@@ -32,7 +32,7 @@ namespace PVT.Money.Shell.Web
                 options.LoginPath = new PathString("/Account/login");
             }         
            );
-            services.AddSingleton<IContainer, Container>(new Container());
+            services.AddSingleton<IContainer, Container>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

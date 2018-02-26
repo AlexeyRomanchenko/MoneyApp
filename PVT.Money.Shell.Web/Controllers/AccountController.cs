@@ -49,7 +49,9 @@ namespace PVT.Money.Shell.Web.Controllers
                 PropertyInfo passInfo = type.GetProperty("Password");
                 
                 user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+
                 var role = auth.CheckRole(user);
+                
                 string roleName = role.Role.Role;  
                 if (user == null)
                 {
@@ -74,6 +76,11 @@ namespace PVT.Money.Shell.Web.Controllers
         {
             if (model.Login != null && model.Password != null)
             {
+                User user = new Business.User();
+                user.Login = model.Login;
+                user.Password = model.Password;
+                user.Role = 2;
+                
                 Registration reg_account = new Registration();
                 reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");

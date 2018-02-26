@@ -19,7 +19,8 @@ namespace PVT.Money.Shell.Web.Domain
 
         public void Add(Type type)
         {
-            //ConstructorInfo construct = type.GetConstructor();
+//            ConstructorInfo construct = type.GetConstructor();
+
         }
 
     }

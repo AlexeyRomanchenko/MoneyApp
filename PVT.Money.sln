@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVT.Money.Business.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVT.Money.Data", "PVT.Money.Data\PVT.Money.Data.csproj", "{34441B7A-3CBE-433B-9590-6F1D7ADFD139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVT.Money.Data.Tests", "PVT.Money.Data.Tests\PVT.Money.Data.Tests.csproj", "{81416CCB-6791-4EE9-9CB7-F1FDB95FE396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PVT.Money.Data.Tests", "PVT.Money.Data.Tests\PVT.Money.Data.Tests.csproj", "{81416CCB-6791-4EE9-9CB7-F1FDB95FE396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVT.Money.Shell.Web.Tests", "PVT.Money.Shell.Web.Tests\PVT.Money.Shell.Web.Tests.csproj", "{114BC08F-915F-4461-93D5-5C36F394E20D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{81416CCB-6791-4EE9-9CB7-F1FDB95FE396}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81416CCB-6791-4EE9-9CB7-F1FDB95FE396}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81416CCB-6791-4EE9-9CB7-F1FDB95FE396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{114BC08F-915F-4461-93D5-5C36F394E20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{114BC08F-915F-4461-93D5-5C36F394E20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{114BC08F-915F-4461-93D5-5C36F394E20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{114BC08F-915F-4461-93D5-5C36F394E20D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

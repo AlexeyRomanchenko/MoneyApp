@@ -1,6 +1,8 @@
-﻿using PVT.Money.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PVT.Money.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PVT.Money.Business
@@ -58,13 +60,17 @@ namespace PVT.Money.Business
             using (var context = new MoneyContext())
             {
                 context.Users.Add(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
+               
                 context.SaveChanges();
-               // this.CreateUserAccount(login,password);
+
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Username == login);
+                this.CreateUserPermissions(user);
 
             }
+           
         }
 
-        public void CreateUserAccount(string login,string password)
+        public void CreateUserAccount(string login, string password)
         {
             using (var context = new MoneyContext())
             {
@@ -72,6 +78,17 @@ namespace PVT.Money.Business
                 User userCheck = auth.CheckAuthentication(login, password);
                 context.Accounts.Add(new AccountEntity { UserId = userCheck.Id, USD_Account = "0", EUR_Account = "0", AUD_Account = "0" });
                 context.SaveChanges();
+            }
+        }
+        public void CreateUserPermissions(UserEntity user)
+        {
+            using (var context = new MoneyContext())
+            {   
+                user.Role.Permission = new List<PermissionsRolesEntity>();
+                user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
+
+                context.SaveChanges();
+
             }
         }
     }
