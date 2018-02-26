@@ -23,7 +23,10 @@ namespace PVT.Money.Shell.Web.Controllers
         {        
             return View();
         }
-
+        public AccountController()
+        {
+          //  Container.Create();
+        }
 
         [HttpPost]
         public IActionResult Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
@@ -35,6 +38,10 @@ namespace PVT.Money.Shell.Web.Controllers
                 ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
 
                 User user = new User();
+
+                //Type t = user.GetType();
+                //Container.Create(t);
+
                 Authentication auth = new Authentication();
 
                 Type type = model.GetType();

@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using System.Reflection;
+using PVT.Money.Shell.Web.Domain;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
     [Documentation("someInfo")]
     public class HomeController : Controller
     {
+
+  
         [HttpGet]
         public IActionResult Index(User user)
         {

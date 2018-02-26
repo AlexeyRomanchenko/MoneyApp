@@ -14,8 +14,7 @@ namespace PVT.Money.Business
         public Authentication()
         {
             users = new List<User>();
-          //  AddUser("Sergey", "1234", UserRoles.Admin);
-          //  AddUser("Sasha", "123456", UserRoles.User);
+          
         }
       public virtual MoneyContext CreateContext()
         {
