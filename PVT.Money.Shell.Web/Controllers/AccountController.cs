@@ -10,6 +10,7 @@ using PVT.Money.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using System.Reflection;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -53,13 +54,13 @@ namespace PVT.Money.Shell.Web.Controllers
                 
                 user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
-                var role = auth.CheckRole(user);
-                
-                string roleName = role.Role.Role;  
+                 
                 if (user == null)
                 {
                     return View();
                 }
+                var role = auth.CheckRole(user);
+                string roleName = role.Role.Role;
                 claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
                 claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
                 claims.AddClaim(new Claim(ClaimTypes.Role,roleName ));

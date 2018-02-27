@@ -8,10 +8,12 @@ using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using System.Reflection;
 using PVT.Money.Shell.Web.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
     [Documentation("someInfo")]
+    [Authorize]
     public class HomeController : Controller
     {
 
