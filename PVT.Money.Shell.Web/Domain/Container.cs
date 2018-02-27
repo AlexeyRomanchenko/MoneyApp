@@ -9,8 +9,7 @@ namespace PVT.Money.Shell.Web.Domain
     public class Container : IContainer
     {
        private object obj;
-
-      
+    
        public object Create(Type type)
         {
             ICollection<ConstructorInfo> ctors = type.GetConstructors();

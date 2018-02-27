@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
+using PVT.Money.Shell.Web.Domain;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -45,7 +46,7 @@ namespace PVT.Money.Shell.Web.Controllers
 
                 //Type t = user.GetType();
                 //Container.Create(t);
-
+                object obj = container.Create(typeof(Authentication));
                 Authentication auth = new Authentication();
 
                 Type type = model.GetType();
