@@ -10,8 +10,7 @@ namespace PVT.Money.Shell.Web.Domain
     {
        private object obj;
 
-       List<object> list = new List<object>();
-
+      
        public object Create(Type type)
         {
             ICollection<ConstructorInfo> ctors = type.GetConstructors();
@@ -38,6 +37,8 @@ namespace PVT.Money.Shell.Web.Domain
             this.obj = obj;
             return this.obj;
         }
+
+        List<object> list = new List<object>();
 
         public void Add(Type type)
         {

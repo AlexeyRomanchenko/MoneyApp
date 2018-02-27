@@ -31,6 +31,8 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpPost]
         public IActionResult Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
         {
+          
+
 
             if (this.ModelState.IsValid)
             {
