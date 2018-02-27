@@ -34,8 +34,8 @@ namespace PVT.Money.Shell.Web
             }         
            );
             Container container = new Container();
-            container.Add(Registration);
-            container.Add(Authentication);
+            container.Add(typeof(Registration));
+            container.Add(typeof(Authentication));
             services.AddSingleton<IContainer, Container>(e=>container);
         }
 
