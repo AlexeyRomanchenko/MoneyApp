@@ -8,6 +8,6 @@
 
 @foreach (PVT.Money.Business.User b in Model)
 {
-     <p>@b.Login</p>
+     <p onclick="userInfo('@b.Login')">@b.Login</p>
 }
     

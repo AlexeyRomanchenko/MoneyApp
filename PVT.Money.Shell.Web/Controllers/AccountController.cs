@@ -45,7 +45,7 @@ namespace PVT.Money.Shell.Web.Controllers
                
                 User user = new User();
 
-                var obj = container.Create(typeof(Authentication));
+               // var obj = container.Create(typeof(Authentication));
 
                 Authentication auth = new Authentication();
 
