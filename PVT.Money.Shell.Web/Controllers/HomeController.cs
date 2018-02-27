@@ -18,7 +18,8 @@ namespace PVT.Money.Shell.Web.Controllers
   
         [HttpGet]
         public IActionResult Index(User user)
-        {
+        { 
+            
             int userID = user.Id;
             Authentication auth = new Authentication();
             Wallet result = auth.CheckUserAccount(user.Id);

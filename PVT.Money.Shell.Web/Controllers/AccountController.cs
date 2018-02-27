@@ -7,12 +7,13 @@ using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using PVT.Money.Shell.Web.Domain;
 using PVT.Money.Data;
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using System.Reflection;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         public IActionResult Login()
@@ -66,8 +67,8 @@ namespace PVT.Money.Shell.Web.Controllers
                 HttpContext.SignInAsync(principal).Wait();
 
                 ViewData["Authorized"] = model.Login;
-                return RedirectToAction("Index", "Home", user);
-                ;
+                return RedirectToAction("Index", "Home",user);
+                //return View();
             }
 
             return View();
