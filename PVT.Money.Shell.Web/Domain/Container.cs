@@ -24,8 +24,9 @@ namespace PVT.Money.Shell.Web.Domain
 
             MethodInfo method = typeof(Container).GetMethod("Create");
             List<object> parameters = new List<object>();
-            ParameterInfo[] parameterInfos = res.GetParameters();
-            foreach (ParameterInfo Info in parameterInfos)
+            ParameterInfo[] paramInfo = res.GetParameters();
+
+            foreach (ParameterInfo Info in paramInfo)
             {
                 Type t = Info.ParameterType;
                 MethodInfo genericMethod = method.MakeGenericMethod(type);

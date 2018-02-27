@@ -16,8 +16,7 @@ namespace PVT.Money.Shell.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-
-  
+      
         [HttpGet]
         public IActionResult Index(User user)
         { 

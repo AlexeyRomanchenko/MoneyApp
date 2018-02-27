@@ -15,9 +15,12 @@ using PVT.Money.Shell.Web.Domain;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
+
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        public IContainer container { get; }
+
         public IActionResult Login()
         {
             return View();
@@ -39,14 +42,11 @@ namespace PVT.Money.Shell.Web.Controllers
 
             if (this.ModelState.IsValid)
             {
-                ClaimsPrincipal principal = new ClaimsPrincipal();
-                ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
-
+               
                 User user = new User();
 
-                //Type t = user.GetType();
-                //Container.Create(t);
-                object obj = container.Create(typeof(Authentication));
+                var obj = container.Create(typeof(Authentication));
+
                 Authentication auth = new Authentication();
 
                 Type type = model.GetType();
@@ -55,22 +55,27 @@ namespace PVT.Money.Shell.Web.Controllers
                 
                 user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
-                 
+
                 if (user == null)
                 {
                     return View();
                 }
-                var role = auth.CheckRole(user);
-                string roleName = role.Role.Role;
-                claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
-                claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
-                claims.AddClaim(new Claim(ClaimTypes.Role,roleName ));
-                principal.AddIdentity(claims);
-                HttpContext.SignInAsync(principal).Wait();
+                else
+                {
+                    var role = auth.CheckRole(user);
+                    string roleName = role.Role.Role;
+                    ClaimsPrincipal principal = new ClaimsPrincipal();
+                    ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
+                    claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
+                    claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
+                    claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
+                    principal.AddIdentity(claims);
+                    HttpContext.SignInAsync(principal).Wait();
 
-                ViewData["Authorized"] = model.Login;
-                return RedirectToAction("Index", "Home",user);
-                //return View();
+                    ViewData["Authorized"] = model.Login;
+                    return RedirectToAction("Index", "Home", user);
+                }
+               
             }
 
             return View();
