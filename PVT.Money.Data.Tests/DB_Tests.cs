@@ -48,6 +48,15 @@ namespace PVT.Money.Data.Tests
 
                 var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
 
+
+                var perms = context.Permissions.Include(p => p.Role.Where(t => t.RuleId <= 1));
+                //user.Role.Permission = new List<PermissionsRolesEntity>();
+                //user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
+                foreach (var p in perms)
+                {
+                    //var c = p.Rule;
+                }
+
                 user.Role.Permission = new List<PermissionsRolesEntity>();
                 user.Role.Permission.Add(new PermissionsRolesEntity { Permissions= new PermissionEntity {Rule = "Changing" } });
 
@@ -84,12 +93,18 @@ namespace PVT.Money.Data.Tests
                     
                     userList.Add(u);
                 }
-                
-
-
                 Assert.IsNotNull(userList);
+            }
+        }
 
+        [Test]
+        public void SelectPermissionsTests()
+        {
+            using (var context = new MoneyContext())
+            {
 
+                var pe = context.UserRoles.Include(p => p.Permission).SingleOrDefault(e=>e.Role=="admin");
+                
             }
         }
 
