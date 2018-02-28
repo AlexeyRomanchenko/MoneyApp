@@ -84,8 +84,8 @@ namespace PVT.Money.Business
         {
             using (var context = new MoneyContext())
             {   
-                user.Role.Permission = new List<PermissionsRolesEntity>();
-                user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
+              //  user.Role.Permission = new List<PermissionsRolesEntity>();
+              //  user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
 
                 context.SaveChanges();
 
