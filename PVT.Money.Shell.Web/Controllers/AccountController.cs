@@ -19,7 +19,7 @@ namespace PVT.Money.Shell.Web.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        public IContainer container { get; }
+        public IContainer Container { get; }
 
         public IActionResult Login()
         {
@@ -29,7 +29,7 @@ namespace PVT.Money.Shell.Web.Controllers
         {        
             return View();
         }
-        public AccountController()
+        public AccountController(IContainer container)
         {
           //  Container.Create();
         }
@@ -45,7 +45,7 @@ namespace PVT.Money.Shell.Web.Controllers
                
                 User user = new User();
 
-               // var obj = container.Create(typeof(Authentication));
+                var obj = Container.Create(typeof(Authentication));
 
                 Authentication auth = new Authentication();
 
@@ -58,6 +58,7 @@ namespace PVT.Money.Shell.Web.Controllers
 
                 if (user == null)
                 {
+                    HttpContext.Response.StatusCode = 401;
                     return View();
                 }
                 else
@@ -77,7 +78,7 @@ namespace PVT.Money.Shell.Web.Controllers
                 }
                
             }
-
+            HttpContext.Response.StatusCode = 401;
             return View();
         }
 
