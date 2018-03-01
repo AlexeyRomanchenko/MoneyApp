@@ -18,6 +18,6 @@ namespace PVT.Money.Data
         [Column("Description")]
         public string Description { get; set; }
         [ForeignKey("RoleId")]
-        public ICollection<PermissionsRolesEntity> Permission { get; set; }
+        public virtual ICollection<PermissionsRolesEntity> Permission { get; set; }
     }
 }

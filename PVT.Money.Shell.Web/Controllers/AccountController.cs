@@ -31,6 +31,7 @@ namespace PVT.Money.Shell.Web.Controllers
         }
         public AccountController(IContainer container)
         {
+            Container = container;
           //  Container.Create();
         }
 

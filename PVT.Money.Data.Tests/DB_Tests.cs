@@ -50,17 +50,8 @@ namespace PVT.Money.Data.Tests
 
 
                 var perms = context.Permissions.Include(p => p.Role.Where(t => t.RuleId <= 1));
-                //user.Role.Permission = new List<PermissionsRolesEntity>();
-                //user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
-              //  foreach (var p in perms)
-             //   {
-                    //var c = p.Rule;
-             //   }
 
-               // user.Role.Permission = new List<PermissionsRolesEntity>();
-               // user.Role.Permission.Add(new PermissionsRolesEntity { Permissions= new PermissionEntity {Rule = "Changing" } });
-
-                 context.SaveChanges();
+                context.SaveChanges();
                  
             }
         }
@@ -98,19 +89,20 @@ namespace PVT.Money.Data.Tests
         }
 
         [Test]
-        public void SelectPermissionsTests()
+        public void SelectUSDWalletsTests()
         {
+            List<string> USDList = new List<string>();
             using (var context = new MoneyContext())
             {
-
-                var pe = context.UserRoles.Include(p => p.Permission).SingleOrDefault(e=>e.Role=="admin");
-                var ptt = context.Permissions.Include(pr => pr.Role).ToList();
-                foreach (var i in ptt)
+                var wall = context.UserUSDWallets.Include(u => u.User).Where(u=>u.User.Name=="Alexey");
+                foreach (var res in wall)
                 {
-                    var s = i.RuleId;
-                    var r = i.Rule;
+                   var e = res.UsdValue;
+                    USDList.Add(e);
                 }
+                Assert.NotNull(USDList);
             }
+
         }
 
         

@@ -31,6 +31,10 @@ namespace PVT.Money.Data
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<AccountEntity> Accounts { get; set; }
 
+        public DbSet<USD_AccountEntity> UserUSDWallets { get; set; }
+       
+
+
         public DbSet<PermissionEntity> Permissions { get; set;}
         public DbSet<RoleEntity> UserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

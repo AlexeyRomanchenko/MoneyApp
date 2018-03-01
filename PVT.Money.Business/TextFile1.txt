@@ -5,27 +5,6 @@
     PRIMARY KEY CLUSTERED ([Role_Id] ASC)
 );
 
-
-CREATE TABLE [dbo].[Engines] (
-    [Engine_Id]     INT           IDENTITY (1, 1) NOT NULL,
-    [Engine_type]   NVARCHAR (50) NOT NULL,
-    [Turbo]         BIT           NULL,
-    [Volume_engine] NVARCHAR (50) NOT NULL,
-    [Moment]        NVARCHAR (50) NULL,
-    [Capacity]      NVARCHAR (50) NULL,
-    PRIMARY KEY CLUSTERED ([Engine_Id] ASC)
-);
-
-
-
-CREATE TABLE [dbo].[Cars] (
-    [Id]        INT           IDENTITY (1, 1) NOT NULL,
-    [Car_name]  NVARCHAR (50) NOT NULL,
-    [Engine_Id] INT           NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Cars_Engines] FOREIGN KEY ([Engine_Id]) REFERENCES [dbo].[Engines] ([Engine_Id])
-);
-
 CREATE TABLE [dbo].[Users] (
     [Id]       INT           IDENTITY (1, 1) NOT NULL,
     [Username] NVARCHAR (50) NOT NULL,
@@ -66,3 +45,32 @@ CREATE TABLE [dbo].[PermissionsRoles]
 
 
 )
+
+
+
+USE [MoneyExchange]
+GO
+
+/****** Object:  Table [dbo].[UserUSDWallets]    Script Date: 01.03.2018 16:34:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserUSDWallets](
+	[UserId] [int] NOT NULL,
+	[WalletId] [int] NOT NULL,
+	[USD_Value] [nvarchar](50) NULL,
+ CONSTRAINT [PK_UserUSDWallets_1] PRIMARY KEY CLUSTERED 
+(
+	[WalletId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserUSDWallets]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+
+

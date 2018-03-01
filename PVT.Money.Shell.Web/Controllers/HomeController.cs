@@ -18,16 +18,15 @@ namespace PVT.Money.Shell.Web.Controllers
     {
       
         [HttpGet]
-        public IActionResult Index(User user)
-        { 
-            
-            int userID = user.Id;
-            Authentication auth = new Authentication();
-            Wallet result = auth.CheckUserAccount(user.Id);
-         //   ViewBag["USD"] = result.USD_Account;
-         //   ViewBag["EUR"] = result.EUR_Account;
-          //  ViewBag["AUD"] = result.AUD_Account;
-            return View();
+        public IActionResult Index()
+        {
+            var username = User.Identity.Name;
+            UserWallets wallet = new Business.UserWallets();
+            IEnumerable<string> usd = wallet.GetUSD(username);
+            Dictionary<string, IEnumerable<string>> walletDictionary = new Dictionary<string, IEnumerable<string>>();
+            walletDictionary.Add("USD",usd);
+
+            return View(walletDictionary);
         }
 
         public IActionResult About()
