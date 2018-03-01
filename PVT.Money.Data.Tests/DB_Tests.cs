@@ -47,8 +47,6 @@ namespace PVT.Money.Data.Tests
             {
 
                 var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
-
-
                 var perms = context.Permissions.Include(p => p.Role.Where(t => t.RuleId <= 1));
 
                 context.SaveChanges();
@@ -94,7 +92,7 @@ namespace PVT.Money.Data.Tests
             List<string> USDList = new List<string>();
             using (var context = new MoneyContext())
             {
-                var wall = context.UserUSDWallets.Include(u => u.User).Where(u=>u.User.Name=="Alexey");
+                var wall = context.UserUSDWallets.Include(u => u.User).Where(u=>u.User.Username=="Alexey");
                 foreach (var res in wall)
                 {
                    var e = res.UsdValue;
