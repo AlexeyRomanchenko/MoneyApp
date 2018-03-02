@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace PVT.Money.Data
 {
@@ -12,8 +13,10 @@ namespace PVT.Money.Data
     public class RoleEntity
     {
         [Column("Role_Id")]
+        [Required]
         public int ID { get; set; }
         [Column("Role")]
+        [Required]
         public string Role { get; set; }
         [Column("Description")]
         public string Description { get; set; }

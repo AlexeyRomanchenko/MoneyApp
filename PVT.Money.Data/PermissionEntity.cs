@@ -13,8 +13,10 @@ namespace PVT.Money.Data
     {
         [Key]
         [Column("Rule_Id")]
+        [Required]
         public int RuleId { get; set; }
         [Column("Rules")]
+        [Required]
         public string Rule { get; set; }
         [ForeignKey("RuleId")]
         public ICollection<PermissionsRolesEntity> Role { get; set; }

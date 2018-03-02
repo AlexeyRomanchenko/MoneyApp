@@ -128,9 +128,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountEntity.cs" />
     <Compile Include="CarEntity.cs" />
     <Compile Include="EngineEntity.cs" />
+    <Compile Include="DataFaccade.cs" />
+    <Compile Include="Migrations\20180302064802_CreateDatabase.cs" />
+    <Compile Include="Migrations\20180302064802_CreateDatabase.designer.cs">
+      <DependentUpon>20180302064802_CreateDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180302070512_AddRequired.cs" />
+    <Compile Include="Migrations\20180302070512_AddRequired.designer.cs">
+      <DependentUpon>20180302070512_AddRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180302072053_deletingAcc.cs" />
+    <Compile Include="Migrations\20180302072053_deletingAcc.designer.cs">
+      <DependentUpon>20180302072053_deletingAcc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\MoneyContextModelSnapshot.cs" />
     <Compile Include="MoneyContext.cs" />
     <Compile Include="PermissionEntity.cs" />
     <Compile Include="PermissionsRolesEntity.cs" />

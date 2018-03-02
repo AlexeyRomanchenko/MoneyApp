@@ -10,6 +10,8 @@ namespace PVT.Money.Data
 {
     public class MoneyContext : DbContext 
     {
+        public static string ConnectionString;
+
         #region EF_6_Connection
         //EF 6 Connection
 
@@ -23,13 +25,13 @@ namespace PVT.Money.Data
         #region EF_7_Connection
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
+            optionsBuilder.UseSqlServer(ConnectionString);
             base.OnConfiguring(optionsBuilder);
 
         }
 
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<AccountEntity> Accounts { get; set; }
+       // public DbSet<AccountEntity> Accounts { get; set; }
 
         public DbSet<USD_AccountEntity> UserUSDWallets { get; set; }
        

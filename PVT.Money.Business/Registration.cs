@@ -76,7 +76,7 @@ namespace PVT.Money.Business
             {
                 Authentication auth = new Authentication();
                 User userCheck = auth.CheckAuthentication(login, password);
-                context.Accounts.Add(new AccountEntity { UserId = userCheck.Id, USD_Account = "0", EUR_Account = "0", AUD_Account = "0" });
+               // context.Accounts.Add(new AccountEntity { UserId = userCheck.Id, USD_Account = "0", EUR_Account = "0", AUD_Account = "0" });
                 context.SaveChanges();
             }
         }

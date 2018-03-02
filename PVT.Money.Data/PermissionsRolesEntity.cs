@@ -13,9 +13,11 @@ namespace PVT.Money.Data
     {
         
         [Column("Role_Id")]
+        [Required]
         public int RoleId { get; set; }
         
         [Column("Rule_Id")]
+        [Required]
         public int RuleId { get; set; }
 
         [ForeignKey("RoleId")]

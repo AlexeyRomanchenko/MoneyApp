@@ -13,8 +13,10 @@ namespace PVT.Money.Data
     {
         [Key]
         [Column("WalletId")]
+        [Required]
         public int WalletId { get; set; }
         [Column("UserId")]
+        [Required]
         public int UserId { get; set;}
         [Column("USD_Value")]
         public string UsdValue { get; set; }       

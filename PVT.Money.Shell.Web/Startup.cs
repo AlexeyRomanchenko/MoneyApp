@@ -18,6 +18,10 @@ namespace PVT.Money.Shell.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            string connString = Configuration.GetConnectionString("database");
+
+            BusinessFaccade businessFaccade = new BusinessFaccade();
+            businessFaccade.UseDataFaccade(connString);
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +41,8 @@ namespace PVT.Money.Shell.Web
             container.Add(typeof(Registration));
             container.Add(typeof(Authentication));
             services.AddSingleton<IContainer, Container>(e=>container);
+
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
