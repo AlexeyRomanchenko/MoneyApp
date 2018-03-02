@@ -11,6 +11,9 @@ namespace PVT.Money.Data.Tests
     [Category("Интеграционные тесты")]
     public class DB_Tests
     {
+        DB_Tests() {
+
+        }
         [Test]
         public void UsersTableExists()
         {
@@ -40,13 +43,35 @@ namespace PVT.Money.Data.Tests
 
         }
 
-        [Test]
+               
+
+                //PermissionEntity permission = new PermissionEntity() { Permission = permissionName };
+                //context.Permissions.Add(permission);
+                //UserRoleEntity role = new UserRoleEntity() { Role = roleName };
+                //context.Roles.Add(role);
+
+                //context.SaveChanges();
+
+                ////Act
+                //role.RolePermissions = new List<PermissionToRoleEntity>();
+                //role.RolePermissions.Add(new PermissionToRoleEntity() { Permission = permission });
+                //context.Roles.Update(role);
+                //context.SaveChanges();
+
+                //UserRoleEntity newRole = context.Roles.Include(r => r.RolePermissions).SingleOrDefault(r => r.ID == role.ID);
+                //PermissionEntity newPermission = context.Permissions.Include(p => p.PermissionRoles).SingleOrDefault(p => p.ID == permission.ID);
+
+                //PermissionEntity rolePermission = newRole.RolePermissions.SingleOrDefault(p => p.Permission.ID == permission.ID).Permission;
+                //UserRoleEntity permissionRole = newPermission.PermissionRoles.SingleOrDefault(p => p.Role.ID == role.ID).Role;
+
+[Test]
         public void UserPermissions()
         {
             using (var context = new MoneyContext())
             {
-
-                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
+                var res = context.UserRoles.Include(r => r.Permission).SingleOrDefault(p=>p.Role=="Admin");
+               // var res2 = res.Permission.SingleOrDefault(p=>p.Permissions.RuleId == )
+               
                 var perms = context.Permissions.Include(p => p.Role.Where(t => t.RuleId <= 1));
 
                 context.SaveChanges();
