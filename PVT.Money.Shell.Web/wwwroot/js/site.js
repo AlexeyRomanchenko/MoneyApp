@@ -1,14 +1,12 @@
 ﻿function userInfo(login) {
-  
     $.ajax({
         url: "/User/LoginPermissions",
-        data: { login: login },
+        type: "POST",
+        data: { login: login},
+        contentType: "application/x-www-form-urlencoded",
         dataType: "json",
-        type: 'POST',
-        cache: false
     }).done(function (data) {
         console.log(data.dataArray);
 
-        console.log(login);
     })
 }

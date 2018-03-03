@@ -128,9 +128,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountryModel.cs" />
     <Compile Include="CarEntity.cs" />
     <Compile Include="EngineEntity.cs" />
     <Compile Include="DataFaccade.cs" />
+    <Compile Include="LangEntity.cs" />
     <Compile Include="Migrations\20180302064802_CreateDatabase.cs" />
     <Compile Include="Migrations\20180302064802_CreateDatabase.designer.cs">
       <DependentUpon>20180302064802_CreateDatabase.cs</DependentUpon>

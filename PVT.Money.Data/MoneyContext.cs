@@ -34,11 +34,11 @@ namespace PVT.Money.Data
        // public DbSet<AccountEntity> Accounts { get; set; }
 
         public DbSet<USD_AccountEntity> UserUSDWallets { get; set; }
-       
-
-
+        //public DbSet<CountryEntity> Countries { get; set; }
+        //public DbSet<LangEntity> Languages { get; set; }
         public DbSet<PermissionEntity> Permissions { get; set;}
         public DbSet<RoleEntity> UserRoles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PermissionsRolesEntity>().HasKey(p=> new {p.RoleId,p.RuleId });

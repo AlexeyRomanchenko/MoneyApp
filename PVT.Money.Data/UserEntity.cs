@@ -31,4 +31,6 @@ namespace PVT.Money.Data
         [ForeignKey("Role_Id")]
         public RoleEntity Role { get; set; }
     }
+
+  
 }
