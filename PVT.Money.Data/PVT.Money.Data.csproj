@@ -144,6 +144,10 @@
     <Compile Include="Migrations\20180302072053_deletingAcc.designer.cs">
       <DependentUpon>20180302072053_deletingAcc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20180304180420_Homework.cs" />
+    <Compile Include="Migrations\20180304180420_Homework.designer.cs">
+      <DependentUpon>20180304180420_Homework.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\MoneyContextModelSnapshot.cs" />
     <Compile Include="MoneyContext.cs" />
     <Compile Include="PermissionEntity.cs" />
