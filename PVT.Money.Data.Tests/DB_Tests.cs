@@ -43,17 +43,26 @@ namespace PVT.Money.Data.Tests
             }
 
         }
-
-[Test]
+       
+        [Test]
         public void UserPermissions()
         {
             using (var context = new MoneyContext())
             {
-                var res = context.UserRoles.Include(r => r.Permission).SingleOrDefault(p=>p.Role=="Admin");
-                var res2 = res.Permission; 
+                List<string> resultList = new List<string>();
+                var res = context.UserRoles.Include(r => r.Permission).ThenInclude(e=>e.Permissions).Where(q=>q.Role=="Admin").ToList();
+                foreach (var c in res)
+                {
+                    var rw = c.Permission.Select(e => e.Permissions).ToList();
+                    foreach (var role in rw)
+                    {
+                        var result = role.Role.Select(e=>e.Permissions.Rule).FirstOrDefault();
+                        resultList.Add(result);
+                    }
+                }
+                   // var ww = context.Languages.Include(e => e.Countries).ThenInclude(e => e.Countries).Where(w=>w.Lang=="RU").ToList();
                
-                var perms = context.Permissions.Include(p => p.Role.Where(t => t.RuleId <= 1));
-
+                
                 context.SaveChanges();
                  
             }

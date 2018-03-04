@@ -9,24 +9,32 @@ namespace PVT.Money.Business
 {
     public class UserPermissions
     {
-        public void GetPermissions(string login) {
+        public List<string> GetPermissions(string login)
+        {
+
+            List<string> resultList = new List<string>();
             using (var context = new MoneyContext())
             {
-
                 var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Username == login);
-                //select p.Rules from Permissions p, UserRoles r, PermissionsRoles pr where r.role = 'admin' and r.Role_Id = pr.Role_Id and p.Rule_Id = pr.Rule_Id
-                var permissions = context.Permissions.Where(e => e.Rule == "changing");
-                var perms = context.Permissions.Include(p => p.Role);
-                //user.Role.Permission = new List<PermissionsRolesEntity>();
-                //user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
-                foreach (var p in perms)
+                string userRole = user.Role.Role;
+
+
+
+                var res = context.UserRoles.Include(r => r.Permission).ThenInclude(e => e.Permissions).Where(q => q.Role == userRole).ToList();
+                foreach (var c in res)
                 {
-                    var c = p.Rule;
+                    var rw = c.Permission.Select(e => e.Permissions).ToList();
+                    foreach (var role in rw)
+                    {
+                        var result = role.Role.Select(e => e.Permissions.Rule).FirstOrDefault();
+                        resultList.Add(result);
+                    }
                 }
-                //context.Permissions.Include(e => e.Rule);
+
                 context.SaveChanges();
 
             }
+            return resultList;
         }
-    }
+    }  
 }

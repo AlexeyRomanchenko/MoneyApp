@@ -55,7 +55,7 @@
             </div>
             <form class="navbar-form-custom">
                 <div class="form-group">
-                   
+
                 </div>
             </form>
             <div class="mobile-menu">
@@ -79,7 +79,7 @@
             <div class="navbar-right">
                 <ul class="nav navbar-nav no-borders">
 
-                 
+
                     <li>
                         <a href="#" id="sidebar" class="right-sidebar-toggle">
                             <i class="pe-7s-upload pe-7s-news-paper"></i>
@@ -104,22 +104,22 @@
                     <span class="font-extra-bold font-uppercase"></span>
                 </div>
             </div>
-           
+
             <ul class="nav" id="side-menu">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Main Account</a></li>
                 @if (User.IsInRole("Admin"))
-    {
-            <li>
-                <a href="#"><span class="nav-label">Admin panel</span><span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level">
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Users</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                {
+                    <li>
+                        <a href="#"><span class="nav-label">Admin panel</span><span class="fa arrow"></span> </a>
+                        <ul class="nav nav-second-level">
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">Users</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
-                </ul>
-            </li>
+                        </ul>
+                    </li>
                 }
             </ul>
-           
+
         </div>
     </aside>
 
@@ -131,26 +131,7 @@
             @RenderBody()
 
 
-            <environment include="Development">
-                <script src="~/lib/jquery/dist/jquery.js"></script>
-                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-                <script src="~/js/site.js" asp-append-version="true"></script>
-            </environment>
-            <environment exclude="Development">
-                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                        asp-fallback-test="window.jQuery"
-                        crossorigin="anonymous"
-                        integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-                </script>
-                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                        crossorigin="anonymous"
-                        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-                </script>
-                <script src="~/js/site.min.js" asp-append-version="true"></script>
-            </environment>
+
 
             @RenderSection("Scripts", required: false)
         </div>
@@ -191,7 +172,7 @@
                 <br>
                 <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.</small>
                 <div class="m-t-md">
-                  
+
                 </div>
             </div>
             <div class="p-m">
@@ -229,9 +210,9 @@
         <!-- Footer-->
         <footer class="footer">
             <span class="pull-right">
-                Example text
+                Romanchenko Alexey
             </span>
-            Company 2015-2020
+            PVT 2018
         </footer>
 
     </div>
@@ -239,6 +220,29 @@
     <!-- Vendor scripts -->
     <script src="~/vendor/jquery/dist/jquery.min.js"></script>
     <script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+
     <script src="~/vendor/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/vendor/jquery-flot/jquery.flot.js"></script>
@@ -250,11 +254,17 @@
     <script src="~/vendor/iCheck/icheck.min.js"></script>
     <script src="~/vendor/peity/jquery.peity.min.js"></script>
     <script src="~/vendor/sparkline/index.js"></script>
-
+    <!-- DataTables -->
+    <script src="~/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- App scripts -->
     <script src="~/scripts/homer.js"></script>
     <script src="~/scripts/charts.js"></script>
 
+    <script>
+
+
+    </script>
 
 </body>
 </html>

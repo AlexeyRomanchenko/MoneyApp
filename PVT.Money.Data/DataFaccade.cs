@@ -13,8 +13,8 @@ namespace PVT.Money.Data
 
             MoneyContext.ConnectionString = connString;
             using (var context = new MoneyContext())
-            {
-                context.Database.Migrate();
+            {           
+                //context.Database.Migrate();
             }
         }
     }

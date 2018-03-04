@@ -22,5 +22,6 @@ namespace PVT.Money.Data
         public string Description { get; set; }
         [ForeignKey("RoleId")]
         public virtual ICollection<PermissionsRolesEntity> Permission { get; set; }
+
     }
 }

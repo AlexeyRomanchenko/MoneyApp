@@ -13,28 +13,13 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpPost]
         public IActionResult LoginPermissions(string login)
         {
+            List<string> result = new List<string>();
             UserPermissions permissions = new UserPermissions();
-            permissions.GetPermissions(login);
-            return Json(permissions);
+            result = permissions.GetPermissions(login);
+            return Json(new{perms= result});
         }
 
-        [HttpPost]
-        public JsonResult AjaxPostCall(Employee employee)
-        {
-            Employee employee2 = new Employee
-            {
-                Name = employee.Name,
-                Address = employee.Address,
-                Location = employee.Location
-            };
-            return Json(employee2);
-        }
 
     }
-    public class Employee
-    {
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Location { get; set; }
-    }
+   
 }
