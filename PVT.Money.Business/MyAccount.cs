@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace PVT.Money.Business
-{
+{ // Вот тут дичь какая то
     public class Account {
 
         public delegate void AccountDelegate(decimal cash);

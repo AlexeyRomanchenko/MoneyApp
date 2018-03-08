@@ -4,6 +4,7 @@ using System.Text;
 
 namespace PVT.Money.Business
 {
+   // Магические числа
    public class Rate
     {
 
@@ -71,7 +72,7 @@ namespace PVT.Money.Business
                 throw new Exception("We haven't such kind of money, sorry Man");
             }
         }
-
+       
         public Rate(Currency curr,Currency needCurr) {
             this.GetRate(curr, needCurr);
 

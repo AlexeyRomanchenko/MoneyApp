@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 namespace PVT.Money.Business
-{
+{// Всё норм
     public class UserPermissions
     {
         public List<string> GetPermissions(string login)
