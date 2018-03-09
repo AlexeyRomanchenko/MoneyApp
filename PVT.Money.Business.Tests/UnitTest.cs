@@ -21,7 +21,7 @@ namespace PVT.Money.Business.Tests
             MoneyClass euro = new MoneyClass(100m, Currency.EUR);
             CurrExchange new_operation = new CurrExchange(euro, Currency.USD);
 
-            Account millions = new Account(new_operation.GetSecondNominal());
+            //Account millions = new Account(new_operation.GetSecondNominal());
 
              // millions.RegisterDelegate(new Account.AccountDelegate(Added));
         }
@@ -51,6 +51,21 @@ namespace PVT.Money.Business.Tests
 
 
         }
+
+        [Test]
+        public void AddMoneyToSingleton()
+        {
+            MoneyClass euro = new MoneyClass(100m, Currency.EUR);
+            CurrExchange exchanging = new CurrExchange(euro, Currency.USD);
+
+            MoneyClass euro2 = new MoneyClass(200m, Currency.AUD);
+            CurrExchange exchanging2 = new CurrExchange(euro2, Currency.EUR);
+
+            MoneyClass euro22 = new MoneyClass(1300m, Currency.EUR);
+            CurrExchange exchanging22 = new CurrExchange(euro22, Currency.AUD);
+
+        }
+
 
     }
 }

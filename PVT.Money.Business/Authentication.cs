@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace PVT.Money.Business
 {
     // Один класс- одна функция - спагетти код
+    // Всё норм по логике
     public class Authentication
     {
         private List<User> users;

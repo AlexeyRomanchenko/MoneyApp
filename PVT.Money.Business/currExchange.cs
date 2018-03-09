@@ -30,15 +30,12 @@ namespace PVT.Money.Business
                         Currency old_currency = first.currency;
                         Currency new_currency = secCurr;
 
-                    // decimal koefficient = this.GetKoeff(new_currency, old_currency);
                         Rate rate = new Rate(old_currency,new_currency);
                         this.secondNominal = old_nominal * rate.rateCount;
 
                     MoneyClass changed_money = new MoneyClass(this.secondNominal,new_currency);
-                    Account money_after_procents = new Account(changed_money);
-                    decimal result = money_after_procents.moneyAfter;
-
-                    return result;
+                    return Account.GetInstance.GetProcents(changed_money);
+                 
                     }
                     catch (Exception ex)
                     {
@@ -54,7 +51,8 @@ namespace PVT.Money.Business
         }
 
         //Конструктор
-        public CurrExchange(MoneyClass YourMoney,Currency NeedCurr) {
+        public CurrExchange(MoneyClass YourMoney,Currency NeedCurr)
+        {
             decimal res = Change(YourMoney, NeedCurr);
 
             this.SetSecondNominal(res,NeedCurr);

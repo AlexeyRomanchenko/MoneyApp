@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace PVT.Money.Business
-{ // Класс денег - он идеальный (кроме названия класса)
+{ 
     public class MoneyClass
     {
         private decimal nominal;
