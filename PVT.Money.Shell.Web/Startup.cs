@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using static PVT.Money.Shell.Web.Domain.Container;
 using PVT.Money.Shell.Web.Domain;
 using PVT.Money.Business;
+using React.AspNet;
 
 namespace PVT.Money.Shell.Web
 {
@@ -27,10 +28,11 @@ namespace PVT.Money.Shell.Web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
             services.AddMvc();
+            services.AddReact();
             services.AddAuthentication("MyAuth").AddCookie("MyAuth", options =>
             {
                 options.AccessDeniedPath = new PathString("/");
@@ -42,7 +44,7 @@ namespace PVT.Money.Shell.Web
             container.Add(typeof(Authentication));
             services.AddSingleton<IContainer, Container>(e=>container);
 
-        
+            return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,10 +59,9 @@ namespace PVT.Money.Shell.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseReact(config => { });
             app.UseStaticFiles();
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
