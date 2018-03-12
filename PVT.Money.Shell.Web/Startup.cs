@@ -19,10 +19,11 @@ namespace PVT.Money.Shell.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            string connString = Configuration.GetConnectionString("database");
+            //string connString = Configuration.GetConnectionString("database");
 
-            BusinessFaccade businessFaccade = new BusinessFaccade();
-            businessFaccade.UseDataFaccade(connString);
+             
+            //BusinessFaccade businessFaccade = new BusinessFaccade();
+            //businessFaccade.UseDataFaccade(connString);
         }
 
         public IConfiguration Configuration { get; }
@@ -39,10 +40,14 @@ namespace PVT.Money.Shell.Web
                 options.LoginPath = new PathString("/Account/login");
             }         
            );
+
             Container container = new Container();
             container.Add(typeof(Registration));
             container.Add(typeof(Authentication));
+            BusinessFaccade.Configuration = Configuration;
+            BusinessFaccade.ConfigurationServices(services);
             services.AddSingleton<IContainer, Container>(e=>container);
+
 
             return services.BuildServiceProvider();
         }

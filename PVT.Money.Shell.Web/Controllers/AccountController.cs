@@ -19,7 +19,7 @@ namespace PVT.Money.Shell.Web.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        public IContainer Container { get; }
+        public Authentication Auth { get; }
 
         public IActionResult Login()
         {
@@ -29,10 +29,10 @@ namespace PVT.Money.Shell.Web.Controllers
         {        
             return View();
         }
-        public AccountController(IContainer container)
+        public AccountController(Authentication auth)
         {
-            Container = container;
-          //  Container.Create();
+            Auth = auth;
+         
         }
 
         [HttpPost]
@@ -46,15 +46,15 @@ namespace PVT.Money.Shell.Web.Controllers
                
                 User user = new User();
 
-                var obj = Container.Create(typeof(Authentication));
-
-                Authentication auth = new Authentication();
+               // var obj = Container.Create(typeof(Authentication));
+                //Authentication auth = new Authentication();
+                
 
                 Type type = model.GetType();
                 PropertyInfo loginInfo = type.GetProperty("Login");
                 PropertyInfo passInfo = type.GetProperty("Password");
                 
-                user = auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                user = Auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
 
                 if (user == null)
@@ -64,7 +64,7 @@ namespace PVT.Money.Shell.Web.Controllers
                 }
                 else
                 {
-                    var role = auth.CheckRole(user);
+                    var role = Auth.CheckRole(user);
                     string roleName = role.Role.Role;
                     ClaimsPrincipal principal = new ClaimsPrincipal();
                     ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
@@ -103,8 +103,8 @@ namespace PVT.Money.Shell.Web.Controllers
        
         public JsonResult LoginExists(string Login)
         {
-            Authentication auth = new Authentication();
-            var res = auth.CheckUser(Login);
+           // Authentication auth = new Authentication();
+            var res = Auth.CheckUser(Login);
             return Json(!res);
         }
     }

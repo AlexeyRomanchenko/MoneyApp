@@ -13,7 +13,7 @@ namespace PVT.Money.Business
     {
         private List<User> users;
 
-        public Authentication()
+        internal Authentication()
         {
             users = new List<User>();
           

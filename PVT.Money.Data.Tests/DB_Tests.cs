@@ -12,8 +12,8 @@ namespace PVT.Money.Data.Tests
     public class DB_Tests
     {
        public DB_Tests() {
-            DataFaccade dbFaccade = new DataFaccade();
-            dbFaccade.DbMigrate("Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
+           // DataFaccade dbFaccade = new DataFaccade();
+           // dbFaccade.DbMigrate("Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
         }
         [Test]
         public void UsersTableExists()

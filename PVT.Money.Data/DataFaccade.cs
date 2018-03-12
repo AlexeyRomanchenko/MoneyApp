@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace PVT.Money.Data
 {
-    public class DataFaccade
+    public static class DataFaccade
     {
-        public void DbMigrate(string connString) {
+        public static IConfiguration Configuration { get;  set; }
 
-            MoneyContext.ConnectionString = connString;
+        public static void ConfigureServices(IServiceCollection service)
+        {
+            MoneyContext.ConnectionString = Configuration.GetConnectionString("database");
             using (var context = new MoneyContext())
-            {           
-                //context.Database.Migrate();
+            {
+                context.Database.Migrate();
             }
         }
     }
