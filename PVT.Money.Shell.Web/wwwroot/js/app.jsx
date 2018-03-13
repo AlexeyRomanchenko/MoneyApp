@@ -7,13 +7,12 @@
                     <input className="form-control" type="text" placeholder="Введите сумму" />
                 </div>
                 <div className="col-md-6">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <small class="text-muted">Выбрать кошелек <b class="caret"></b></small>
+                    <div className="dropdown">
+                        <a className="dropdown-toggle" href="#" onClick={getWallets} data-toggle="dropdown">
+                        <small className="text-muted">Выбрать кошелек <b className="caret"></b></small>
                     </a>
-                    <ul class="dropdown-menu animated flipInX m-t-xs">
-                        <li><a href="#">На счет в этой валюте</a></li>
-                        <li><a href="#">На счет в другую валюту</a></li>
+                    <ul className="dropdown-menu animated flipInX m-t-xs">                      
+                        
                     </ul>
                 </div>
                 </div>
@@ -23,9 +22,24 @@
                 </div>;
         }
     }
+
+    function getWallets() {
+        $.ajax({
+            url: "/User/GetWallets",
+            type: "POST",
+            data: {login:"Alexey"},
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+        }).done(function (data) {
+            console.log(data);
+            });
+    }
+
     ReactDOM.render(
         <Hello />,
         document.getElementById("content")
     )
-    
+
+
+   
 }

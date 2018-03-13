@@ -22,16 +22,12 @@ namespace PVT.Money.Shell.Web.Controllers
         {
             var username = User.Identity.Name;
             UserWallets wallet = new Business.UserWallets();
-            IEnumerable<string> usd = wallet.GetUSD(username);
-            Dictionary<string, IEnumerable<string>> walletDictionary = new Dictionary<string, IEnumerable<string>>();
-            walletDictionary.Add("USD",usd);
-
-            return View(walletDictionary);
+            var userWallets = wallet.GetWallets(username);
+            return View(userWallets);
         }
 
         public IActionResult About()
-        {
-            
+        {           
             UserManager users = new UserManager();
             var userList = users.GetUsers();
             var s = userList.GetType();
@@ -39,8 +35,7 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         public IActionResult Contact()
-        {
-           
+        {         
             DocumentationClass value = new DocumentationClass();
             var a = Assembly.GetExecutingAssembly();
             var b = a.DefinedTypes;

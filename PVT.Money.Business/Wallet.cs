@@ -6,6 +6,9 @@ namespace PVT.Money.Business
 {
     public class Wallet
     {   
-        public string USD { get; set; }
+        public int WalletId { get; set; }
+        public int Value { get; set; }
+        public string WalletName { get; set; }
+        public string Currency { get; set; }
     }
 }

@@ -7,8 +7,7 @@
     @foreach (var val in Model)
     {
 
-        @foreach (var item in val.Value)
-        {
+      
 
             <div class="col-md-3">
                 <div class="hpanel">
@@ -24,19 +23,19 @@
                         </div>
 
                         <div class="stats-title pull-left">
-                            <h4>@val.Key</h4>
+                            <h4>@val.WalletName</h4>
                         </div>
                         <div class="stats-icon pull-right">
                             <i class="pe-7s-cash fa-4x"></i>
                         </div>
                         <div class="m-t-xl">
-                            <span>$ </span><span class="text-warning"> @item</span>
+                            <span>@val.Currency </span><span class="text-warning"> @val.Value</span>
 
                         </div>
                     </div>
                 </div>
             </div>
-        }
+        
     }
    
 </div>

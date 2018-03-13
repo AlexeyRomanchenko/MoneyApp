@@ -19,6 +19,15 @@ namespace PVT.Money.Shell.Web.Controllers
             return Json(new{perms= result});
         }
 
+        [HttpPost]
+        public IActionResult GetWallets(string login)
+        {
+            List<string> result = new List<string>();
+            result.Add("First");
+            result.Add("Second");
+            return Json(new { wallets = result });
+        }
+
 
     }
    

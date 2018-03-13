@@ -109,8 +109,8 @@ namespace PVT.Money.Data.Tests
                 var wall = context.UserUSDWallets.Include(u => u.User).Where(u=>u.User.Username=="Alexey");
                 foreach (var res in wall)
                 {
-                   var e = res.UsdValue;
-                    USDList.Add(e);
+                   //var e = res.UsdValue;
+                   // USDList.Add(e);
                 }
                 Assert.NotNull(USDList);
             }

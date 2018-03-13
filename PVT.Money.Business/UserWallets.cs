@@ -9,18 +9,22 @@ namespace PVT.Money.Business
 {
     public class UserWallets
     {
-        public IEnumerable<string> GetUSD(string username)
+        public IEnumerable<Wallet> GetWallets(string username)
         {
-            List<string> usdList = new List<string>();
+           List<Wallet> walletList = new List<Wallet>();
             using (var context = new MoneyContext())
             {
                 var wall = context.UserUSDWallets.Include(u => u.User).Where(u => u.User.Username == username);
                 foreach (var res in wall)
                 {
-                    var e = res.UsdValue;
-                    usdList.Add(e);
+                    Wallet wallet = new Wallet();
+                    wallet.Currency = res.Currency;
+                    wallet.Value = res.UsdValue;
+                    wallet.WalletName = res.WalletName;
+                    wallet.WalletId = res.WalletId;
+                    walletList.Add(wallet);
                 }
-                return usdList;
+                return walletList;
             }
         }
     }
