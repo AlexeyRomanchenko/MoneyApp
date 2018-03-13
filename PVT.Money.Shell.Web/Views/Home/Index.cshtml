@@ -13,6 +13,16 @@
             <div class="col-md-3">
                 <div class="hpanel">
                     <div class="panel-body">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <small class="text-muted">Перевести деньги <b class="caret"></b></small>
+                            </a>
+                            <ul class="dropdown-menu animated flipInX m-t-xs">
+                                <li><a onclick="OneCurr()" href="#">На счет в этой валюте</a></li>
+                                <li><a onclick="OtherCurr()" href="#">На счет в другую валюту</a></li>
+                            </ul>
+                        </div>
+
                         <div class="stats-title pull-left">
                             <h4>@val.Key</h4>
                         </div>
@@ -28,38 +38,7 @@
             </div>
         }
     }
-    @*<div class="col-md-3">
-            <div class="hpanel">
-                <div class="panel-body">
-                    <div class="stats-title pull-left">
-                        <h4>Euros</h4>
-                    </div>
-                    <div class="stats-icon pull-right">
-                        <i class="pe-7s-cash fa-4x"></i>
-                    </div>
-                    <div class="m-t-xl">
-                        <span>€ </span> <span class="text-warning">@ViewData["EUR"]</span>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="hpanel">
-                <div class="panel-body">
-                    <div class="stats-title pull-left">
-                        <h4>Australian Dollars</h4>
-                    </div>
-                    <div class="stats-icon pull-right">
-                        <i class="pe-7s-cash fa-4x"></i>
-                    </div>
-                    <div class="m-t-xl">
-                        <span>A$ </span><span class="text-warning">@ViewData["AUD"]</span>
-
-                    </div>
-                </div>
-            </div>
-        </div>*@
+   
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -71,8 +50,7 @@
                 Cards' information
             </div>
             <div class="panel-body">
-
-
+                <div id="content"></div>
             </div>
             <div class="panel-footer">
                 Your Last transaction: 21.05.2015
@@ -81,4 +59,3 @@
     </div>
 </div>
 
-<div id="content"></div>
