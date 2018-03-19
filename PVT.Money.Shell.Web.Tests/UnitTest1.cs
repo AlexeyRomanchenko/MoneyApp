@@ -4,6 +4,7 @@ using PVT.Money.Shell.Web.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PVT.Money.Shell.Web.Tests
 {
@@ -115,6 +116,33 @@ namespace PVT.Money.Shell.Web.Tests
                 Assert.AreEqual(true,s);
 
             }
+        
+        }
+
+        [Test]
+        public void CurrencyJson() {
+            var task = Task.Factory.StartNew(() =>
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, "http://www.nbrb.by/API/ExRates/Rates/145");
+                    HttpResponseMessage res = client.SendAsync(req).Result;
+
+                    var result = res.Content.ReadAsStringAsync().Result;
+                    JsonResultObj resObject = JsonConvert.DeserializeObject<JsonResultObj>(result);
+                }
+            }
+            );
+            task.Wait();
+        }
+        public class JsonResultObj
+        {
+            [JsonProperty("Cur_ID")]
+            public int CurId { get; set; }
+            [JsonProperty("Cur_OfficialRate")]
+            public float Rate { get; set; }
+            [JsonProperty("Cur_Abbreviation")]
+            public string Abbreviation { get; set; }
         }
     }
 }

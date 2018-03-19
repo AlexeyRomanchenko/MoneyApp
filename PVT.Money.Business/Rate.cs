@@ -9,7 +9,7 @@ namespace PVT.Money.Business
     {
 
         public decimal rateCount;
-        //Получаем коэффициент исходя ил двух наименований валют
+        //Получаем коэффициент исходя из двух наименований валют
         private void GetRate(Currency frst, Currency sec)
         {
             decimal koef = -1;
