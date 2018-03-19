@@ -11,7 +11,7 @@ namespace PVT.Money.Data
     public class MoneyContext : DbContext 
     {
         public MoneyContext() {
-            Database.EnsureCreated();
+           // Database.EnsureCreated();
         }
         public static string ConnectionString;
 

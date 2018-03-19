@@ -66,12 +66,12 @@ namespace PVT.Money.Data.Migrations
                 column: "LangId");
 
 
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('Admin','Admin')");
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('User','User')");
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('VIP','VIP')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Edit')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Add')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Delete')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('Admin','Admin')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('User','User')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('VIP','VIP')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Edit')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Add')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Delete')");
 
         }
 
