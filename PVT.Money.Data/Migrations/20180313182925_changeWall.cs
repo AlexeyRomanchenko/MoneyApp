@@ -24,6 +24,13 @@ namespace PVT.Money.Data.Migrations
                 name: "WalletName",
                 table: "UserUSDWallets",
                 nullable: true);
+
+
+            migrationBuilder.Sql("INSERT INTO dbo.PermissionsRoles (Role_Id,Rule_Id) VALUES (1,1)");
+            migrationBuilder.Sql("INSERT INTO dbo.PermissionsRoles (Role_Id,Rule_Id) VALUES (1,2)");
+            migrationBuilder.Sql("INSERT INTO dbo.PermissionsRoles (Role_Id,Rule_Id) VALUES (1,3)");
+            migrationBuilder.Sql("INSERT INTO dbo.PermissionsRoles (Role_Id,Rule_Id) VALUES (2,2)");
+            migrationBuilder.Sql("INSERT INTO dbo.UserUSDWallets (USD_Value,UserId,Currency,WalletName) VALUES (3240,1,'USD','FirstWallet')");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -99,12 +99,13 @@ namespace PVT.Money.Shell.Web.Tests
         }
 
         [Test]
-        public void JSonTest() {
+        public void JSonTest()
+        {
             using (HttpClient client = new HttpClient())
             {
-                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post,"http://localhost:50462/Account/LoginExists");
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "http://localhost:50462/Account/LoginExists");
                 Dictionary<string, string> dict = new Dictionary<string, string>();
-                dict.Add("Login","Alexxxxey");
+                dict.Add("Login", "Alexxxxey");
                 req.Content = new FormUrlEncodedContent(dict);
 
 
@@ -112,9 +113,39 @@ namespace PVT.Money.Shell.Web.Tests
 
                 var r = res.Content.ReadAsStringAsync().Result;
                 bool s = JsonConvert.DeserializeObject<bool>(r);
-                Assert.AreEqual(true,s);
+                Assert.AreEqual(true, s);
 
             }
         }
+
+
+
+            [Test]
+        public void GetCurrencyRate() {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=AUD&apikey=2S5FURKC6SUUOTS8");
+                HttpResponseMessage res = client.SendAsync(req).Result;
+                var r = res.Content.ReadAsStringAsync().Result;
+                Some s = JsonConvert.DeserializeObject<Some>(r);
+            }
+        }
+
+        public class Some
+        {
+            [JsonProperty("Realtime Currency Exchange Rate")]
+            public ConvertModel model { get; set; }
+        }
+
+        public class ConvertModel
+        {
+           
+            [JsonProperty("5. Exchange Rate")]
+            public string Exchange_Rate { get; set; }
+
+        }
+
+
+ 
     }
 }

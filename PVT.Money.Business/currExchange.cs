@@ -30,8 +30,8 @@ namespace PVT.Money.Business
                         Currency old_currency = first.currency;
                         Currency new_currency = secCurr;
 
-                        Rate rate = new Rate(old_currency,new_currency);
-                        this.secondNominal = old_nominal * rate.rateCount;
+                        //Rate rate = new Rate(old_currency,new_currency);
+                       // this.secondNominal = old_nominal * rate.rateCount;
 
                     MoneyClass changed_money = new MoneyClass(this.secondNominal,new_currency);
                     return Account.GetInstance.GetProcents(changed_money);

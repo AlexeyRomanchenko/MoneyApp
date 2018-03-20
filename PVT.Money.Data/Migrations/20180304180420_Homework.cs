@@ -73,6 +73,8 @@ namespace PVT.Money.Data.Migrations
             migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Add')");
             migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Delete')");
 
+            migrationBuilder.Sql("INSERT INTO dbo.Users (Email, Name, Password, Role_Id, Username) VALUES ('romanchenko.alek@mail.ru','Alexey','dino_0589',1,'Alexey')");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
