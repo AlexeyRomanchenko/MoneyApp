@@ -11,12 +11,12 @@ namespace PVT.Money.Shell.Web.Controllers
     public class UserController : Controller
     {
         [HttpPost]
-        public IActionResult LoginPermissions(string login)
+        public async Task<IActionResult> LoginPermissions(string login)
         {
-            List<string> result = new List<string>();
+            IEnumerable<string> result = new List<string>();
             UserPermissions permissions = new UserPermissions();
-            result = permissions.GetPermissions(login);
-            return Json(new{perms= result});
+            result = await permissions.GetPermissions(login);
+            return await Task.FromResult(Json(new{perms= result}));
         }
 
         [HttpPost]

@@ -21,22 +21,23 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         public Authentication Auth { get; }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
-            return View();
+            return await Task.FromResult(View());
         }
-        public IActionResult Register()
+
+        public async Task<IActionResult> Register()
         {        
-            return View();
+            return await Task.FromResult(View());
         }
+
         public AccountController(Authentication auth)
         {
-            Auth = auth;
-         
+            Auth = auth;        
         }
 
         [HttpPost]
-        public IActionResult Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
+        public async Task<IActionResult> Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
         {
           
 
@@ -54,7 +55,7 @@ namespace PVT.Money.Shell.Web.Controllers
                 PropertyInfo loginInfo = type.GetProperty("Login");
                 PropertyInfo passInfo = type.GetProperty("Password");
                 
-                user = Auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
+                user = await Auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
 
                 if (user == null)
@@ -64,7 +65,7 @@ namespace PVT.Money.Shell.Web.Controllers
                 }
                 else
                 {
-                    var role = Auth.CheckRole(user);
+                    var role = await Auth.CheckRole(user);
                     string roleName = role.Role.Role;
                     ClaimsPrincipal principal = new ClaimsPrincipal();
                     ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
@@ -80,11 +81,11 @@ namespace PVT.Money.Shell.Web.Controllers
                
             }
             HttpContext.Response.StatusCode = 401;
-            return View();
+            return await Task.FromResult(View());
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             if (model.Login != null && model.Password != null)
             {
@@ -94,18 +95,18 @@ namespace PVT.Money.Shell.Web.Controllers
                 user.Role = 2;
                 
                 Registration reg_account = new Registration();
-                reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
+                await reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");
             }
             return View();
         }
 
        
-        public JsonResult LoginExists(string Login)
+        public async Task<JsonResult> LoginExists(string Login)
         {
            // Authentication auth = new Authentication();
-            var res = Auth.CheckUser(Login);
-            return Json(!res);
+            var res = await Auth.CheckUser(Login);
+            return await Task.FromResult(Json(!res));
         }
     }
 }

@@ -18,23 +18,23 @@ namespace PVT.Money.Shell.Web.Controllers
     {
       
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var username = User.Identity.Name;
-            UserWallets wallet = new Business.UserWallets();
-            var userWallets = wallet.GetWallets(username);
-            return View(userWallets);
+            UserWallets wallet = new UserWallets();
+            var userWallets = await wallet.GetWallets(username);
+            return await Task.FromResult(View(userWallets));
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {           
             UserManager users = new UserManager();
-            var userList = users.GetUsers();
+            var userList = await users.GetUsers();
             var s = userList.GetType();
-            return View(userList);
+            return await Task.FromResult(View(userList));
         }
 
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {         
             DocumentationClass value = new DocumentationClass();
             var a = Assembly.GetExecutingAssembly();

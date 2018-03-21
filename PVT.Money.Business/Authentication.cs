@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace PVT.Money.Business
 {
@@ -33,13 +34,13 @@ namespace PVT.Money.Business
          }
 
       
-        public User CheckAuthentication(string login, string password)
+        public async Task<User> CheckAuthentication(string login, string password)
         {
             try
             {
                 using (var context = CreateContext())
                 {
-                    UserEntity entity = context.Users.SingleOrDefault(user => user.Username == login && user.Password == password);
+                    UserEntity entity = await context.Users.SingleOrDefaultAsync(user => user.Username == login && user.Password == password);
                     return entity == null ? null : new User {Id= entity.ID,Login = entity.Username, Password = entity.Password };
                 }
             }
@@ -49,13 +50,13 @@ namespace PVT.Money.Business
                 
         }
 
-        public bool CheckUser(string login)
+        public async Task<bool> CheckUser(string login)
         {
             try
             {
                 using (var context = CreateContext())
                 {
-                    bool entity = context.Users.Any(user => user.Username == login);
+                    bool entity = await context.Users.AnyAsync(user => user.Username == login);
                     return entity;
                   
                 }
@@ -87,14 +88,14 @@ namespace PVT.Money.Business
 
         }
 
-        public UserEntity CheckRole(User user)
+        public async Task<UserEntity> CheckRole(User user)
         {
             UserEntity roles = new UserEntity();
             try
             {
                 using (var context = CreateContext())
                 {
-                    var userName = context.Users.Include(e=>e.Role).Single(username => username.Username == user.Login);
+                    var userName =  await context.Users.Include(e=>e.Role).SingleAsync(username => username.Username == user.Login);
                     string userRole = userName.Role.Role;
                     return userName;
                 }

@@ -119,8 +119,6 @@ namespace PVT.Money.Shell.Web.Tests
             }
         }
 
-
-
             [Test]
         public void GetCurrencyRate() {
             using (HttpClient client = new HttpClient())

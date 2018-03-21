@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,20 +13,20 @@ namespace PVT.Money.Business.Tests
     {
        
         [Test]
-        public void AuthorizationOFailed()
+        public async Task AuthorizationOFailed()
         {
             string login = "Sergey2";
             string password = "1234";
             User userCheck = null;
 
             Authentication autentification = new FakeAuth();
-            userCheck = autentification.CheckAuthentication(login, password);
+            userCheck = await autentification.CheckAuthentication(login, password);
 
             Assert.Null(userCheck);
         }
 
         [Test]
-        public void FakeAuthenticationConnection()
+        public async Task FakeAuthenticationConnection()
         {
             User user = new User();
             user.Login = "Alexey";
@@ -33,20 +34,20 @@ namespace PVT.Money.Business.Tests
             FakeAuth autentification = new FakeAuth(user);
             autentification.CreateContext();
 
-           User userCheck = autentification.CheckAuthentication(user.Login, user.Password);
+           User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
             Assert.NotNull(userCheck);
         }
 
         [Test]
-        public void FakeAuthenticationGetIDCreateAccountOK()
+        public async Task FakeAuthenticationGetIDCreateAccountOK()
         {
             User user = new User();
             user.Login = "Alexey";
             user.Password = "1234";
             FakeAuth autentification = new FakeAuth(user);
             autentification.CreateContext();
-            User userCheck = autentification.CheckAuthentication(user.Login, user.Password);
+            User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
            
 
