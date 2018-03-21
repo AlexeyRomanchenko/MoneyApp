@@ -19,11 +19,6 @@ namespace PVT.Money.Shell.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //string connString = Configuration.GetConnectionString("database");
-
-             
-            //BusinessFaccade businessFaccade = new BusinessFaccade();
-            //businessFaccade.UseDataFaccade(connString);
         }
 
         public IConfiguration Configuration { get; }

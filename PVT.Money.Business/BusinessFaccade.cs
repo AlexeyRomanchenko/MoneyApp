@@ -18,8 +18,7 @@ namespace PVT.Money.Business
 
             service.AddTransient<Authentication>(u=>new Authentication());
             
-            //DataFaccade dbFaccade = new DataFaccade();
-            //dbFaccade.DbMigrate(connString);
+            
         }
     }
 }

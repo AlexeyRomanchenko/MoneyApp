@@ -4,6 +4,8 @@ using PVT.Money.Business;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Collections.Generic;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace PVT.Money.Data.Tests
 {
@@ -12,8 +14,9 @@ namespace PVT.Money.Data.Tests
     public class DB_Tests
     {
        public DB_Tests() {
-           // DataFaccade dbFaccade = new DataFaccade();
-           // dbFaccade.DbMigrate("Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
+            // DataFaccade dbFaccade = new DataFaccade();
+            MoneyContext.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;";
+            //DataFaccade.DbMigrate("Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
         }
         [Test]
         public void UsersTableExists()
@@ -50,6 +53,10 @@ namespace PVT.Money.Data.Tests
             using (var context = new MoneyContext())
             {
                 List<string> resultList = new List<string>();
+
+
+
+               // var resultMany = from roles in context.UserRoles join userPerm in context.Permissions on roles.ID equals userPerm.Role select userPerm.Rule;
                 var res = context.UserRoles.Include(r => r.Permission).ThenInclude(e=>e.Permissions).Where(q=>q.Role=="Admin").ToList();
                 foreach (var c in res)
                 {
@@ -74,7 +81,14 @@ namespace PVT.Money.Data.Tests
             using (var context = new MoneyContext())
             {
 
-                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alex");
+                var roleResult = from users in context.Users join role in context.UserRoles on users.ID equals role.ID where users.Name == "Alexey" select role.Role;
+                foreach (var r in roleResult)
+                {
+                    string res = r;
+                }
+
+                   
+                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
                 string userRole = user.Role.Role;
 
 
