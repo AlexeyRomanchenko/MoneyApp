@@ -66,12 +66,14 @@ namespace PVT.Money.Data.Migrations
                 column: "LangId");
 
 
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('Admin','Admin')");
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('User','User')");
-            //migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('VIP','VIP')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Edit')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Add')");
-            //migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Delete')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('Admin','Admin')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('User','User')");
+            migrationBuilder.Sql("INSERT INTO dbo.UserRoles (Description, Role) VALUES   ('VIP','VIP')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Edit')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Add')");
+            migrationBuilder.Sql("INSERT INTO dbo.Permissions (Rules) VALUES   ('Delete')");
+
+            migrationBuilder.Sql("INSERT INTO dbo.Users (Email, Name, Password, Role_Id, Username) VALUES ('romanchenko.alek@mail.ru','Alexey','dino_0589',1,'Alexey')");
 
         }
 

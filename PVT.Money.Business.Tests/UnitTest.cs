@@ -66,6 +66,12 @@ namespace PVT.Money.Business.Tests
 
         }
 
-
+        [Test]
+        public void RateTest()
+        {
+            string first = "EUR";
+            string second = "AUD";
+            Rate rate = new Rate(first, second);
+        }
     }
 }

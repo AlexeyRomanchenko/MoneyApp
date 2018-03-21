@@ -18,7 +18,7 @@ namespace PVT.Money.Data
             MoneyContext.ConnectionString = Configuration.GetConnectionString("database");
             using (var context = new MoneyContext())
             {
-                //context.Database.Migrate();
+                context.Database.Migrate();
             }
         }
     }
