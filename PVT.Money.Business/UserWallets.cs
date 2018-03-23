@@ -23,7 +23,7 @@ namespace PVT.Money.Business
                 {
                     Wallet wallet = new Wallet();
                     wallet.Currency = res.Currency;
-                    wallet.Value = res.UsdValue;
+                    wallet.Value = res.Value;
                     wallet.WalletName = res.WalletName;
                     wallet.WalletId = res.WalletId;
                     walletList.Add(wallet);

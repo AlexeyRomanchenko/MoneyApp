@@ -6,6 +6,7 @@ using System.Data;
 using System.Collections.Generic;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace PVT.Money.Data.Tests
 {
@@ -14,9 +15,9 @@ namespace PVT.Money.Data.Tests
     public class DB_Tests
     {
        public DB_Tests() {
-            // DataFaccade dbFaccade = new DataFaccade();
+           
             MoneyContext.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;";
-            //DataFaccade.DbMigrate("Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;");
+            
         }
         [Test]
         public void UsersTableExists()
@@ -130,6 +131,23 @@ namespace PVT.Money.Data.Tests
             }
 
         }
+
+        [Test]
+        public async Task SelectWalletByWalletId()
+        {
+            USD_AccountEntity wallet;
+            using (var context = new MoneyContext())
+            {
+                wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == 1).SingleOrDefaultAsync();
+            }
+            Assert.NotNull(wallet);
+        }
+
+
+
+
+
+        
 
         
     }

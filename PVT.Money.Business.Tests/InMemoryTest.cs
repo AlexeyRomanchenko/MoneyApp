@@ -8,9 +8,14 @@ namespace PVT.Money.Business.Tests
 {
     class InMemoryContext :MoneyContext
     {
+        private string db;
+        public InMemoryContext(string dbName)
+        {
+            db = dbName;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("TestDB");
+            optionsBuilder.UseInMemoryDatabase(db);
         }
     }
 }

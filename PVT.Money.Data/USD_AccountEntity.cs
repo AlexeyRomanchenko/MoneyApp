@@ -23,7 +23,7 @@ namespace PVT.Money.Data
         [Column("Currency")]
         public string Currency { get; set; }
         [Column("USD_Value")]
-        public int UsdValue { get; set; }       
+        public int Value { get; set; }       
         public UserEntity User { get; set; }
     }
 }
