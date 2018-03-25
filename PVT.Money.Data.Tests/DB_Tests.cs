@@ -143,6 +143,20 @@ namespace PVT.Money.Data.Tests
             Assert.NotNull(wallet);
         }
 
+        [Test]
+        public void SelectOneCurrWalletsTransf()
+        {
+            
+            using (var context = new MoneyContext())
+            {
+              var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == 1 && wallets.WalletId != 1 && wallets.Currency == "USD" select wallets;
+                foreach (var wallet in wall)
+                {
+                    string WalletName = wallet.WalletName;
+                }
+            }
+        }
+
 
 
 

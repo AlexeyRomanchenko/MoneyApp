@@ -30,5 +30,19 @@ namespace PVT.Money.Business
                 }
                 return walletList;
         }
+
+        public async Task<IEnumerable<Wallet>> GetTransactWallets(int walletId,string currency, int userID)
+        {
+            List<Wallet> walletList = new List<Wallet>();
+            using (var context = new MoneyContext())
+            {
+                var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == 1 && wallets.WalletId != 1 && wallets.Currency == "USD" select wallets;
+                foreach (var wallet in wall)
+                {
+                    string WalletName = wallet.WalletName;
+                }
+            }
+            return walletList;
+        }
     }
 }

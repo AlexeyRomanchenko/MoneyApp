@@ -10,8 +10,8 @@
                     <div className="dropdown">
                         <a className="dropdown-toggle" href="#" onClick={getWallets} data-toggle="dropdown">
                         <small className="text-muted">Выбрать кошелек <b className="caret"></b></small>
-                    </a>
-                    <ul className="dropdown-menu animated flipInX m-t-xs">                      
+                        </a>
+                        <ul id="WalletList" className="dropdown-menu animated flipInX m-t-xs">                      
                         
                     </ul>
                 </div>
@@ -31,7 +31,23 @@
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
         }).done(function (data) {
-            console.log(data);
+            let wallets = data.wallets;
+            let WalletUL = document.getElementById("WalletList");
+            WalletUL.innerHTML = '';
+            let arr = [];
+            for (let count in wallets)
+            {
+                console.log(wallets[count]);
+                let list = document.createElement('li');
+                let subLi = document.createElement('a');
+                list.appendChild(subLi);
+                subLi.innerHTML = wallets[count];
+                arr.push(list);
+
+                WalletUL.appendChild(list);
+            }
+
+            
             });
     }
 
