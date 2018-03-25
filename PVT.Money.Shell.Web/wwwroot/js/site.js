@@ -42,7 +42,7 @@ function transfertOneCurrency() {
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
     }).done(function (data) {
-
+        
         console.log(data);
     });
 }

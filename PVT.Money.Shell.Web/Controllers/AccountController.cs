@@ -71,12 +71,13 @@ namespace PVT.Money.Shell.Web.Controllers
                     ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
                     claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
                     claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
+                    claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
                     claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
                     principal.AddIdentity(claims);
                     HttpContext.SignInAsync(principal).Wait();
 
                     ViewData["Authorized"] = model.Login;
-                    return RedirectToAction("Index", "Home", user);
+                    return RedirectToAction("Index", "Home");
                 }
                
             }

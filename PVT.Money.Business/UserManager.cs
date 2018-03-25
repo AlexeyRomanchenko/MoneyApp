@@ -21,6 +21,7 @@ namespace PVT.Money.Business
             foreach (var u in user)
             {
                 User usr = new User();
+                usr.Id = u.ID;
                 usr.Login = u.Username;
                 usr.Password = u.Password;
                 usr.Role = u.Role_Id;

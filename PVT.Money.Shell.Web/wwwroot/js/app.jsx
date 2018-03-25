@@ -24,10 +24,12 @@
     }
 
     function getWallets() {
+        let userId = document.getElementById("userID").value;
+
         $.ajax({
             url: "/User/GetWallets",
             type: "POST",
-            data: {login:"Alexey"},
+            data: { walletId: 1, currency: "USD", userID: userId },
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
         }).done(function (data) {
@@ -35,13 +37,16 @@
             let WalletUL = document.getElementById("WalletList");
             WalletUL.innerHTML = '';
             let arr = [];
-            for (let count in wallets)
-            {
-                console.log(wallets[count]);
+            for (let count in data.wallet) {
+                console.log(data);
+                let walletName = data.wallet[count].walletName;
+                let walletId = data.wallet[count].walletId;
+
                 let list = document.createElement('li');
                 let subLi = document.createElement('a');
                 list.appendChild(subLi);
-                subLi.innerHTML = wallets[count];
+                subLi.setAttribute("data-id", walletId);
+                subLi.innerHTML = walletName;
                 arr.push(list);
 
                 WalletUL.appendChild(list);

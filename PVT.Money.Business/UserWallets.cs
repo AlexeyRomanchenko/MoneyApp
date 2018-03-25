@@ -36,10 +36,18 @@ namespace PVT.Money.Business
             List<Wallet> walletList = new List<Wallet>();
             using (var context = new MoneyContext())
             {
-                var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == 1 && wallets.WalletId != 1 && wallets.Currency == "USD" select wallets;
+                var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == userID && wallets.WalletId != walletId && wallets.Currency == currency select wallets;
                 foreach (var wallet in wall)
                 {
+                    Wallet oneWallet = new Wallet();
+
+                    oneWallet.UserId = wallet.UserId;
+                    oneWallet.Value = wallet.Value;
+                    oneWallet.WalletId = wallet.WalletId;
+                    oneWallet.WalletName = wallet.WalletName;
+                    oneWallet.Currency = wallet.Currency;
                     string WalletName = wallet.WalletName;
+                    walletList.Add(oneWallet);
                 }
             }
             return walletList;

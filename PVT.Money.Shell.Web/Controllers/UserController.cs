@@ -20,12 +20,13 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetWallets(string login)
+        public async Task<IActionResult> GetWallets(int walletId,string currency,int userId)
         {
-            List<string> result = new List<string>();
-            result.Add("First");
-            result.Add("Second");
-            return Json(new { wallets = result });
+            
+            UserWallets userWallets = new UserWallets();
+            var wallets = await userWallets.GetTransactWallets(walletId,currency,userId);
+
+            return Json(new {wallet = wallets });
         }
 
 

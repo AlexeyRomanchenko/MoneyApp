@@ -20,6 +20,7 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+          
             var username = User.Identity.Name;
             UserWallets wallet = new UserWallets();
             var userWallets = await wallet.GetWallets(username);
@@ -30,7 +31,6 @@ namespace PVT.Money.Shell.Web.Controllers
         {           
             UserManager users = new UserManager();
             var userList = await users.GetUsers();
-            var s = userList.GetType();
             return await Task.FromResult(View(userList));
         }
 
