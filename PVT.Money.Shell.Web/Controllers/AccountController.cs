@@ -12,49 +12,68 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
 using PVT.Money.Shell.Web.Domain;
+using Microsoft.AspNetCore.Identity;
+using PVT.Money.Shell.Web.Services;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
 
-    [AllowAnonymous]
+    [Authorize]
     public class AccountController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
         public Authentication Auth { get; }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return await Task.FromResult(View());
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Register()
-        {        
+        {
             return await Task.FromResult(View());
         }
 
-        public AccountController(Authentication auth)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender,
+            Authentication auth)
         {
-            Auth = auth;        
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
+            Auth = auth;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([ModelBinder(BinderType = typeof(ModelBinder))]SignInModel model, string returnUrl = null)
         {
-          
 
-
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-               
+
                 User user = new User();
 
-               // var obj = Container.Create(typeof(Authentication));
+                // var obj = Container.Create(typeof(Authentication));
                 //Authentication auth = new Authentication();
-                
+
 
                 Type type = model.GetType();
                 PropertyInfo loginInfo = type.GetProperty("Login");
                 PropertyInfo passInfo = type.GetProperty("Password");
-                
+
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, true, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToLocal(returnUrl);
+                }
                 user = await Auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
 
@@ -79,13 +98,15 @@ namespace PVT.Money.Shell.Web.Controllers
                     ViewData["Authorized"] = model.Login;
                     return RedirectToAction("Index", "Home");
                 }
-               
+
             }
             HttpContext.Response.StatusCode = 401;
             return await Task.FromResult(View());
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (model.Login != null && model.Password != null)
@@ -94,7 +115,20 @@ namespace PVT.Money.Shell.Web.Controllers
                 user.Login = model.Login;
                 user.Password = model.Password;
                 user.Role = 2;
-                
+
+                ApplicationUser userRegister = new ApplicationUser { UserName = model.Login, Email = model.Email };
+                var result = await _userManager.CreateAsync(userRegister, model.Password);
+                if (result.Succeeded)
+                {
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(userRegister);
+                    var callbackUrl = "google.com";
+                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    await _signInManager.SignInAsync(userRegister, isPersistent: false);
+
+                    return RedirectToLocal("");
+                }
+
                 Registration reg_account = new Registration();
                 await reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");
@@ -102,12 +136,24 @@ namespace PVT.Money.Shell.Web.Controllers
             return View();
         }
 
-       
+        [AllowAnonymous]
         public async Task<JsonResult> LoginExists(string Login)
         {
-           // Authentication auth = new Authentication();
+            // Authentication auth = new Authentication();
             var res = await Auth.CheckUser(Login);
             return await Task.FromResult(Json(!res));
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
     }
 }

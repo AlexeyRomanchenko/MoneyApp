@@ -11,6 +11,11 @@ using static PVT.Money.Shell.Web.Domain.Container;
 using PVT.Money.Shell.Web.Domain;
 using PVT.Money.Business;
 using React.AspNet;
+using PVT.Money.Shell.Web.Data;
+using PVT.Money.Shell.Web.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using PVT.Money.Shell.Web.Services;
 
 namespace PVT.Money.Shell.Web
 {
@@ -26,15 +31,25 @@ namespace PVT.Money.Shell.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("database")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
+
 
             services.AddMvc();
             services.AddReact();
-            services.AddAuthentication("MyAuth").AddCookie("MyAuth", options =>
-            {
-                options.AccessDeniedPath = new PathString("/");
-                options.LoginPath = new PathString("/Account/login");
-            }         
-           );
+            //services.AddAuthentication("MyAuth").AddCookie("MyAuth", options =>
+            //{
+            //    options.AccessDeniedPath = new PathString("/");
+            //    options.LoginPath = new PathString("/Account/login");
+            //}         
+          // );
 
             Container container = new Container();
             container.Add(typeof(Registration));
