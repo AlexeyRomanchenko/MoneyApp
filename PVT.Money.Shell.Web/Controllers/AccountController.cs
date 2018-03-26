@@ -116,7 +116,7 @@ namespace PVT.Money.Shell.Web.Controllers
                 user.Password = model.Password;
                 user.Role = 2;
 
-                ApplicationUser userRegister = new ApplicationUser { UserName = model.Login, Email = model.Email };
+                ApplicationUser userRegister = new ApplicationUser { UserName = model.Name, Email = model.Email };
                 var result = await _userManager.CreateAsync(userRegister, model.Password);
                 if (result.Succeeded)
                 {
