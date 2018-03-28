@@ -15,7 +15,7 @@ namespace PVT.Money.Business
         {
             DataFaccade.Configuration = Configuration;
             DataFaccade.ConfigureServices(service);
-
+            DataFaccade.InitDatabase(Configuration.GetConnectionString("database"));
             service.AddTransient<Authentication>(u=>new Authentication());
             service.AddTransient<TransfertManager>();
             service.AddTransient<IDataContextProvider, DataContextProvider>();

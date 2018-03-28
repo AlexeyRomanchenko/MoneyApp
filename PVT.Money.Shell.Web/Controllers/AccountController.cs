@@ -155,5 +155,14 @@ namespace PVT.Money.Shell.Web.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+             HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            return RedirectToAction("Login", "Account");
+        }
+
+
     }
 }

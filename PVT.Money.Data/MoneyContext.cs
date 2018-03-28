@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PVT.Money.Data
 {
-    public class MoneyContext : DbContext 
+    public class MoneyContext : IdentityDbContext<ApplicationUser>
     {
-        public MoneyContext() {
-           // Database.EnsureCreated();
+        public MoneyContext(DbContextOptions<MoneyContext> options) : base(options){
+          
         }
         public static string ConnectionString;
 

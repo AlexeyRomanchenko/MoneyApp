@@ -1,20 +1,20 @@
-﻿function OneCurr()
+﻿function OneCurr(walletId, currency)
 {
     class Hello extends React.Component {
         render() {
             return <div>
-                <div className="col-md-6">
-                    <input className="form-control" type="text" placeholder="Введите сумму" />
-                </div>
-                <div className="col-md-6">
-                    <div className="dropdown">
-                        <a className="dropdown-toggle" href="#" onClick={getWallets} data-toggle="dropdown">
-                        <small className="text-muted">Выбрать кошелек <b className="caret"></b></small>
-                        </a>
-                        <ul id="WalletList" className="dropdown-menu animated flipInX m-t-xs">                      
+                    <div className="col-md-6">
+                        <input className="form-control" type="text" placeholder="Введите сумму" />
+                    </div>
+                    <div className="col-md-6">
+                        <div className="dropdown">
+                            <a className="dropdown-toggle" href="#" onClick={getWallets(walletId, currency)} data-toggle="dropdown">
+                            <small className="text-muted">Выбрать кошелек <b className="caret"></b></small>
+                            </a>
+                            <ul id="WalletList" className="dropdown-menu animated flipInX m-t-xs">                      
                         
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
                 </div>
                 <br /><br />
                 <br />
@@ -23,13 +23,12 @@
         }
     }
 
-    function getWallets() {
+    function getWallets(walletId, currency) {
         let userId = document.getElementById("userID").value;
-
-        $.ajax({
+       $.ajax({
             url: "/User/GetWallets",
             type: "POST",
-            data: { walletId: 1, currency: "USD", userID: userId },
+            data: { walletId: walletId, currency: currency, userID: userId },
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
         }).done(function (data) {

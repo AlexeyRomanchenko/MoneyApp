@@ -44,12 +44,7 @@ namespace PVT.Money.Shell.Web
 
             services.AddMvc();
             services.AddReact();
-            //services.AddAuthentication("MyAuth").AddCookie("MyAuth", options =>
-            //{
-            //    options.AccessDeniedPath = new PathString("/");
-            //    options.LoginPath = new PathString("/Account/login");
-            //}         
-          // );
+            
 
             Container container = new Container();
             container.Add(typeof(Registration));

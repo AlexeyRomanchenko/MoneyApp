@@ -45,9 +45,7 @@ namespace PVT.Money.Shell.Web.Controllers
                     if (attributes.AttributeType == typeof(DocumentationAttribute))
                     {
                         value.ClassName = t.Name;
-                        value.Desc = "";
-                       
-                        
+                        value.Desc = "";                      
                     }
                 }
             }
@@ -58,7 +56,7 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
 
-        public async Task<IActionResult> TransfertOneCurrency()
+        public async Task<IActionResult> TransfertMoney()
         {
 
             return Json(new{success=true});
