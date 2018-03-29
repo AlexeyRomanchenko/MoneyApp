@@ -36,20 +36,10 @@ namespace PVT.Money.Business
             {
                 Authentication auth = new Authentication();
                 User userCheck = await auth.CheckAuthentication(login, password);
-               // context.Accounts.Add(new AccountEntity { UserId = userCheck.Id, USD_Account = "0", EUR_Account = "0", AUD_Account = "0" });
+              
                 context.SaveChanges();
             }
         }
-        public void CreateUserPermissions(UserEntity user)
-        {
-            using (var context = new MoneyContext())
-            {   
-              //  user.Role.Permission = new List<PermissionsRolesEntity>();
-              //  user.Role.Permission.Add(new PermissionsRolesEntity { Permissions = new PermissionEntity { Rule = "Changing" } });
-
-                context.SaveChanges();
-
-            }
-        }
+       
     }
 }
