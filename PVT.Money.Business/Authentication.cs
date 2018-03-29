@@ -5,6 +5,9 @@ using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace PVT.Money.Business
 {
@@ -21,7 +24,10 @@ namespace PVT.Money.Business
         }
       public virtual MoneyContext CreateContext()
         {
-            MoneyContext different_context = new MoneyContext();
+            DbContextOptionsBuilder<MoneyContext> contextOptionsBuilder = new DbContextOptionsBuilder<MoneyContext>();
+            contextOptionsBuilder.UseSqlServer(connectionString);
+            DbContextOptions<MoneyContext> options = contextOptionsBuilder.Options;
+            MoneyContext different_context = new MoneyContext(options);
             return different_context;
         }
       public void AddUser(string login, string password, int role)
