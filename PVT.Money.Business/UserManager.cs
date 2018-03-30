@@ -7,15 +7,24 @@ using System.Threading.Tasks;
 
 namespace PVT.Money.Business
 {
-    public class UserManager
+    public class MyUserManager
     {
+        private IDataContextProvider _provider;
+
+        public MyUserManager(IDataContextProvider provider)
+        {
+            _provider = provider;
+        }
+
+
+
         public async Task<IEnumerable<User>> GetUsers()
         {
             UserEntity[] user;
             List<User> userList = new List<User>();
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                user = context.Users.ToArray();
+                user = context.OldUsers.ToArray();
             }
 
             foreach (var u in user)

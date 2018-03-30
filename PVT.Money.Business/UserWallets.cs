@@ -10,11 +10,18 @@ namespace PVT.Money.Business
 {
     public class UserWallets
     {
+        private IDataContextProvider _provider;
+        public UserWallets(IDataContextProvider provider)
+        {
+            _provider = provider;
+        }
+
+
         public async Task<IEnumerable<Wallet>> GetWallets(string username)
         {
            USD_AccountEntity[] wall;
            List<Wallet> walletList = new List<Wallet>();
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 wall = await context.UserUSDWallets.Include(u => u.User).Where(u => u.User.Username == username).ToArrayAsync();
                 
@@ -34,9 +41,9 @@ namespace PVT.Money.Business
         public async Task<IEnumerable<Wallet>> GetTransactWallets(int walletId,string currency, int userID)
         {
             List<Wallet> walletList = new List<Wallet>();
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == userID && wallets.WalletId != walletId && wallets.Currency == currency select wallets;
+                var wall = from wallets in context.UserUSDWallets join user in context.OldUsers on wallets.UserId equals user.ID where user.ID == userID && wallets.WalletId != walletId && wallets.Currency == currency select wallets;
                 foreach (var wallet in wall)
                 {
                     Wallet oneWallet = new Wallet();

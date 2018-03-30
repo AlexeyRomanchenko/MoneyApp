@@ -8,8 +8,19 @@ using System.Threading.Tasks;
 
 namespace PVT.Money.Business
 {
+   
+
     public class Registration
     {
+        private Authentication _auth;
+        private IDataContextProvider _provider;
+
+        public Registration(Authentication auth,IDataContextProvider provider)
+        {
+            _provider = provider;
+           
+        }
+
         private List<User> users = new List<User>();
 
 
@@ -17,14 +28,14 @@ namespace PVT.Money.Business
         public async Task CreateNewUser(string login, string name, string email, string password, int role)
         {
 
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                await context.Users.AddAsync(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
+                await context.OldUsers.AddAsync(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
                
                 context.SaveChanges();
 
-                var user = await context.Users.Include(e => e.Role).SingleOrDefaultAsync(saved_user => saved_user.Username == login);
-                this.CreateUserPermissions(user);
+                var user = await context.OldUsers.Include(e => e.Role).SingleOrDefaultAsync(saved_user => saved_user.Username == login);
+              //  this.CreateUserPermissions(user);
 
             }
            
@@ -32,10 +43,10 @@ namespace PVT.Money.Business
 
         public async void CreateUserAccount(string login, string password)
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                Authentication auth = new Authentication();
-                User userCheck = await auth.CheckAuthentication(login, password);
+               
+                User userCheck = await _auth.CheckAuthentication(login, password);
               
                 context.SaveChanges();
             }

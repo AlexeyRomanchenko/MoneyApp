@@ -14,17 +14,18 @@ namespace PVT.Money.Data.Tests
     [Category("Интеграционные тесты")]
     public class DB_Tests
     {
-       public DB_Tests() {
-           
-            MoneyContext.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;";
+        private IDataContextProvider _provider;
+        public DB_Tests(IDataContextProvider provider) {
+            _provider = provider;
+          //  MoneyContext.ConnectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MoneyExchange;Integrated Security=true;";
             
         }
         [Test]
         public void UsersTableExists()
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                var users = context.Users.ToArray();
+                var users = context.OldUsers.ToArray();
                 Assert.IsNotNull(users);
             }
 
@@ -33,15 +34,15 @@ namespace PVT.Money.Data.Tests
         [Test]
         public void UsersTableAdd()
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 //  Authentication auth = new Authentication();
                 // auth.AddUser("Alex","0505",1);
                 var entity = new UserEntity { Username = "Alex", Password = "pswd", Role_Id = 1 };
-                context.Users.Add(entity);
+                context.OldUsers.Add(entity);
                 context.SaveChanges();
 
-                var user = context.Users.Include(e=>e.Role).SingleOrDefault(saved_user => saved_user.ID == entity.ID);               
+                var user = context.OldUsers.Include(e=>e.Role).SingleOrDefault(saved_user => saved_user.ID == entity.ID);               
                 var role = entity.Role.Role;
                 Assert.IsNotNull(role);
             }
@@ -51,14 +52,14 @@ namespace PVT.Money.Data.Tests
         [Test]
         public void UserPermissions()
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 List<string> resultList = new List<string>();
 
 
 
                // var resultMany = from roles in context.UserRoles join userPerm in context.Permissions on roles.ID equals userPerm.Role select userPerm.Rule;
-                var res = context.UserRoles.Include(r => r.Permission).ThenInclude(e=>e.Permissions).Where(q=>q.Role=="Admin").ToList();
+                var res = context.OldUserRoles.Include(r => r.Permission).ThenInclude(e=>e.Permissions).Where(q=>q.Role=="Admin").ToList();
                 foreach (var c in res)
                 {
                     var rw = c.Permission.Select(e => e.Permissions).ToList();
@@ -79,17 +80,17 @@ namespace PVT.Money.Data.Tests
         [Test]
         public void CheckRoleTests()
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
 
-                var roleResult = from users in context.Users join role in context.UserRoles on users.ID equals role.ID where users.Name == "Alexey" select role.Role;
+                var roleResult = from users in context.OldUsers join role in context.OldUserRoles on users.ID equals role.ID where users.Name == "Alexey" select role.Role;
                 foreach (var r in roleResult)
                 {
                     string res = r;
                 }
 
                    
-                var user = context.Users.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
+                var user = context.OldUsers.Include(e => e.Role).SingleOrDefault(saved_user => saved_user.Name == "Alexey");
                 string userRole = user.Role.Role;
 
 
@@ -102,10 +103,10 @@ namespace PVT.Money.Data.Tests
         [Test]
         public void SelectUsers()
         {
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 List<UserEntity> userList = new List<UserEntity>();
-                var user = context.Users;
+                var user = context.OldUsers;
                 foreach (var u in user)
                 {
                     
@@ -119,7 +120,7 @@ namespace PVT.Money.Data.Tests
         public void SelectUSDWalletsTests()
         {
             List<string> USDList = new List<string>();
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 var wall = context.UserUSDWallets.Include(u => u.User).Where(u=>u.User.Username=="Alexey");
                 foreach (var res in wall)
@@ -136,7 +137,7 @@ namespace PVT.Money.Data.Tests
         public async Task SelectWalletByWalletId()
         {
             USD_AccountEntity wallet;
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
                 wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == 1).SingleOrDefaultAsync();
             }
@@ -147,9 +148,9 @@ namespace PVT.Money.Data.Tests
         public void SelectOneCurrWalletsTransf()
         {
             
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-              var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.ID where user.ID == 1 && wallets.WalletId != 1 && wallets.Currency == "USD" select wallets;
+              var wall = from wallets in context.UserUSDWallets join user in context.OldUsers on wallets.UserId equals user.ID where user.ID == 1 && wallets.WalletId != 1 && wallets.Currency == "USD" select wallets;
                 foreach (var wallet in wall)
                 {
                     string WalletName = wallet.WalletName;

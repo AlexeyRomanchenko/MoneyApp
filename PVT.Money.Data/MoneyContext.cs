@@ -34,14 +34,14 @@ namespace PVT.Money.Data
 
         }
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserEntity> OldUsers { get; set; }
         public DbSet<USD_AccountEntity> UserUSDWallets { get; set; }
 
         public DbSet<CountryEntity> Countries { get; set; }
         public DbSet<LangEntity> Languages { get; set; }
 
         public DbSet<PermissionEntity> Permissions { get; set;}
-        public DbSet<RoleEntity> UserRoles { get; set; }
+        public DbSet<RoleEntity> OldUserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,7 +52,7 @@ namespace PVT.Money.Data
             modelBuilder.Entity<CountriesLangsEntity>().HasKey(p=> new {p.CountryId, p.LangId });
             modelBuilder.Entity<CountriesLangsEntity>().HasOne(s=>s.Countries).WithMany(s=>s.Languages).HasForeignKey(s=>s.CountryId);
             modelBuilder.Entity<CountriesLangsEntity>().HasOne(s => s.Langs).WithMany(s => s.Countries).HasForeignKey(s=>s.LangId);
-           
+            base.OnModelCreating(modelBuilder);
         }
         #endregion
     }

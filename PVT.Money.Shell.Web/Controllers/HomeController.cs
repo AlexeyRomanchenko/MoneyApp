@@ -9,6 +9,8 @@ using PVT.Money.Business;
 using System.Reflection;
 using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using PVT.Money.Shell.Web.Services;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -16,21 +18,40 @@ namespace PVT.Money.Shell.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-      
+        private readonly MyUserManager _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
+        private UserPermissions _userPerms;
+        private UserWallets _wallet;
+
+        public HomeController(
+             MyUserManager userManager,
+             SignInManager<ApplicationUser> signInManager,
+             IEmailSender emailSender,
+             UserWallets wallet,
+             UserPermissions userPerms)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
+            _userPerms = userPerms;
+            _wallet = wallet;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
           
             var username = User.Identity.Name;
-            UserWallets wallet = new UserWallets();
-            var userWallets = await wallet.GetWallets(username);
+           // UserWallets wallet = new UserWallets();
+            var userWallets = await _wallet.GetWallets(username);
             return await Task.FromResult(View(userWallets));
         }
 
         public async Task<IActionResult> About()
         {           
-            UserManager users = new UserManager();
-            var userList = await users.GetUsers();
+            //UserManager users = new UserManager();
+            var userList = await _userManager.GetUsers();
             return await Task.FromResult(View(userList));
         }
 

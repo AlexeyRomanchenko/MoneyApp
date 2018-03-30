@@ -15,26 +15,20 @@ namespace PVT.Money.Business
     // Всё норм по логике
     public class Authentication
     {
-        private List<User> users;
+        private IDataContextProvider _provider;
+       
+        internal string connectionString;
 
-        internal Authentication()
+ 
+      public Authentication(IDataContextProvider provider)
         {
-            users = new List<User>();
-          
-        }
-      public virtual MoneyContext CreateContext()
-        {
-            DbContextOptionsBuilder<MoneyContext> contextOptionsBuilder = new DbContextOptionsBuilder<MoneyContext>();
-            contextOptionsBuilder.UseSqlServer(connectionString);
-            DbContextOptions<MoneyContext> options = contextOptionsBuilder.Options;
-            MoneyContext different_context = new MoneyContext(options);
-            return different_context;
+            _provider = provider;
         }
       public void AddUser(string login, string password, int role)
         {
-            using (var context = CreateContext())
+            using (var context = _provider.CreateContext())
             {
-                context.Users.Add(new UserEntity { Username = login,Password= password,Role_Id = 1 });
+                context.OldUsers.Add(new UserEntity { Username = login,Password= password,Role_Id = 1 });
                 context.SaveChanges();
             }
          }
@@ -44,9 +38,9 @@ namespace PVT.Money.Business
         {
             try
             {
-                using (var context = CreateContext())
+                using (var context = _provider.CreateContext())
                 {
-                    UserEntity entity = await context.Users.SingleOrDefaultAsync(user => user.Username == login && user.Password == password);
+                    UserEntity entity = await context.OldUsers.SingleOrDefaultAsync(user => user.Username == login && user.Password == password);
                     return entity == null ? null : new User {Id= entity.ID,Login = entity.Username, Password = entity.Password };
                 }
             }
@@ -60,9 +54,9 @@ namespace PVT.Money.Business
         {
             try
             {
-                using (var context = CreateContext())
+                using (var context = _provider.CreateContext())
                 {
-                    bool entity = await context.Users.AnyAsync(user => user.Username == login);
+                    bool entity = await context.OldUsers.AnyAsync(user => user.Username == login);
                     return entity;
                   
                 }
@@ -78,7 +72,7 @@ namespace PVT.Money.Business
             Wallet acc = new Wallet();
             try
             {
-                using (var context = CreateContext())
+                using (var context = _provider.CreateContext())
                 {
                     //AccountEntity entity = context.Accounts.SingleOrDefault(account => account.UserId == Id);
                     // return entity == null ? null : new Wallet { UserId = entity.UserId, USD_Account = entity.USD_Account, EUR_Account = entity.EUR_Account, AUD_Account = entity.AUD_Account };
@@ -99,9 +93,9 @@ namespace PVT.Money.Business
             UserEntity roles = new UserEntity();
             try
             {
-                using (var context = CreateContext())
+                using (var context = _provider.CreateContext())
                 {
-                    var userName =  await context.Users.Include(e=>e.Role).SingleAsync(username => username.Username == user.Login);
+                    var userName =  await context.OldUsers.Include(e=>e.Role).SingleAsync(username => username.Username == user.Login);
                     string userRole = userName.Role.Role;
                     return userName;
                 }

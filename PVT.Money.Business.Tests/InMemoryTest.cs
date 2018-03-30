@@ -6,12 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PVT.Money.Business.Tests
 {
-    class InMemoryContext :MoneyContext
+    class InMemoryContext : MoneyContext
     {
         private string db;
-        public InMemoryContext(string dbName)
+        private IDataContextProvider _provider;
+
+
+        public InMemoryContext(string _db)
         {
-            db = dbName;
+            db = _db;
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -5,17 +5,41 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Business;
 using PVT.Money.Shell.Web.Models;
+using Microsoft.AspNetCore.Identity;
+using PVT.Money.Shell.Web.Services;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
     public class UserController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailSender _emailSender;
+        private UserPermissions _userPerms;
+        private UserWallets _wallet;
+
+        public UserController(
+             UserManager<ApplicationUser> userManager,
+             SignInManager<ApplicationUser> signInManager,
+             IEmailSender emailSender,
+             UserWallets wallet,
+             UserPermissions userPerms)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
+            _userPerms = userPerms;
+            _wallet = wallet;
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> LoginPermissions(string login)
         {
             IEnumerable<string> result = new List<string>();
-            UserPermissions permissions = new UserPermissions();
-            result = await permissions.GetPermissions(login);
+           // UserPermissions permissions = new UserPermissions();
+            result = await _userPerms.GetPermissions(login);
             return await Task.FromResult(Json(new{perms= result}));
         }
 
@@ -23,8 +47,8 @@ namespace PVT.Money.Shell.Web.Controllers
         public async Task<IActionResult> GetWallets(int walletId,string currency,int userId)
         {
             
-            UserWallets userWallets = new UserWallets();
-            var wallets = await userWallets.GetTransactWallets(walletId,currency,userId);
+          //  UserWallets userWallets = new UserWallets();
+            var wallets = await _wallet.GetTransactWallets(walletId,currency,userId);
 
             return Json(new {wallet = wallets });
         }

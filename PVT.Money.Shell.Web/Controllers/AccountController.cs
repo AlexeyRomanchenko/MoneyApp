@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
-using PVT.Money.Shell.Web.Domain;
+//using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Identity;
 using PVT.Money.Shell.Web.Services;
 
@@ -24,7 +24,8 @@ namespace PVT.Money.Shell.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        public Authentication Auth { get; }
+        private Authentication Auth { get; }
+        private Registration Reg { get; }
 
         [AllowAnonymous]
         public async Task<IActionResult> Login()
@@ -42,12 +43,14 @@ namespace PVT.Money.Shell.Web.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            Authentication auth)
+            Authentication auth,
+            Registration reg)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             Auth = auth;
+            Reg = reg;
         }
 
         [HttpPost]
@@ -129,8 +132,8 @@ namespace PVT.Money.Shell.Web.Controllers
                     return RedirectToLocal("");
                 }
 
-                Registration reg_account = new Registration();
-                await reg_account.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
+                //Registration reg_account = new Registration();
+                await Reg.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
                 return RedirectToAction("Login", "Account");
             }
             return View();

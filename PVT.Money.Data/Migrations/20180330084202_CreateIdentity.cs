@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace PVT.Money.Shell.Web.Migrations
+namespace PVT.Money.Data.Migrations
 {
-    public partial class oauth : Migration
+    public partial class CreateIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

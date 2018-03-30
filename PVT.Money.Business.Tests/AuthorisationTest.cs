@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Text;
 
 using PVT.Money.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace PVT.Money.Business.Tests
 {
     [TestFixture]
     public class AuthorizationTest
     {
+       
        
         [Test]
         public async Task AuthorizationOFailed()
@@ -19,7 +21,7 @@ namespace PVT.Money.Business.Tests
             string password = "1234";
             User userCheck = null;
 
-            Authentication autentification = new FakeAuth();
+            Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
             userCheck = await autentification.CheckAuthentication(login, password);
 
             Assert.Null(userCheck);
@@ -31,8 +33,8 @@ namespace PVT.Money.Business.Tests
             User user = new User();
             user.Login = "Alexey";
            user.Password = "1234";
-            FakeAuth autentification = new FakeAuth(user);
-            autentification.CreateContext();
+            Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
+            
 
            User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
@@ -45,8 +47,8 @@ namespace PVT.Money.Business.Tests
             User user = new User();
             user.Login = "Alexey";
             user.Password = "1234";
-            FakeAuth autentification = new FakeAuth(user);
-            autentification.CreateContext();
+            Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
+           
             User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
            

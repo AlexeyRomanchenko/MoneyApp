@@ -10,20 +10,24 @@ namespace PVT.Money.Business
 {
     public class UserPermissions
     {
-        /// <summary>
-        /// переделать чтобы все было вне соединения БД  
-        /// </summary>
-        /// 
+        private IDataContextProvider _provider;
+
+        public UserPermissions(IDataContextProvider provider)
+        {
+            _provider = provider;
+        }
+
+
         public async Task<IEnumerable<string>> GetPermissions(string login)
         {
 
             List<string> resultList = new List<string>();
-            using (var context = new MoneyContext())
+            using (var context = _provider.CreateContext())
             {
-                var user = await context.Users.Include(e => e.Role).SingleOrDefaultAsync(saved_user => saved_user.Username == login);
+                var user = await context.OldUsers.Include(e => e.Role).SingleOrDefaultAsync(saved_user => saved_user.Username == login);
                 string userRole = user.Role.Role;
 
-                var res = await context.UserRoles.Include(r => r.Permission).ThenInclude(e => e.Permissions).Where(q => q.Role == userRole).ToListAsync();
+                var res = await context.OldUserRoles.Include(r => r.Permission).ThenInclude(e => e.Permissions).Where(q => q.Role == userRole).ToListAsync();
                 foreach (var c in res)
                 {
                     var rw = c.Permission.Select(e => e.Permissions).ToList();
