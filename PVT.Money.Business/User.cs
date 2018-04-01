@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,4 +12,8 @@ namespace PVT.Money.Business
         public string Password { get; set; }
         public int Role { get; set; }
     }
+
+    //public class ApplicationUser : IdentityUser
+    //{
+    //}
 }

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using PVT.Money.Shell.Web.Models;
 using PVT.Money.Business;
 using PVT.Money.Shell.Web.Domain;
-//using PVT.Money.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -14,6 +13,7 @@ using System.Reflection;
 //using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Identity;
 using PVT.Money.Shell.Web.Services;
+using PVT.Money.Data;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -64,10 +64,6 @@ namespace PVT.Money.Shell.Web.Controllers
 
                 User user = new User();
 
-                // var obj = Container.Create(typeof(Authentication));
-                //Authentication auth = new Authentication();
-
-
                 Type type = model.GetType();
                 PropertyInfo loginInfo = type.GetProperty("Login");
                 PropertyInfo passInfo = type.GetProperty("Password");
@@ -87,19 +83,19 @@ namespace PVT.Money.Shell.Web.Controllers
                 }
                 else
                 {
-                    var role = await Auth.CheckRole(user);
-                    string roleName = role.Role.Role;
-                    ClaimsPrincipal principal = new ClaimsPrincipal();
-                    ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
-                    claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
-                    claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
-                    claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                    claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
-                    principal.AddIdentity(claims);
-                    HttpContext.SignInAsync(principal).Wait();
+                    //var role = await Auth.CheckRole(user);
+                    //string roleName = role.Role.Role;
+                    //ClaimsPrincipal principal = new ClaimsPrincipal();
+                    //ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
+                    //claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
+                    //claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
+                    //claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                    //claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
+                    //principal.AddIdentity(claims);
+                    //HttpContext.SignInAsync(principal).Wait();
 
-                    ViewData["Authorized"] = model.Login;
-                    return RedirectToAction("Index", "Home");
+                    //ViewData["Authorized"] = model.Login;
+                    //return RedirectToAction("Index", "Home");
                 }
 
             }

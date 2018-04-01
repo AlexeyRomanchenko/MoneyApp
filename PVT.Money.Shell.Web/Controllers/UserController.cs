@@ -7,6 +7,7 @@ using PVT.Money.Business;
 using PVT.Money.Shell.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using PVT.Money.Shell.Web.Services;
+using PVT.Money.Data;
 
 namespace PVT.Money.Shell.Web.Controllers
 {

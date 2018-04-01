@@ -11,6 +11,7 @@ using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using PVT.Money.Shell.Web.Services;
+using PVT.Money.Data;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -43,7 +44,6 @@ namespace PVT.Money.Shell.Web.Controllers
         {
           
             var username = User.Identity.Name;
-           // UserWallets wallet = new UserWallets();
             var userWallets = await _wallet.GetWallets(username);
             return await Task.FromResult(View(userWallets));
         }
