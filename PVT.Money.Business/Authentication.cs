@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PVT.Money.Business
 {
@@ -15,39 +16,77 @@ namespace PVT.Money.Business
     // Всё норм по логике
     public class Authentication
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private IDataContextProvider _provider;
-       
+
         internal string connectionString;
 
- 
-      public Authentication(IDataContextProvider provider)
+
+        public Authentication(IDataContextProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _provider = provider;
         }
-      public void AddUser(string login, string password, int role)
+        public void AddUser(string login, string password, int role)
         {
             using (var context = _provider.CreateContext())
             {
-                context.OldUsers.Add(new UserEntity { Username = login,Password= password,Role_Id = 1 });
+                context.OldUsers.Add(new UserEntity { Username = login, Password = password, Role_Id = 1 });
                 context.SaveChanges();
             }
-         }
+        }
 
-      
+        public async Task<AuthenticationProperties> ExternalLogin(string provider, string redirectUrl)
+        {
+            var properties =  _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return properties;
+        }
+
+        public async Task<SignInResult> ExternalLoginSignInAsync(string LoginProvider, string ProviderKey,bool isPersistent, bool bypassTwoFactor)
+        {
+            var result = await _signInManager.ExternalLoginSignInAsync(LoginProvider, ProviderKey, isPersistent, bypassTwoFactor);
+            return result;
+        }
+        public async Task<ExternalLoginInfo> ExternalLoginInfo()
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            return info;
+        }
+
+        public async Task<IdentityResult> CreateUserExternal(ApplicationUser user)
+        {
+            var result = await _userManager.CreateAsync(user);
+            return result;
+        }
+
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+
         public async Task<User> CheckAuthentication(string login, string password)
         {
+
+            User user = new User(); 
             try
             {
-                using (var context = _provider.CreateContext())
+
+                SignInResult result = await _signInManager.PasswordSignInAsync(login, password, true, false);
+                if (result.Succeeded)
                 {
-                    UserEntity entity = await context.OldUsers.SingleOrDefaultAsync(user => user.Username == login && user.Password == password);
-                    return entity == null ? null : new User {Id= entity.ID,Login = entity.Username, Password = entity.Password };
+                    user.Id = 1;
+                    user.Login = login;
                 }
+
             }
             catch {
                 return null;
             }
-                
+            return user;   
         }
 
         public async Task<bool> CheckUser(string login)

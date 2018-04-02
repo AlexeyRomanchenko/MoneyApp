@@ -10,7 +10,7 @@ using System.Reflection;
 using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using PVT.Money.Shell.Web.Services;
+
 using PVT.Money.Data;
 
 namespace PVT.Money.Shell.Web.Controllers
@@ -21,20 +21,20 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private readonly MyUserManager _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly Services.IEmailSender _emailSender;
+       // private readonly Services.IEmailSender _emailSender;
         private UserPermissions _userPerms;
         private UserWallets _wallet;
 
         public HomeController(
              MyUserManager userManager,
              SignInManager<ApplicationUser> signInManager,
-             Services.IEmailSender emailSender,
+           //  Services.IEmailSender emailSender,
              UserWallets wallet,
              UserPermissions userPerms)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+          //  _emailSender = emailSender;
             _userPerms = userPerms;
             _wallet = wallet;
         }

@@ -19,10 +19,12 @@ namespace PVT.Money.Business
         private Authentication _auth;
         private IDataContextProvider _provider;
 
-        public Registration(Authentication auth,IDataContextProvider provider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public Registration(Authentication auth,IDataContextProvider provider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _provider = provider;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
            
         }
 
@@ -43,32 +45,19 @@ namespace PVT.Money.Business
 
                 await _signInManager.SignInAsync(userRegister, isPersistent: false);
 
-            }
-
-
-            using (var context = _provider.CreateContext())
-            {
-                await context.OldUsers.AddAsync(new UserEntity { Username = login, Name = name, Email = email, Password = password, Role_Id = role });
-               
-                context.SaveChanges();
-
-                var user = await context.OldUsers.Include(e => e.Role).SingleOrDefaultAsync(saved_user => saved_user.Username == login);
-              
-
-            }
-           
+            }           
         }
 
-        public async void CreateUserAccount(string login, string password)
-        {
-            using (var context = _provider.CreateContext())
-            {
+        //public async void CreateUserAccount(string login, string password)
+        //{
+        //    using (var context = _provider.CreateContext())
+        //    {
                
-                User userCheck = await _auth.CheckAuthentication(login, password);
+        //        User userCheck = await _auth.CheckAuthentication(login, password);
               
-                context.SaveChanges();
-            }
-        }
+        //        context.SaveChanges();
+        //    }
+        //}
        
     }
 }

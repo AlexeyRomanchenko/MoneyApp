@@ -10,9 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
-//using PVT.Money.Shell.Web.Domain;
 using Microsoft.AspNetCore.Identity;
-using PVT.Money.Shell.Web.Services;
 using PVT.Money.Data;
 using PVT.Money.Models;
 
@@ -24,7 +22,7 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly Services.IEmailSender _emailSender;
+       
         private Authentication Auth { get; }
         private Registration Reg { get; }
 
@@ -43,13 +41,13 @@ namespace PVT.Money.Shell.Web.Controllers
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            Services.IEmailSender emailSender,
+           // Services.IEmailSender emailSender,
             Authentication auth,
             Registration reg)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
             Auth = auth;
             Reg = reg;
         }
@@ -69,11 +67,6 @@ namespace PVT.Money.Shell.Web.Controllers
                 PropertyInfo loginInfo = type.GetProperty("Login");
                 PropertyInfo passInfo = type.GetProperty("Password");
 
-                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, true, false);
-                if (result.Succeeded)
-                {
-                    return RedirectToLocal(returnUrl);
-                }
                 user = await Auth.CheckAuthentication(model.Login.ToString(), model.Password.ToString());
 
 
@@ -84,23 +77,11 @@ namespace PVT.Money.Shell.Web.Controllers
                 }
                 else
                 {
-                    //var role = await Auth.CheckRole(user);
-                    //string roleName = role.Role.Role;
-                    //ClaimsPrincipal principal = new ClaimsPrincipal();
-                    //ClaimsIdentity claims = new ClaimsIdentity("MyAuth");
-                    //claims.AddClaim(new Claim(ClaimTypes.Name, user.Login));
-                    //claims.AddClaim(new Claim(ClaimTypes.GivenName, "Mr. " + user.Login));
-                    //claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                    //claims.AddClaim(new Claim(ClaimTypes.Role, roleName));
-                    //principal.AddIdentity(claims);
-                    //HttpContext.SignInAsync(principal).Wait();
-
-                    //ViewData["Authorized"] = model.Login;
-                    //return RedirectToAction("Index", "Home");
+                    return RedirectToLocal(returnUrl);
                 }
 
             }
-            HttpContext.Response.StatusCode = 401;
+          
             return await Task.FromResult(View());
         }
 
@@ -111,27 +92,14 @@ namespace PVT.Money.Shell.Web.Controllers
         {
             if (model.Login != null && model.Password != null)
             {
-                User user = new Business.User();
+                User user = new User();
                 user.Login = model.Login;
                 user.Password = model.Password;
                 user.Role = 2;
 
-                ApplicationUser userRegister = new ApplicationUser { UserName = model.Name, Email = model.Email };
-                var result = await _userManager.CreateAsync(userRegister, model.Password);
-                if (result.Succeeded)
-                {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(userRegister);
-                    var callbackUrl = "google.com";
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                    await _signInManager.SignInAsync(userRegister, isPersistent: false);
-
-                    return RedirectToLocal("");
-                }
-
-                //Registration reg_account = new Registration();
+               
                 await Reg.CreateNewUser(model.Login, model.Name, model.Email, model.Password, 2);
-                return RedirectToAction("Login", "Account");
+                return RedirectToLocal("");
             }
             return View();
         }
@@ -139,7 +107,6 @@ namespace PVT.Money.Shell.Web.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> LoginExists(string Login)
         {
-            // Authentication auth = new Authentication();
             var res = await Auth.CheckUser(Login);
             return await Task.FromResult(Json(!res));
         }
@@ -161,7 +128,7 @@ namespace PVT.Money.Shell.Web.Controllers
        // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await Auth.Logout();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -170,32 +137,31 @@ namespace PVT.Money.Shell.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
             var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return Challenge(properties, provider);
+            var properties = Auth.ExternalLogin(provider, redirectUrl);
+           
+            return Challenge(properties.Result, provider);
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
-            if (remoteError != null)
-            {
-               
+                if (remoteError != null)
+                {
+
                 return RedirectToAction(nameof(Login));
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            ExternalLoginInfo info = await Auth.ExternalLoginInfo();
             if (info == null)
             {
                 return RedirectToAction(nameof(Login));
             }
 
-            // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            var result =  await Auth.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-               
+
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
@@ -209,8 +175,9 @@ namespace PVT.Money.Shell.Web.Controllers
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+               // return await Task.FromResult(View());
             }
-        }
+            }
 
         [HttpPost]
         [AllowAnonymous]
@@ -220,23 +187,28 @@ namespace PVT.Money.Shell.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
+                //var info = await _signInManager.GetExternalLoginInfoAsync();
+                var info = await Auth.ExternalLoginInfo();
                 if (info == null)
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
+                var result = await Auth.CreateUserExternal(user);
+               // var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+
+                    // Here stopped continue tomorrow 
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
+                        
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
-               
+
             }
 
             ViewData["ReturnUrl"] = returnUrl;
