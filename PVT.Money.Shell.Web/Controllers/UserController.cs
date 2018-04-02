@@ -15,14 +15,14 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly Services.IEmailSender _emailSender;
         private UserPermissions _userPerms;
         private UserWallets _wallet;
 
         public UserController(
              UserManager<ApplicationUser> userManager,
              SignInManager<ApplicationUser> signInManager,
-             IEmailSender emailSender,
+             Services.IEmailSender emailSender,
              UserWallets wallet,
              UserPermissions userPerms)
         {

@@ -11,8 +11,8 @@ using System;
 namespace PVT.Money.Data.Migrations
 {
     [DbContext(typeof(MoneyContext))]
-    [Migration("20180330084202_CreateIdentity")]
-    partial class CreateIdentity
+    [Migration("20180402061009_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

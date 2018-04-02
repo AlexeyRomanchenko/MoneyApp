@@ -31,16 +31,16 @@ namespace PVT.Money.Shell.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("database")));
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders();
-
+           
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "1080630738556-b0qmnhspc2pbk67liln5haovbek0sti1.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "2fltjwKyw9-KsrAWTnWxVSo-";
+            });
 
             services.AddMvc();
             services.AddReact();

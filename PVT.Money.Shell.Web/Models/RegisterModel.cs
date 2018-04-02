@@ -16,7 +16,7 @@ namespace PVT.Money.Shell.Web.Models
         public string Login { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        [BtmLineReg(ErrorMessage = "Должен быть знак _")]
+        [BtmLineReg(ErrorMessage = "MUST BE SYMBOL _")]
         public string Password { get; set; }
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }

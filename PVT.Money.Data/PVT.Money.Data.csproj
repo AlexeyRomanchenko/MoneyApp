@@ -223,20 +223,18 @@
     <Compile Include="CountryModel.cs" />
     <Compile Include="DataFaccade.cs" />
     <Compile Include="LangEntity.cs" />
-    <Compile Include="Migrations\20180302064802_CreateDatabase.cs" />
-    <Compile Include="Migrations\20180302070512_AddRequired.cs" />
-    <Compile Include="Migrations\20180302072053_deletingAcc.cs" />
-    <Compile Include="Migrations\20180304180420_Homework.cs" />
-    <Compile Include="Migrations\20180313182925_changeWall.cs" />
-    <Compile Include="Migrations\20180330084202_CreateIdentity.cs" />
-    <Compile Include="Migrations\20180330084202_CreateIdentity.designer.cs">
-      <DependentUpon>20180330084202_CreateIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\20180402061009_Create.cs" />
+    <Compile Include="Migrations\20180402061009_Create.designer.cs">
+      <DependentUpon>20180402061009_Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MoneyContextModelSnapshot.cs" />
     <Compile Include="MoneyContext.cs" />
     <Compile Include="PermissionEntity.cs" />
     <Compile Include="PermissionsRolesEntity.cs" />
     <Compile Include="RoleEntity.cs" />
+    <Compile Include="Services\EmailSender.cs" />
+    <Compile Include="Services\EmailSenderExtensions.cs" />
+    <Compile Include="Services\IEmailSender.cs" />
     <Compile Include="USD_AccountEntity.cs" />
     <Compile Include="UserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
