@@ -56,17 +56,6 @@ namespace PVT.Money.Business
 
             }           
         }
-
-        //public async void CreateUserAccount(string login, string password)
-        //{
-        //    using (var context = _provider.CreateContext())
-        //    {
-               
-        //        User userCheck = await _auth.CheckAuthentication(login, password);
-              
-        //        context.SaveChanges();
-        //    }
-        //}
-       
+        
     }
 }

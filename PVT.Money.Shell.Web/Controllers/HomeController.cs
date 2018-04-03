@@ -24,17 +24,18 @@ namespace PVT.Money.Shell.Web.Controllers
        // private readonly Services.IEmailSender _emailSender;
         private UserPermissions _userPerms;
         private UserWallets _wallet;
+        private Authentication _auth;
 
         public HomeController(
              MyUserManager userManager,
              SignInManager<ApplicationUser> signInManager,
-           //  Services.IEmailSender emailSender,
+             Authentication authentication,
              UserWallets wallet,
              UserPermissions userPerms)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-          //  _emailSender = emailSender;
+            _auth = authentication;
             _userPerms = userPerms;
             _wallet = wallet;
         }
@@ -49,8 +50,9 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         public async Task<IActionResult> About()
-        {           
-            //UserManager users = new UserManager();
+        {
+
+            await _auth.CheckRole();
             var userList = await _userManager.GetUsers();
             return await Task.FromResult(View(userList));
         }

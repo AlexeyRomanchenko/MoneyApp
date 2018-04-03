@@ -165,25 +165,17 @@ namespace PVT.Money.Business
 
         }
 
+
       
 
 
-        public async Task<UserEntity> CheckRole(User user)
+        public async Task CheckRole()
         {
-            UserEntity roles = new UserEntity();
-            try
-            {
-                using (var context = _provider.CreateContext())
-                {
-                    var userName =  await context.OldUsers.Include(e=>e.Role).SingleAsync(username => username.Username == user.Login);
-                    string userRole = userName.Role.Role;
-                    return userName;
-                }
-            }
-            catch
-            {
-                return roles;
-            }
+            IList<string> roles = new List<string> { "Роль не определена" };
+
+            ApplicationUser user = await _userManager.FindByLoginAsync("Alexey",null);
+            if (user != null)
+                roles = await _userManager.GetRolesAsync(user);
         }
 
     }
