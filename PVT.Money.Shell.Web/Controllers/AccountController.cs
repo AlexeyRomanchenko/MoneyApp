@@ -11,7 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
-using PVT.Money.Data;
+//using PVT.Money.Data;
 using PVT.Money.Models;
 
 namespace PVT.Money.Shell.Web.Controllers
@@ -20,8 +20,8 @@ namespace PVT.Money.Shell.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        //private readonly UserManager<ApplicationUser> _userManager;
+       // private readonly SignInManager<ApplicationUser> _signInManager;
        
         private Authentication Auth { get; }
         private Registration Reg { get; }
@@ -39,14 +39,14 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+           // UserManager<ApplicationUser> userManager,
+           // SignInManager<ApplicationUser> signInManager,
            // Services.IEmailSender emailSender,
             Authentication auth,
             Registration reg)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+           // _userManager = userManager;
+         //   _signInManager = signInManager;
             //_emailSender = emailSender;
             Auth = auth;
             Reg = reg;
@@ -186,29 +186,20 @@ namespace PVT.Money.Shell.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Get the information about the user from the external login provider
-                //var info = await _signInManager.GetExternalLoginInfoAsync();
                 var info = await Auth.ExternalLoginInfo();
                 if (info == null)
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await Auth.CreateUserExternal(user);
-               // var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
+                
+
+                var result = await Auth.CreateUserExternal(model.Email, info);
+
+                if (result)
                 {
-
-                    // Here stopped continue tomorrow 
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
-                    {
-                        
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToLocal(returnUrl);
-                    }
+                    return RedirectToLocal(returnUrl);
                 }
-
+                
             }
 
             ViewData["ReturnUrl"] = returnUrl;

@@ -55,12 +55,34 @@ namespace PVT.Money.Business
             return info;
         }
 
-        public async Task<IdentityResult> CreateUserExternal(ApplicationUser user)
+        public async Task<bool> CreateUserExternal(string Email,ExternalLoginInfo info)
         {
+            var user = new ApplicationUser { UserName = Email, Email = Email };
             var result = await _userManager.CreateAsync(user);
+
+            if (result.Succeeded)
+            {
+                result = await this.AddLoginAsync(user, info);
+                if (result.Succeeded)
+                {
+
+                    await this.SignInAsync(user, isPersistent: false);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<IdentityResult> AddLoginAsync(ApplicationUser user, ExternalLoginInfo info)
+        {
+            var result = await _userManager.AddLoginAsync(user, info);
             return result;
         }
 
+        public async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+          await _signInManager.SignInAsync(user, isPersistent: false);
+        }
 
         public async Task Logout()
         {

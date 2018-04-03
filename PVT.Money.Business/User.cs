@@ -13,7 +13,5 @@ namespace PVT.Money.Business
         public int Role { get; set; }
     }
 
-    //public class ApplicationUser : IdentityUser
-    //{
-    //}
+   
 }
