@@ -131,6 +131,8 @@ namespace PVT.Money.Business
         {
             try
             {
+                var result = await _userManager.Users.ToArrayAsync();
+
                 using (var context = _provider.CreateContext())
                 {
                     bool entity = await context.OldUsers.AnyAsync(user => user.Username == login);
@@ -163,19 +165,6 @@ namespace PVT.Money.Business
                 return acc;
             }
 
-        }
-
-
-      
-
-
-        public async Task CheckRole()
-        {
-            IList<string> roles = new List<string> { "Роль не определена" };
-
-            ApplicationUser user = await _userManager.FindByLoginAsync("Alexey",null);
-            if (user != null)
-                roles = await _userManager.GetRolesAsync(user);
         }
 
     }

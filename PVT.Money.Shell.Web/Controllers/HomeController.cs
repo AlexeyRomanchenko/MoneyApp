@@ -51,8 +51,6 @@ namespace PVT.Money.Shell.Web.Controllers
 
         public async Task<IActionResult> About()
         {
-
-            await _auth.CheckRole();
             var userList = await _userManager.GetUsers();
             return await Task.FromResult(View(userList));
         }
