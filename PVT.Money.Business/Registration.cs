@@ -16,11 +16,18 @@ namespace PVT.Money.Business
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private Authentication _auth;
         private IDataContextProvider _provider;
 
-        public Registration(Authentication auth,IDataContextProvider provider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
+        public Registration(Authentication auth,IDataContextProvider provider,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager
+            )
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _provider = provider;
             _signInManager = signInManager;
@@ -44,6 +51,8 @@ namespace PVT.Money.Business
                 await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 
                 await _signInManager.SignInAsync(userRegister, isPersistent: false);
+
+               await _userManager.AddToRoleAsync(userRegister, "Admin");
 
             }           
         }

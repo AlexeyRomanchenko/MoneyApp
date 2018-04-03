@@ -19,13 +19,13 @@ namespace PVT.Money.Business
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private IDataContextProvider _provider;
 
         internal string connectionString;
 
 
-        public Authentication(IDataContextProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<ApplicationUser> roleManager)
+        public Authentication(IDataContextProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -57,6 +57,19 @@ namespace PVT.Money.Business
             var info = await _signInManager.GetExternalLoginInfoAsync();
             return info;
         }
+
+
+        public async Task<bool> CreateRole(string role)
+        {
+            if (await _roleManager.RoleExistsAsync(role))
+                return false;
+            else
+            {
+                await _roleManager.CreateAsync(new IdentityRole { Name = role });
+                return true;
+            }
+        }
+
 
         public async Task<bool> CreateUserExternal(string Email,ExternalLoginInfo info)
         {

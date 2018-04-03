@@ -20,9 +20,6 @@ namespace PVT.Money.Shell.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //private readonly UserManager<ApplicationUser> _userManager;
-       // private readonly SignInManager<ApplicationUser> _signInManager;
-       
         private Authentication Auth { get; }
         private Registration Reg { get; }
 
@@ -39,15 +36,11 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         public AccountController(
-           // UserManager<ApplicationUser> userManager,
-           // SignInManager<ApplicationUser> signInManager,
-           // Services.IEmailSender emailSender,
+         
             Authentication auth,
             Registration reg)
         {
-           // _userManager = userManager;
-         //   _signInManager = signInManager;
-            //_emailSender = emailSender;
+           
             Auth = auth;
             Reg = reg;
         }
