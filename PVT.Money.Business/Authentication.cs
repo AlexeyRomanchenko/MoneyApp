@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PVT.Money.Business
 {
@@ -18,13 +19,15 @@ namespace PVT.Money.Business
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationUser> _roleManager;
         private IDataContextProvider _provider;
 
         internal string connectionString;
 
 
-        public Authentication(IDataContextProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public Authentication(IDataContextProvider provider, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<ApplicationUser> roleManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _provider = provider;
@@ -148,6 +151,9 @@ namespace PVT.Money.Business
             }
 
         }
+
+      
+
 
         public async Task<UserEntity> CheckRole(User user)
         {
