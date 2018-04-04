@@ -21,6 +21,11 @@ namespace PVT.Money.Business
         }
 
 
+        public async Task GetUserId(string username)
+        {
+
+        }
+
 
         public async Task<IEnumerable<User>> GetUsers()
         {

@@ -1,8 +1,8 @@
-﻿function userInfo(login) {
+﻿function userInfo(user_id) {
     $.ajax({
         url: "/User/LoginPermissions",
         type: "POST",
-        data: { login: login },
+        data: { user_id: user_id },
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
     }).done(function (data) {

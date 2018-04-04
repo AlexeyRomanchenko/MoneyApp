@@ -54,6 +54,7 @@ namespace PVT.Money.Shell.Web
             BusinessFaccade.ConfigurationServices(services);
             services.AddSingleton<IContainer, Container>(e=>container);
 
+            services.AddSignalR();
 
             return services.BuildServiceProvider();
         }
@@ -79,6 +80,11 @@ namespace PVT.Money.Shell.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            app.UseSignalR(routes =>
+            routes.MapHub<SomeHub>("SomeChat")
+            );
         }
     }
 }

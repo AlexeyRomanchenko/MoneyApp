@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 using PVT.Money.Data;
+using Microsoft.AspNetCore.SignalR;
+using System.Threading;
 
 namespace PVT.Money.Shell.Web.Controllers
 {
@@ -21,33 +23,46 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private readonly MyUserManager _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-       // private readonly Services.IEmailSender _emailSender;
         private UserPermissions _userPerms;
         private UserWallets _wallet;
         private Authentication _auth;
+        private IHubContext<SomeHub> _hubcontext;
 
         public HomeController(
              MyUserManager userManager,
              SignInManager<ApplicationUser> signInManager,
              Authentication authentication,
              UserWallets wallet,
-             UserPermissions userPerms)
+             UserPermissions userPerms,
+             IHubContext<SomeHub> hubContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _auth = authentication;
             _userPerms = userPerms;
             _wallet = wallet;
+            _hubcontext = hubContext;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-          
+            Task.Run(()=> 
+            {
+                Thread.Sleep(10000);
+                SendSignalRMessage();
+            });
             var username = User.Identity.Name;
             var userWallets = await _wallet.GetWallets(username);
             return await Task.FromResult(View(userWallets));
         }
+
+        private async Task SendSignalRMessage()
+        {
+          //  _hubcontext.Clients.All.InvokeAsync("Send","Hello");
+        }
+
+
 
         public async Task<IActionResult> About()
         {
@@ -75,6 +90,13 @@ namespace PVT.Money.Shell.Web.Controllers
 
             return View(value);
         }
+
+        public async Task<IActionResult> GetUserId(string username)
+        {
+            var userId = await _userManager.GetUserId(username);
+
+        }
+
 
 
         public async Task<IActionResult> TransfertMoney()
