@@ -1,8 +1,10 @@
-﻿function userInfo(user_id) {
+﻿function userInfo(id) {
+    console.log(id);
+    debugger;
     $.ajax({
         url: "/User/LoginPermissions",
         type: "POST",
-        data: { user_id: user_id },
+        data: { id: id },
         contentType: "application/x-www-form-urlencoded",
         dataType: "json",
     }).done(function (data) {

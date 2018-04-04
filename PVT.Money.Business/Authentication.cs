@@ -116,7 +116,7 @@ namespace PVT.Money.Business
                 SignInResult result = await _signInManager.PasswordSignInAsync(login, password, true, false);
                 if (result.Succeeded)
                 {
-                    user.Id = 1;
+                   // user.Id = 1;
                     user.Login = login;
                 }
 

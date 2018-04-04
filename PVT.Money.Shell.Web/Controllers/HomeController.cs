@@ -47,13 +47,15 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            Task.Run(()=> 
-            {
-                Thread.Sleep(10000);
-                SendSignalRMessage();
-            });
+            //Task.Run(()=> 
+            //{
+            //    Thread.Sleep(10000);
+            //    SendSignalRMessage();
+            //});
             var username = User.Identity.Name;
             var userWallets = await _wallet.GetWallets(username);
+            string id = await this.GetUserId(username);
+            ViewBag.Id = id;
             return await Task.FromResult(View(userWallets));
         }
 
@@ -66,12 +68,20 @@ namespace PVT.Money.Shell.Web.Controllers
 
         public async Task<IActionResult> About()
         {
+            var username = User.Identity.Name;
+            string id = await this.GetUserId(username);
+            ViewBag.Id = id;
             var userList = await _userManager.GetUsers();
             return await Task.FromResult(View(userList));
         }
 
         public async Task<IActionResult> Contact()
-        {         
+        {
+            var username = User.Identity.Name;
+            string id = await this.GetUserId(username);
+            ViewBag.Id = id;
+
+
             DocumentationClass value = new DocumentationClass();
             var a = Assembly.GetExecutingAssembly();
             var b = a.DefinedTypes;
@@ -91,9 +101,10 @@ namespace PVT.Money.Shell.Web.Controllers
             return View(value);
         }
 
-        public async Task<IActionResult> GetUserId(string username)
+        public async Task<string> GetUserId(string username)
         {
-            var userId = await _userManager.GetUserId(username);
+          string userId = await _userManager.GetUserId(username);
+            return userId;
 
         }
 

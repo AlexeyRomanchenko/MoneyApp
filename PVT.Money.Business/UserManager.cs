@@ -21,9 +21,14 @@ namespace PVT.Money.Business
         }
 
 
-        public async Task GetUserId(string username)
+        public async Task<string> GetUserId(string username)
         {
-
+            
+            using (var context = _provider.CreateContext())
+            {
+                var user = await _userManager.Users.Where(e => e.UserName == username).SingleAsync();
+                return await Task.FromResult(user.Id);
+            }
         }
 
 
@@ -40,7 +45,8 @@ namespace PVT.Money.Business
 
             foreach (var u in users)
             {
-                User usr = new User();             
+                User usr = new User();
+                usr.Id = u.Id;
                 usr.Login = u.UserName;
                 userList.Add(usr);
             }
