@@ -279,7 +279,8 @@ namespace PVT.Money.Data.Migrations
                     b.Property<string>("Currency")
                         .HasColumnName("Currency");
 
-                    b.Property<int>("UserId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnName("UserId");
 
                     b.Property<int>("Value")
@@ -293,38 +294,6 @@ namespace PVT.Money.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserUSDWallets");
-                });
-
-            modelBuilder.Entity("PVT.Money.Data.UserEntity", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnName("Email");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("Name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnName("Password");
-
-                    b.Property<int>("Role_Id")
-                        .HasColumnName("Role_Id");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnName("Username");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Role_Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -400,17 +369,9 @@ namespace PVT.Money.Data.Migrations
 
             modelBuilder.Entity("PVT.Money.Data.USD_AccountEntity", b =>
                 {
-                    b.HasOne("PVT.Money.Data.UserEntity", "User")
+                    b.HasOne("PVT.Money.Data.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("PVT.Money.Data.UserEntity", b =>
-                {
-                    b.HasOne("PVT.Money.Data.RoleEntity", "Role")
-                        .WithMany()
-                        .HasForeignKey("Role_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

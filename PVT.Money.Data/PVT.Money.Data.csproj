@@ -223,9 +223,9 @@
     <Compile Include="CountryModel.cs" />
     <Compile Include="DataFaccade.cs" />
     <Compile Include="LangEntity.cs" />
-    <Compile Include="Migrations\20180402061009_Create.cs" />
-    <Compile Include="Migrations\20180402061009_Create.designer.cs">
-      <DependentUpon>20180402061009_Create.cs</DependentUpon>
+    <Compile Include="Migrations\20180405190308_CreateDB.cs" />
+    <Compile Include="Migrations\20180405190308_CreateDB.designer.cs">
+      <DependentUpon>20180405190308_CreateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MoneyContextModelSnapshot.cs" />
     <Compile Include="MoneyContext.cs" />

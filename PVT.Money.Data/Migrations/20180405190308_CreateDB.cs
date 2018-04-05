@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PVT.Money.Data.Migrations
 {
-    public partial class Create : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -209,6 +209,28 @@ namespace PVT.Money.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserUSDWallets",
+                columns: table => new
+                {
+                    WalletId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Currency = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    USD_Value = table.Column<int>(nullable: false),
+                    WalletName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserUSDWallets", x => x.WalletId);
+                    table.ForeignKey(
+                        name: "FK_UserUSDWallets_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CountriesLangsEntity",
                 columns: table => new
                 {
@@ -253,51 +275,6 @@ namespace PVT.Money.Data.Migrations
                         column: x => x.Rule_Id,
                         principalTable: "Permissions",
                         principalColumn: "Rule_Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    Role_Id = table.Column<int>(nullable: false),
-                    Username = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_UserRoles_Role_Id",
-                        column: x => x.Role_Id,
-                        principalTable: "UserRoles",
-                        principalColumn: "Role_Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserUSDWallets",
-                columns: table => new
-                {
-                    WalletId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Currency = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
-                    USD_Value = table.Column<int>(nullable: false),
-                    WalletName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserUSDWallets", x => x.WalletId);
-                    table.ForeignKey(
-                        name: "FK_UserUSDWallets_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -351,15 +328,15 @@ namespace PVT.Money.Data.Migrations
                 column: "Rule_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Role_Id",
-                table: "Users",
-                column: "Role_Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserUSDWallets_UserId",
                 table: "UserUSDWallets",
                 column: "UserId");
+            migrationBuilder.Sql("insert into AspNetRoles (Id,ConcurrencyStamp,Name,NormalizedName) values(1,null,'Admin','ADMIN')");
+            migrationBuilder.Sql("insert into AspNetRoles (Id,ConcurrencyStamp,Name,NormalizedName) values(2,null,'User','USER')");
+
         }
+
+
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
@@ -391,22 +368,19 @@ namespace PVT.Money.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Countries");
 
             migrationBuilder.DropTable(
                 name: "Languages");
 
             migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "AspNetUsers");
         }
     }
 }
