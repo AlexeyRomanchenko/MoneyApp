@@ -17,13 +17,13 @@ namespace PVT.Money.Data
         public int WalletId { get; set; }
         [Column("UserId")]
         [Required]
-        public int UserId { get; set;}
+        public string UserId { get; set;}
         [Column("WalletName")]
         public string WalletName { get; set; }
         [Column("Currency")]
         public string Currency { get; set; }
         [Column("USD_Value")]
         public int Value { get; set; }       
-        public UserEntity User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

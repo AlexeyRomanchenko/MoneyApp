@@ -7,7 +7,7 @@ namespace PVT.Money.Business
     public class Wallet
     {   
         public int WalletId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int Value { get; set; }
         public string WalletName { get; set; }
         public string Currency { get; set; }

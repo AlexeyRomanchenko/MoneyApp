@@ -23,7 +23,7 @@ namespace PVT.Money.Business
            List<Wallet> walletList = new List<Wallet>();
             using (var context = _provider.CreateContext())
             {
-                wall = await context.UserUSDWallets.Include(u => u.User).Where(u => u.User.Username == username).ToArrayAsync();
+                wall = await context.UserUSDWallets.Include(u => u.User).Where(u => u.User.UserName == username).ToArrayAsync();
                 
             }
             foreach (var res in wall)
@@ -38,12 +38,12 @@ namespace PVT.Money.Business
                 return walletList;
         }
 
-        public async Task<IEnumerable<Wallet>> GetTransactWallets(int walletId,string currency, int userID)
+        public async Task<IEnumerable<Wallet>> GetTransactWallets(int walletId,string currency, string userID)
         {
             List<Wallet> walletList = new List<Wallet>();
             using (var context = _provider.CreateContext())
             {
-                var wall = from wallets in context.UserUSDWallets join user in context.OldUsers on wallets.UserId equals user.ID where user.ID == userID && wallets.WalletId != walletId && wallets.Currency == currency select wallets;
+                var wall = from wallets in context.UserUSDWallets join user in context.Users on wallets.UserId equals user.Id where user.Id == userID && wallets.WalletId != walletId && wallets.Currency == currency select wallets;
                 foreach (var wallet in wall)
                 {
                     Wallet oneWallet = new Wallet();

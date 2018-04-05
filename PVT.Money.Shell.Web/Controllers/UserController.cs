@@ -15,21 +15,21 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-       // private readonly Services.IEmailSender _emailSender;
+        private TransfertManager _transfertManager;
         private UserPermissions _userPerms;
         private UserWallets _wallet;
 
         public UserController(
              UserManager<ApplicationUser> userManager,
              SignInManager<ApplicationUser> signInManager,
-            // Services.IEmailSender emailSender,
+            TransfertManager transfertManager,
              UserWallets wallet,
              UserPermissions userPerms)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-         //   _emailSender = emailSender;
-            _userPerms = userPerms;
+            _transfertManager = transfertManager;
+               _userPerms = userPerms;
             _wallet = wallet;
         }
 
@@ -45,10 +45,17 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetWallets(int walletId,string currency,int userId)
+        public async Task<IActionResult> TransfertMoney(int walletId, string currency, string userID)
         {
-            
-          //  UserWallets userWallets = new UserWallets();
+            IEnumerable<string> result = new List<string>();
+           var  s = await _transfertManager.Transfert(3,5,2);
+            return await Task.FromResult(Json(new { perms = result }));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetWallets(int walletId,string currency,string userId)
+        {
+
             var wallets = await _wallet.GetTransactWallets(walletId,currency,userId);
 
             return Json(new {wallet = wallets });

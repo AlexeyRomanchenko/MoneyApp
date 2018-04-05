@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace PVT.Money.Business
 {
-    class TransfertManager
+    public class TransfertManager
     {
-        private IDataContextProvider __provider; 
+        private IDataContextProvider _provider; 
 
-        private async Task<IEnumerable<Wallet>> Transfert(int value , int first, int second) {
+        public async Task<IEnumerable<Wallet>> Transfert(int value , int first, int second) {
 
             List<Wallet> walletList = new List<Wallet>();
             Wallet firstWallet = new Wallet();
             Wallet secondWallet = new Wallet();
             try
             {
-                using (var context =  __provider.CreateContext())
+                using (var context = _provider.CreateContext())
                 {
                     USD_AccountEntity wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == first).SingleAsync();
                     
@@ -68,11 +68,15 @@ namespace PVT.Money.Business
 
         }
 
-       
-        public TransfertManager(int value, int firstWallet, int secondWallet, IDataContextProvider provider)
+        public TransfertManager(IDataContextProvider provider)
         {
-            __provider = provider;
-            Transfert(value, firstWallet, secondWallet);
+            _provider = provider;
         }
+
+        //public TransfertManager(int value, int firstWallet, int secondWallet, IDataContextProvider provider)
+        //{
+        //    __provider = provider;
+        //    Transfert(value, firstWallet, secondWallet);
+        //}
     }
 }

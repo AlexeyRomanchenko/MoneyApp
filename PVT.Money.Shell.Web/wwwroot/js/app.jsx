@@ -14,17 +14,32 @@
                             <ul id="WalletList" className="dropdown-menu animated flipInX m-t-xs">                      
                         
                         </ul>
-                    </div>
+                        </div>
+                    <div id="wallet"></div>
                 </div>
                 <br /><br />
                 <br />
-                <button className="btn btn-default">Перевести</button>
+                <button onClick={TransfertMoney} className="btn btn-default">Перевести</button>
                 </div>;
         }
     }
 
+    function TransfertMoney() {
+        debugger;
+        $.ajax({
+            url: "/User/TransfertMoney",
+            type: "POST",
+            data: { walletId: 45, currency: "USD", userID : "665" },
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+        }).done(function (data) { });
+    }
+
+
+
     function getWallets(walletId, currency) {
         let userId = document.getElementById("userID").value;
+        debugger;
        $.ajax({
             url: "/User/GetWallets",
             type: "POST",
@@ -44,6 +59,7 @@
                 let list = document.createElement('li');
                 let subLi = document.createElement('a');
                 list.appendChild(subLi);
+                subLi.onclick = SelectWallet;
                 subLi.setAttribute("data-id", walletId);
                 subLi.innerHTML = walletName;
                 arr.push(list);
@@ -55,6 +71,9 @@
             });
     }
 
+   
+
+
     ReactDOM.render(
         <Hello />,
         document.getElementById("content")
@@ -63,3 +82,4 @@
 
    
 }
+

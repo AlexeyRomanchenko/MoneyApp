@@ -33,10 +33,19 @@
     });
 }
 
+function SelectWallet(event) {
+    const target = event.target;
 
+    let id = target.getAttribute('data-id');
+    let wallet_name = target.innerHTML;
+    let selectedWallet = document.getElementById("wallet");
+    selectedWallet.innerHTML = wallet_name;
+    debugger;
+}
 
 
 function transfertOneCurrency() {
+
     $.ajax({
         url: "/User/GetWallets",
         type: "POST",
@@ -48,3 +57,4 @@ function transfertOneCurrency() {
         console.log(data);
     });
 }
+

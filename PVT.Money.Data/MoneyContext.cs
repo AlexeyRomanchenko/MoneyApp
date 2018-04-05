@@ -33,14 +33,14 @@ namespace PVT.Money.Data
 
         }
 
-        public DbSet<UserEntity> OldUsers { get; set; }
+        //public DbSet<UserEntity> OldUsers { get; set; }
         public DbSet<USD_AccountEntity> UserUSDWallets { get; set; }
 
         public DbSet<CountryEntity> Countries { get; set; }
         public DbSet<LangEntity> Languages { get; set; }
 
         public DbSet<PermissionEntity> Permissions { get; set;}
-        public DbSet<RoleEntity> OldUserRoles { get; set; }
+        //public DbSet<RoleEntity> OldUserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

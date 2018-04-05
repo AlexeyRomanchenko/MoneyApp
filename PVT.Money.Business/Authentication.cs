@@ -32,14 +32,14 @@ namespace PVT.Money.Business
             _signInManager = signInManager;
             _provider = provider;
         }
-        public void AddUser(string login, string password, int role)
-        {
-            using (var context = _provider.CreateContext())
-            {
-                context.OldUsers.Add(new UserEntity { Username = login, Password = password, Role_Id = 1 });
-                context.SaveChanges();
-            }
-        }
+        //public void AddUser(string login, string password, int role)
+        //{
+        //    using (var context = _provider.CreateContext())
+        //    {
+        //        context.Users.Add(new UserEntity { Username = login, Password = password, Role_Id = 1 });
+        //        context.SaveChanges();
+        //    }
+        //}
 
         public async Task<AuthenticationProperties> ExternalLogin(string provider, string redirectUrl)
         {
@@ -135,9 +135,9 @@ namespace PVT.Money.Business
 
                 using (var context = _provider.CreateContext())
                 {
-                    bool entity = await context.OldUsers.AnyAsync(user => user.Username == login);
+                    bool entity = await context.Users.AnyAsync(user => user.UserName == login);
                     return entity;
-                  
+
                 }
             }
             catch
