@@ -27,34 +27,34 @@ namespace PVT.Money.Business.Tests
            // Assert.Null(userCheck);
         }
 
-        [Test]
-        public async Task FakeAuthenticationConnection()
-        {
-            User user = new User();
-            user.Login = "Alexey";
-           user.Password = "1234";
-         //   Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
+        //[Test]
+        //public async Task FakeAuthenticationConnection()
+        //{
+        //    User user = new User();
+        //    user.Login = "Alexey";
+        //   user.Password = "1234";
+        // //   Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
             
 
-           User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
+        // //  User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
-            Assert.NotNull(userCheck);
-        }
+        //    Assert.NotNull(userCheck);
+        //}
 
-        [Test]
-        public async Task FakeAuthenticationGetIDCreateAccountOK()
-        {
-            User user = new User();
-            user.Login = "Alexey";
-            user.Password = "1234";
-            Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
+        //[Test]
+        //public async Task FakeAuthenticationGetIDCreateAccountOK()
+        //{
+        //    User user = new User();
+        //    user.Login = "Alexey";
+        //    user.Password = "1234";
+        //    Authentication autentification = new Authentication(new InMemoryDataContextProvider(BusinessFaccade.Configuration.GetConnectionString("database")));
            
-            User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
+        //    User userCheck = await autentification.CheckAuthentication(user.Login, user.Password);
 
            
 
-            Assert.NotNull(userCheck);
-        }
+        //    Assert.NotNull(userCheck);
+        //}
 
     }
 }

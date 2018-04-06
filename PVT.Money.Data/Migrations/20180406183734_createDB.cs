@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PVT.Money.Data.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class createDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -331,6 +331,8 @@ namespace PVT.Money.Data.Migrations
                 name: "IX_UserUSDWallets_UserId",
                 table: "UserUSDWallets",
                 column: "UserId");
+
+
             migrationBuilder.Sql("insert into AspNetRoles (Id,ConcurrencyStamp,Name,NormalizedName) values(1,null,'Admin','ADMIN')");
             migrationBuilder.Sql("insert into AspNetRoles (Id,ConcurrencyStamp,Name,NormalizedName) values(2,null,'User','USER')");
             migrationBuilder.Sql("INSERT INTO [dbo].[AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [Email], [EmailConfirmed], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName]) VALUES (N'78153c56-b1cb-4abc-bcda-21d0cda829ab', 0, N'203ece45-91a2-4401-9358-df318bb7d0a5', N'romanchenko.alek@mail.ru', 0, 1, NULL, N'ROMANCHENKO.ALEK@MAIL.RU', N'ALEXEY', N'AQAAAAEAACcQAAAAENN+FdZXV8+PgJylDDnx/62G6/Gn5kyK1roNMYayoEewCAdiRW6UWesO16sGxS/iyw==', NULL, 0, N'f1e66aa3-cad0-4b32-8290-b77ccffcd3fc', 0, N'Alexey')");
@@ -340,8 +342,6 @@ namespace PVT.Money.Data.Migrations
             migrationBuilder.Sql("INSERT INTO [dbo].[UserUSDWallets] ([Currency], [UserId], [USD_Value], [WalletName]) VALUES (N'EUR', N'78153c56-b1cb-4abc-bcda-21d0cda829ab', 500, N'Euro Card')");
 
         }
-
-
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

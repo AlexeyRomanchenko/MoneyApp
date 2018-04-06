@@ -283,7 +283,7 @@ namespace PVT.Money.Data.Migrations
                         .IsRequired()
                         .HasColumnName("UserId");
 
-                    b.Property<int>("Value")
+                    b.Property<decimal>("Value")
                         .HasColumnName("USD_Value");
 
                     b.Property<string>("WalletName")

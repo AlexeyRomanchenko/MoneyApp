@@ -6,19 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PVT.Money.Business.Tests
 {
-    class InMemoryContext : MoneyContext
-    {
-        private string db;
-        private IDataContextProvider _provider;
+    //class InMemoryContext : MoneyContext
+    //{
+    //    private string db;
+    //    private IDataContextProvider _provider;
 
 
-        public InMemoryContext(string _db)
-        {
-            db = _db;
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase(db);
-        }
-    }
+    //    //public InMemoryContext(string _db)
+    //    //{
+    //    //    db = _db;
+    //    //}
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    {
+    //        optionsBuilder.UseInMemoryDatabase(db);
+    //    }
+    //}
 }

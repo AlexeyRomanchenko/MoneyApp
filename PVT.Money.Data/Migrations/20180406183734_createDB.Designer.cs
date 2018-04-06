@@ -11,8 +11,8 @@ using System;
 namespace PVT.Money.Data.Migrations
 {
     [DbContext(typeof(MoneyContext))]
-    [Migration("20180405190308_CreateDB")]
-    partial class CreateDB
+    [Migration("20180406183734_createDB")]
+    partial class createDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,7 +284,7 @@ namespace PVT.Money.Data.Migrations
                         .IsRequired()
                         .HasColumnName("UserId");
 
-                    b.Property<int>("Value")
+                    b.Property<decimal>("Value")
                         .HasColumnName("USD_Value");
 
                     b.Property<string>("WalletName")
