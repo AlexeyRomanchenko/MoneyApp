@@ -1,11 +1,19 @@
 ﻿
 
-function currencyExchange(walletId, currency)
+function currencyExchange(walletId, currency, value)
 {
     class Exchange extends React.Component {
         render() {
             return <div>
-                <div className="col-md-6">
+                <div className="row">
+                    <div className="col-lg-4">
+                        <div className="panel">
+                            <div className="panel-heading">
+                                
+                                Информация о переводе
+            </div>
+                            <div className="panel-body">
+                <div className="col-sm-6">
                     <input id="MoneyValue" className="form-control" type="text" placeholder="Введите сумму" />
                 </div>
                 <div className="col-md-6">
@@ -22,29 +30,30 @@ function currencyExchange(walletId, currency)
                 <br /><br />
                 <br />
                 <button onClick={ExchangeMoney} className="btn btn-default">Перевести</button>
-            </div>;
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>;
         }
     }
 
     function ExchangeMoney() {
-        let currency = {
-           
-            let FirstWallet = {
-                let currency = "EUR",
-                let value = 20,
-                let WalletId = 1
-            },
-            let SecondWallet = {
-                let currency = "USD",
-                let value = 20,
-                let WalletId = document.getElementById("secondWalletId").value
-            }
-        };
-        let value = document.getElementById("MoneyValue").value;
-        console.log(currency);
-        debugger;
-        let secWalletId = document.getElementById("secondWalletId").value;
+        //let curr = {};
+        //curr.value = document.getElementById("MoneyValue").value;
+
+        //curr.firstWalletId = {};
+        //curr.firstWalletId.currency = currency;
+        //curr.firstWalletId.walletId = walletId;
+        //curr.firstWalletId.value = value;
+
+        //curr.secondWalletId = {};
+        //curr.secondWalletId
         
+        //console.log(curr);
+        //debugger;
+        let secWalletId = document.getElementById("secondWalletId").value;
+        let value = document.getElementById("MoneyValue").value;
 
 
         $.ajax({
@@ -85,13 +94,14 @@ function currencyExchange(walletId, currency)
                 console.log(data);
                 let walletName = data.wallet[count].walletName;
                 let walletId = data.wallet[count].walletId;
+                let Currency = data.wallet[count].currency;
 
                 let list = document.createElement('li');
                 let subLi = document.createElement('a');
                 list.appendChild(subLi);
                 subLi.onclick = SelectWallet;
                 subLi.setAttribute("data-id", walletId);
-                subLi.innerHTML = walletName;
+                subLi.innerHTML = walletName + " (" + Currency+")";
                 arr.push(list);
 
                 WalletUL.appendChild(list);

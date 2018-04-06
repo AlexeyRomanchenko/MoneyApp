@@ -56,12 +56,8 @@ namespace PVT.Money.Shell.Web.Controllers
         public async Task<IActionResult> ExchangeMoney(int value, int firstWalletId, int secondWalletId)
         {
             IEnumerable<string> result = new List<string>();
-            CurrExchangeModel currencyModel = new CurrExchangeModel();
-            currencyModel.value = value;
-            currencyModel.FirstWallet.WalletId = firstWalletId;
-            currencyModel.SecondWallet.WalletId = secondWalletId;
-
-            var wallets = await _transfertManager.Exchange(currencyModel);
+           
+            var wallets = await _transfertManager.Exchange(value, firstWalletId, secondWalletId);
             return RedirectToAction("Index", "Home");
             
 

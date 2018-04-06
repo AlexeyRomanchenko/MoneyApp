@@ -8,7 +8,7 @@ namespace PVT.Money.Business
     {   
         public int WalletId { get; set; }
         public string UserId { get; set; }
-        public int Value { get; set; }
+        public decimal Value { get; set; }
         public string WalletName { get; set; }
         public string Currency { get; set; }
        // public User User { get; set; }

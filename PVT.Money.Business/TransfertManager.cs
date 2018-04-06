@@ -72,32 +72,37 @@ namespace PVT.Money.Business
         }
 
 
-        public async Task<IEnumerable<Wallet>> Exchange(CurrExchangeModel model)//int value, int first, int second, string firstMoney,string secondMoney
+        public async Task<IEnumerable<Wallet>> Exchange(int value, int first, int second)
         {
 
             List<Wallet> walletList = new List<Wallet>();
             Wallet firstWallet = new Wallet();
             Wallet secondWallet = new Wallet();
 
-            if (model != null)
-            {
-                Rate rate = new Rate(model.FirstWallet.Currency, model.SecondWallet.Currency);
+
                 try
                 {
                     using (var context = _provider.CreateContext())
                     {
-                        USD_AccountEntity wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == model.FirstWallet.WalletId).SingleAsync();
+                        USD_AccountEntity wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == first).SingleAsync();
 
 
-                        USD_AccountEntity sec_wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == model.SecondWallet.WalletId).SingleAsync();
-                        if (wallet.Currency != sec_wallet.Currency && model.value > 0)
+                        USD_AccountEntity sec_wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == second).SingleAsync();
+                        if (wallet.Currency != sec_wallet.Currency && value > 0)
                         {
 
-                            if (wallet.Value > model.value)
+                            if (wallet.Value > value)
                             {
-                                wallet.Value = wallet.Value - model.value;
-                                sec_wallet.Value += model.value;
+                            string firstCurrency = wallet.Currency;
+                            string secondCurrency = sec_wallet.Currency;
 
+
+                            Rate rate = new Rate(firstCurrency, secondCurrency);
+                            decimal nominal = rate.rateCount;
+                            wallet.Value = wallet.Value - value;
+
+                            decimal resultValue = value * nominal;
+                            sec_wallet.Value = sec_wallet.Value + resultValue;
 
                                 context.UserUSDWallets.Update(wallet);
                                 await context.SaveChangesAsync();
@@ -125,7 +130,7 @@ namespace PVT.Money.Business
                 {
                     throw new Exception("Exception in Transfering one currency ", ex);
                 }
-            }
+           
             return walletList;
         }
 

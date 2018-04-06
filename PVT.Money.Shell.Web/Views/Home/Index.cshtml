@@ -24,7 +24,7 @@
                             </a>
                             <ul class="dropdown-menu animated flipInX m-t-xs">
                                 <li><a onclick="OneCurr(@val.WalletId,'@val.Currency')" href="#">На счет в этой валюте</a></li>
-                                <li><a onclick="currencyExchange(@val.WalletId,'@val.Currency')" href="#">На счет в другую валюту</a></li>
+                                <li><a onclick="currencyExchange(@val.WalletId,'@val.Currency','@val.Value')" href="#">На счет в другую валюту</a></li>
                             </ul>
                         </div>
 
@@ -47,22 +47,7 @@
 </div>
 
 <input type="hidden" id="secondWalletId"/>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="hpanel">
-            <div class="panel-heading">
-                <div class="panel-tools">
-                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                </div>
-                Cards' information
-            </div>
-            <div class="panel-body">
+
                 <div id="content"></div>
-            </div>
-            <div class="panel-footer">
-                Nice to see you here 
-            </div>
-        </div>
-    </div>
-</div>
+            
 

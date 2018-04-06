@@ -3,8 +3,16 @@
     class Hello extends React.Component {
         render() {
             return <div>
-                    <div className="col-md-6">
-                        <input id="MoneyValue" asp-for="" className="form-control" type="text" placeholder="Введите сумму" />
+                <div className="row">
+                    <div className="col-lg-4">
+                        <div className="panel">
+                            <div className="panel-heading">
+                               
+                                Информация о переводе
+            </div>
+                            <div className="panel-body">
+                    <div className="col-sm-6">
+                        <input id="MoneyValue" className="form-control" type="text" placeholder="Введите сумму" />
                     </div>
                     <div className="col-md-6">
                         <div className="dropdown">
@@ -20,6 +28,11 @@
                 <br /><br />
                 <br />
                 <button onClick={TransfertMoney} className="btn btn-default">Перевести</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
                 </div>;
         }
     }

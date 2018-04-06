@@ -49,17 +49,17 @@ function SelectWallet(event) {
 }
 
 
-function transfertOneCurrency() {
+//function transfertOneCurrency() {
 
-    $.ajax({
-        url: "/User/GetWallets",
-        type: "POST",
-        data: { login: "Alexey" },
-        contentType: "application/x-www-form-urlencoded",
-        dataType: "json",
-    }).done(function (data) {
+//    $.ajax({
+//        url: "/User/GetWallets",
+//        type: "POST",
+//        data: { login: "Alexey" },
+//        contentType: "application/x-www-form-urlencoded",
+//        dataType: "json",
+//    }).done(function (data) {
         
-        console.log(data);
-    });
-}
+//        console.log(data);
+//    });
+//}
 

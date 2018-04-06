@@ -216,7 +216,7 @@ namespace PVT.Money.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Currency = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false),
-                    USD_Value = table.Column<int>(nullable: false),
+                    USD_Value = table.Column<decimal>(nullable: false),
                     WalletName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
