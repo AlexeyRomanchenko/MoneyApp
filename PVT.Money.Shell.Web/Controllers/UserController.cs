@@ -45,10 +45,10 @@ namespace PVT.Money.Shell.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TransfertMoney(int walletId, string currency, string userID)
+        public async Task<IActionResult> TransfertMoney(int value, int firstWalletId, int secondWalletId)
         {
             IEnumerable<string> result = new List<string>();
-           var  s = await _transfertManager.Transfert(3,5,2);
+           var  s = await _transfertManager.Transfert(value, firstWalletId, secondWalletId);
             return await Task.FromResult(Json(new { perms = result }));
         }
 

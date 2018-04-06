@@ -4,7 +4,7 @@
         render() {
             return <div>
                     <div className="col-md-6">
-                        <input className="form-control" type="text" placeholder="Введите сумму" />
+                        <input id="MoneyValue" className="form-control" type="text" placeholder="Введите сумму" />
                     </div>
                     <div className="col-md-6">
                         <div className="dropdown">
@@ -25,11 +25,15 @@
     }
 
     function TransfertMoney() {
-        debugger;
+
+        let secWalletId = document.getElementById("secondWalletId").value;
+        let value = document.getElementById("MoneyValue").value;
+
+
         $.ajax({
             url: "/User/TransfertMoney",
             type: "POST",
-            data: { walletId: 45, currency: "USD", userID : "665" },
+            data: { value: value, firstWalletId: walletId, secondWalletId: secWalletId },
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
         }).done(function (data) { });
@@ -39,7 +43,7 @@
 
     function getWallets(walletId, currency) {
         let userId = document.getElementById("userID").value;
-        debugger;
+        
        $.ajax({
             url: "/User/GetWallets",
             type: "POST",

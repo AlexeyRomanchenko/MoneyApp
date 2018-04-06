@@ -53,7 +53,7 @@ namespace PVT.Money.Shell.Web.Controllers
             //    SendSignalRMessage();
             //});
             var username = User.Identity.Name;
-            var userWallets = await _wallet.GetWallets(username);
+            var userWallets = await _wallet.GetAllWallets(username);
             string id = await this.GetUserId(username);
             ViewBag.Id = id;
             return await Task.FromResult(View(userWallets));

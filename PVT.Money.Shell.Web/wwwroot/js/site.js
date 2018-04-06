@@ -40,7 +40,12 @@ function SelectWallet(event) {
     let wallet_name = target.innerHTML;
     let selectedWallet = document.getElementById("wallet");
     selectedWallet.innerHTML = wallet_name;
-    debugger;
+
+    let secWalletId = document.getElementById("secondWalletId");
+    secWalletId.value = id;
+    console.log(id);
+    console.log(secWalletId);
+   
 }
 
 

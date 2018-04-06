@@ -17,7 +17,7 @@ namespace PVT.Money.Business
         }
 
 
-        public async Task<IEnumerable<Wallet>> GetWallets(string username)
+        public async Task<IEnumerable<Wallet>> GetAllWallets(string username)
         {
            USD_AccountEntity[] wall;
            List<Wallet> walletList = new List<Wallet>();

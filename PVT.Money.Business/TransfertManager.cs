@@ -10,7 +10,8 @@ namespace PVT.Money.Business
 {
     public class TransfertManager
     {
-        private IDataContextProvider _provider; 
+        private IDataContextProvider _provider;
+
 
         public async Task<IEnumerable<Wallet>> Transfert(int value , int first, int second) {
 
@@ -23,46 +24,37 @@ namespace PVT.Money.Business
                 {
                     USD_AccountEntity wallet = await context.UserUSDWallets.Include(e => e.User).Where(e => e.WalletId == first).SingleAsync();
                     
-                        firstWallet.WalletName = wallet.WalletName;
-                        firstWallet.Value = wallet.Value;
-                        firstWallet.WalletId = wallet.WalletId;
-                        firstWallet.Currency = wallet.Currency;
-                        firstWallet.UserId = firstWallet.UserId;
-                    
-
-
-                    
-
+                      
                     USD_AccountEntity sec_wallet = await context.UserUSDWallets.Include(e=>e.User).Where(e => e.WalletId == second).SingleAsync();
                     
-                        secondWallet.WalletName = sec_wallet.WalletName;
-                        secondWallet.Value = sec_wallet.Value;
-                        secondWallet.WalletId = sec_wallet.WalletId;
-                        secondWallet.Currency = sec_wallet.Currency;
-                        secondWallet.UserId = sec_wallet.UserId;
-                    
-                    
-                }
-
-
-                if (firstWallet.Currency == secondWallet.Currency && value > 0)
-                {
-
-                    if (firstWallet.Value > value)
+                      
+                    if (wallet.Currency == sec_wallet.Currency && value > 0)
                     {
-                        firstWallet.Value = firstWallet.Value - value;
-                        secondWallet.Value += value;
-                        walletList.Add(firstWallet);
-                        walletList.Add(secondWallet);
+
+                        if (wallet.Value > value)
+                        {
+                            wallet.Value = wallet.Value - value;
+                            sec_wallet.Value += value;
+
+                           
+                                context.UserUSDWallets.Update(wallet);
+                                await context.SaveChangesAsync();
+                            
+
+                            //walletList.Add(firstWallet);
+                            //walletList.Add(secondWallet);
+                        }
                     }
                 }
+
+
+               
             }
             catch(Exception ex)
             {
                 throw new Exception("Exception in Transfering one currency ",ex);
             }
 
-           
             return walletList;
 
 
@@ -73,10 +65,6 @@ namespace PVT.Money.Business
             _provider = provider;
         }
 
-        //public TransfertManager(int value, int firstWallet, int secondWallet, IDataContextProvider provider)
-        //{
-        //    __provider = provider;
-        //    Transfert(value, firstWallet, secondWallet);
-        //}
+        
     }
 }
