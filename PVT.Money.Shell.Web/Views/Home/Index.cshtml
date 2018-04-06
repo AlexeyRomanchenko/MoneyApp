@@ -1,10 +1,15 @@
-﻿@{
+﻿@using PVT.Money.Business;
+@model IEnumerable<Wallet>
+
+@{
+
     ViewData["Title"] = "Home Page";
+    
 
 }
 @using React.AspNet
 <div class="row">
-    @foreach (var val in Model)
+    @foreach (Wallet val in Model)
     {
 
       

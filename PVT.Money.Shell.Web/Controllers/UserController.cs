@@ -39,7 +39,6 @@ namespace PVT.Money.Shell.Web.Controllers
         public async Task<IActionResult> LoginPermissions(string id)
         {
             IEnumerable<string> result = new List<string>();
-           // UserPermissions permissions = new UserPermissions();
             result = await _userPerms.GetPermissions(id);
             return await Task.FromResult(Json(new{perms= result}));
         }
@@ -48,8 +47,10 @@ namespace PVT.Money.Shell.Web.Controllers
         public async Task<IActionResult> TransfertMoney(int value, int firstWalletId, int secondWalletId)
         {
             IEnumerable<string> result = new List<string>();
-           var  s = await _transfertManager.Transfert(value, firstWalletId, secondWalletId);
-            return await Task.FromResult(Json(new { perms = result }));
+           var wallets = await _transfertManager.Transfert(value, firstWalletId, secondWalletId);
+            return RedirectToAction("Index", "Home");
+            // return await Task.FromResult(Json(new { wallets = wallets }));
+
         }
 
         [HttpPost]

@@ -39,10 +39,21 @@ namespace PVT.Money.Business
                            
                                 context.UserUSDWallets.Update(wallet);
                                 await context.SaveChangesAsync();
-                            
 
-                            //walletList.Add(firstWallet);
-                            //walletList.Add(secondWallet);
+                            firstWallet.WalletName = wallet.WalletName;
+                            firstWallet.Value = wallet.Value;
+                            firstWallet.WalletId = wallet.WalletId;
+                            firstWallet.Currency = wallet.Currency;
+                            firstWallet.UserId = firstWallet.UserId;
+
+                            secondWallet.WalletName = sec_wallet.WalletName;
+                            secondWallet.Value = sec_wallet.Value;
+                            secondWallet.WalletId = sec_wallet.WalletId;
+                            secondWallet.Currency = sec_wallet.Currency;
+                            secondWallet.UserId = sec_wallet.UserId;
+
+                            walletList.Add(firstWallet);
+                            walletList.Add(secondWallet);
                         }
                     }
                 }

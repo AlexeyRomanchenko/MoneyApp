@@ -4,7 +4,7 @@
         render() {
             return <div>
                     <div className="col-md-6">
-                        <input id="MoneyValue" className="form-control" type="text" placeholder="Введите сумму" />
+                        <input id="MoneyValue" asp-for="" className="form-control" type="text" placeholder="Введите сумму" />
                     </div>
                     <div className="col-md-6">
                         <div className="dropdown">
@@ -36,7 +36,17 @@
             data: { value: value, firstWalletId: walletId, secondWalletId: secWalletId },
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
-        }).done(function (data) { });
+            complete: function (e, xhr, settings) {
+                location.reload();
+                if (e.status === 302) {
+                    console.log(e.responseText);
+                } else {
+                    console.log(e.status);
+                }
+            }
+        });
+       
+
     }
 
 

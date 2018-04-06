@@ -56,8 +56,8 @@ namespace PVT.Money.Shell.Web.Controllers
             var userWallets = await _wallet.GetAllWallets(username);
             string id = await this.GetUserId(username);
             ViewBag.Id = id;
-            return await Task.FromResult(View(userWallets));
-        }
+            return View(userWallets);
+       }
 
         private async Task SendSignalRMessage()
         {
