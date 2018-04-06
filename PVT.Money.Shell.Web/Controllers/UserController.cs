@@ -49,17 +49,36 @@ namespace PVT.Money.Shell.Web.Controllers
             IEnumerable<string> result = new List<string>();
            var wallets = await _transfertManager.Transfert(value, firstWalletId, secondWalletId);
             return RedirectToAction("Index", "Home");
-            // return await Task.FromResult(Json(new { wallets = wallets }));
+           
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExchangeMoney(int value, int firstWalletId, int secondWalletId)
+        {
+            IEnumerable<string> result = new List<string>();
+            CurrExchangeModel currencyModel = new CurrExchangeModel();
+            currencyModel.value = value;
+            currencyModel.FirstWallet.WalletId = firstWalletId;
+            currencyModel.SecondWallet.WalletId = secondWalletId;
+
+            var wallets = await _transfertManager.Exchange(currencyModel);
+            return RedirectToAction("Index", "Home");
+            
 
         }
 
         [HttpPost]
         public async Task<IActionResult> GetWallets(int walletId,string currency,string userId)
         {
-
             var wallets = await _wallet.GetTransactWallets(walletId,currency,userId);
-
             return Json(new {wallet = wallets });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetCurrWallets(int walletId, string currency, string userId)
+        {
+            var wallets = await _wallet.GetCurrencyWallets(walletId, currency, userId);
+            return Json(new { wallet = wallets });
         }
 
 

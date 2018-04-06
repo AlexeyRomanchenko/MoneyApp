@@ -66,7 +66,7 @@
                             <a class="" href="login.html">Login</a>
                         </li>
                         <li>
-                           
+
                             @*<a class="" href="/">Logout</a>*@
                         </li>
                         <li>
@@ -85,7 +85,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a asp-controller="Account" asp-action="Logout" >
+                        <a asp-controller="Account" asp-action="Logout">
                             <i class="pe-7s-upload pe-rotate-90"></i>
                         </a>
                     </li>
@@ -100,8 +100,8 @@
             <div class="profile-picture">
                 <div class="stats-label text-color">
                     <span class="font-extra-bold font-uppercase">@User.Identity.Name</span>
-                    <input type="hidden" id="userID" value="@ViewBag.Id"/>
-                   
+                    <input type="hidden" id="userID" value="@ViewBag.Id" />
+
 
                 </div>
             </div>
@@ -219,12 +219,12 @@
     </div>
 
     <!-- Vendor scripts -->
-   
+
     <script src="~/vendor/jquery/dist/jquery.min.js"></script>
     <script src="~/vendor/jquery-ui/jquery-ui.min.js"></script>
 
 
-       
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
@@ -253,9 +253,10 @@
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
     <script src="~/js/app.jsx"></script>
-   
+    <script src="~/js/CurrencyExchange.jsx"></script>
+
     <!--SignalR -->
-    <script src="~/js/signalr-client-1.0.0-alpha2-final.js"  asp-append-version="true"></script>
+    <script src="~/js/signalr-client-1.0.0-alpha2-final.js" asp-append-version="true"></script>
     <script src="~/js/signalRChat.js" asp-append-version="true"></script>
 </body>
 </html>

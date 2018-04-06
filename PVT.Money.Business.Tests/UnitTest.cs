@@ -84,40 +84,5 @@ namespace PVT.Money.Business.Tests
         }
 
 
-        [Test]
-        public async Task ChangeMoneyAnotherWalletOneCurency()
-        {
-            //Wallet firstWallet = new Wallet();
-            //firstWallet.Value = 3200;
-            //firstWallet.UserId = 1;
-            //firstWallet.WalletName = "First";
-            //firstWallet.Currency = "USD";
-
-            //Wallet secondWallet = new Wallet();
-            //secondWallet.Value = 200;
-            //firstWallet.UserId = 1;
-            //secondWallet.Currency = "USD";
-            //secondWallet.WalletName = "Sec";
-
-            string dbName = Guid.NewGuid().ToString();
-
-            InMemoryDataContextProvider prov = new InMemoryDataContextProvider(dbName);
-            var context = prov.CreateContext();
-
-            using (context)
-            {
-                // INSERT DATA 
-            }
-               
-
-            int transfMoney = 10;
-            int firstWalletId = 1;
-            int secondWalletId = 2;
-
-
-            TransfertManager transfertMoney = new TransfertManager(transfMoney, firstWalletId, secondWalletId, prov);
-            //Assert.AreEqual(firstWallet.Value, 3190);
-            //Assert.AreEqual(secondWallet.Value, 210);
-        }
     }
 }

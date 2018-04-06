@@ -11,6 +11,6 @@ namespace PVT.Money.Business
         public int Value { get; set; }
         public string WalletName { get; set; }
         public string Currency { get; set; }
-        public User User { get; set; }
+       // public User User { get; set; }
     }
 }
