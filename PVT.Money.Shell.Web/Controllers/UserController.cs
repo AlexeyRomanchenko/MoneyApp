@@ -77,6 +77,13 @@ namespace PVT.Money.Shell.Web.Controllers
             return Json(new { wallet = wallets });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddWallet(string walName, string selCurr, string userId)
+        {
+            var res =  _wallet.AddWallet(walName,selCurr,userId);
+            return RedirectToAction("Index", "Home");
+        }
+
 
     }
    

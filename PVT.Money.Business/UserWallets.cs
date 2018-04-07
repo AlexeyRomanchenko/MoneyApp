@@ -82,5 +82,18 @@ namespace PVT.Money.Business
             }
             return walletList;
         }
+
+
+        public async Task<bool> AddWallet(string walletName, string currency,string userId)
+        {
+            using (var context = _provider.CreateContext())
+            {
+                USD_AccountEntity wallet = new USD_AccountEntity { WalletName=walletName,Currency = currency, UserId=userId, Value=0 };
+                await context.UserUSDWallets.AddAsync(wallet);
+                await context.SaveChangesAsync();
+                return true;
+            }
+           
+        }
     }
 }

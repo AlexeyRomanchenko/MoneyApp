@@ -3,7 +3,7 @@
     let httpConnection = new signalR.HttpConnection(hubUrl);
     let hubConnection = new signalR.HubConnection(httpConnection);
     hubConnection.on("Send", function (message) {
-        window.alert(message);
+        console.log(message);
     });
     hubConnection.start();
     SendMessage(hubConnection);

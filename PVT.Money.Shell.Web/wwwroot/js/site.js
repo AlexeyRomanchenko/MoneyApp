@@ -49,6 +49,15 @@ function SelectWallet(event) {
 }
 
 
+function SelectCurrency(curr) {
+    console.log(curr);
+    const CurrencyDiv = document.getElementById("selCurr");
+    const hidCurrencyDiv = document.getElementById("hiddenSelCurr");
+    CurrencyDiv.innerHTML = curr;
+    hidCurrencyDiv.value = curr;
+}
+
+
 //function transfertOneCurrency() {
 
 //    $.ajax({

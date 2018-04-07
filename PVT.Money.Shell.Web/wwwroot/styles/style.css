@@ -971,7 +971,7 @@ body.blank {
   color: #9b59b6;
 }
 .btn-success.btn-outline {
-  color: #62cb31;
+  color: #ffffff;
 }
 .btn-info.btn-outline {
   color: #3498db;
@@ -2121,7 +2121,10 @@ body.fullscreen-panel-mode {
   color: #62cb31;
 }
 .text-warning {
-  color: #ffb606;
+    color: #ffb606 !important;
+    font-size: 36px;
+    font-weight: 200;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif!important;
 }
 .text-danger {
   color: #e74c3c;
