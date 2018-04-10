@@ -13,8 +13,10 @@
         for (let c in data.perms)
         {
             let obj = new Object();
-            obj.permission = data.perms[c];
-            console.log(data.perms[c]);
+            obj.currency = data.perms[c].currency;
+            obj.value = data.perms[c].value;
+            obj.walletName = data.perms[c].walletName;
+            console.log(data.perms[c].currency);
             data_array.push(obj);
         }
         console.log(data_array);
@@ -26,7 +28,10 @@
             data: result,
             "processing": true,
             "columns": [
-                { "data": "permission" }]
+                { "data": "currency" },
+                { "data": "value" },
+                { "data": "walletName" }
+            ]
         });
 
 

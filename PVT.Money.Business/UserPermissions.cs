@@ -18,23 +18,30 @@ namespace PVT.Money.Business
         }
 
 
-        public async Task<IEnumerable<string>> GetPermissions(string id)
+        public async Task<IEnumerable<ViewWallet>> GetPermissions(string id)
         {
-            List<string> resultList = new List<string>();
+            List<ViewWallet> resultList = new List<ViewWallet>();
             if (id != null)
             {
-                
+
                 using (var context = _provider.CreateContext())
                 {
-
-                    var rrole = from roles in context.Roles join userRoles in context.UserRoles on roles.Id equals userRoles.RoleId where userRoles.UserId == "1" select roles.Name;
+                    var walls = await context.UserUSDWallets.Where(r => r.UserId == id).ToArrayAsync();
+                    foreach (var count in walls)
+                    {
+                        ViewWallet wall = new ViewWallet();
+                        wall.Currency = count.Currency;
+                        wall.WalletName = count.WalletName;
+                        wall.Value = count.Value;
+                        resultList.Add(wall);
+                    }
 
                     context.SaveChanges();
 
                 }
 
             }
-            
+
             return await Task.FromResult(resultList);
         }
 

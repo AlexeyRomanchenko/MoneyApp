@@ -38,7 +38,7 @@ namespace PVT.Money.Shell.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginPermissions(string id)
         {
-            IEnumerable<string> result = new List<string>();
+            IEnumerable<ViewWallet> result = new List<ViewWallet>();
             result = await _userPerms.GetPermissions(id);
             return await Task.FromResult(Json(new{perms= result}));
         }
