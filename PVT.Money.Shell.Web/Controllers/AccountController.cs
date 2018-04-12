@@ -22,6 +22,7 @@ namespace PVT.Money.Shell.Web.Controllers
     {
         private Authentication Auth { get; }
         private Registration Reg { get; }
+        private MyUserManager _myUserManager{ get; set; }
 
         [AllowAnonymous]
         public async Task<IActionResult> Login()
@@ -38,9 +39,10 @@ namespace PVT.Money.Shell.Web.Controllers
         public AccountController(
          
             Authentication auth,
-            Registration reg)
+            Registration reg,
+            MyUserManager userManager)
         {
-           
+            _myUserManager = userManager;
             Auth = auth;
             Reg = reg;
         }
@@ -199,7 +201,71 @@ namespace PVT.Money.Shell.Web.Controllers
             return View(nameof(ExternalLogin), model);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(string username)
+        {
+           
+                User user = await _myUserManager.GetUserIdByName(username);
+                string code = await _myUserManager.GenerateCode(user.Login);
+                string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                await _myUserManager.SendEmail(user.Email, callbackUrl);
+                return View("ForgotPasswordConfirmation");
+            
+           // return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string code = null)
+        {
+            return code == null ? View("Error") : View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+           // var user = await _userManager.FindByNameAsync(model.Email);
+            //if (user == null)
+            //{
+            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            //}
+            //var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            //if (result.Succeeded)
+            //{
+            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            //}
+            //AddErrors(result);
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
     }
 }

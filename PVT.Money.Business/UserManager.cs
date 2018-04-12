@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PVT.Money.Business
 {
@@ -13,8 +14,9 @@ namespace PVT.Money.Business
     {
         private IDataContextProvider _provider;
         private readonly UserManager<ApplicationUser> _userManager;
+       // private EmailService _emailService;
 
-        public MyUserManager(IDataContextProvider provider, UserManager<ApplicationUser> userManager)
+        public MyUserManager(IDataContextProvider provider, UserManager<ApplicationUser> userManager)//
         {
             _userManager = userManager;
             _provider = provider;
@@ -51,6 +53,31 @@ namespace PVT.Money.Business
                 userList.Add(usr);
             }
             return userList;
+        }
+
+
+        public async Task<User> GetUserIdByName(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            User usr = new User();
+            usr.Id = user.Id;
+            usr.Login = user.UserName;
+            usr.Email = user.Email;
+            
+            return usr;
+        }
+
+        public async Task<string> GenerateCode(string email)
+        {
+            var user = await _userManager.FindByNameAsync(email);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return code;
+        }
+        public async Task SendEmail(string email, string callbackUrl)
+        {
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(email, "Reset Password",
+                $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
         }
     }
 }
