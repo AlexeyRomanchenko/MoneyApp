@@ -239,17 +239,18 @@ namespace PVT.Money.Shell.Web.Controllers
             {
                 return View(model);
             }
-           // var user = await _userManager.FindByNameAsync(model.Email);
-            //if (user == null)
-            //{
-            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            //}
-            //var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            //}
-            //AddErrors(result);
+            User user = await _myUserManager.GetUserIdByName(model.Login);
+            if (user == null)
+            {
+                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            }
+            bool result = await _myUserManager.ConfirmationUser(user, model.Code, model.Password);
+            
+            if (result)
+            {
+                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            }
+           
             return View();
         }
 

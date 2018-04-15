@@ -79,5 +79,24 @@ namespace PVT.Money.Business
             await emailService.SendEmailAsync(email, "Reset Password",
                 $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
         }
+
+        public async Task<bool> ConfirmationUser(User user,string Code, string Password )
+        {
+            Code = Code.Replace(" ", "+");
+            ApplicationUser usr = new ApplicationUser();
+            usr.Id = user.Id;
+            usr.UserName = user.Login;
+            usr.Email = user.Email;
+            var result = await _userManager.ResetPasswordAsync(usr, Code, Password);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }
