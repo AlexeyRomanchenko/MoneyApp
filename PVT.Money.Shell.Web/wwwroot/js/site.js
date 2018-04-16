@@ -1,6 +1,6 @@
 ﻿function userInfo(id) {
     console.log(id);
-    debugger;
+
     $.ajax({
         url: "/User/LoginPermissions",
         type: "POST",

@@ -83,10 +83,8 @@ namespace PVT.Money.Business
         public async Task<bool> ConfirmationUser(User user,string Code, string Password )
         {
             Code = Code.Replace(" ", "+");
-            ApplicationUser usr = new ApplicationUser();
-            usr.Id = user.Id;
-            usr.UserName = user.Login;
-            usr.Email = user.Email;
+            ApplicationUser usr = await _userManager.FindByNameAsync(user.Login);
+           
             var result = await _userManager.ResetPasswordAsync(usr, Code, Password);
             if (result.Succeeded)
             {
