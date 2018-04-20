@@ -57,7 +57,7 @@ function currencyExchange(walletId, currency, value)
 
 
         $.ajax({
-            url: "/User/ExchangeMoney",
+            url: location.origin+"/User/ExchangeMoney",
             type: "POST",
             data: { value: value, firstWalletId: walletId, secondWalletId: secWalletId },
             contentType: "application/x-www-form-urlencoded",
@@ -80,7 +80,7 @@ function currencyExchange(walletId, currency, value)
         let userId = document.getElementById("userID").value;
 
         $.ajax({
-            url: "/User/GetCurrWallets",
+            url: location.origin+"/User/GetCurrWallets",
             type: "POST",
             data: { walletId: walletId, currency: currency, userID: userId },
             contentType: "application/x-www-form-urlencoded",

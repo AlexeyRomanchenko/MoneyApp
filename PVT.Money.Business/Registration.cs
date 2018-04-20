@@ -42,7 +42,7 @@ namespace PVT.Money.Business
         public async Task CreateNewUser(string login, string name, string email, string password, int role)
         {
 
-            ApplicationUser userRegister = new ApplicationUser { UserName = name, Email = email };
+            ApplicationUser userRegister = new ApplicationUser { UserName = login, Email = email };
             var result = await _userManager.CreateAsync(userRegister, password);
             if (result.Succeeded)
             {
@@ -52,7 +52,7 @@ namespace PVT.Money.Business
 
                 await _signInManager.SignInAsync(userRegister, isPersistent: false);
 
-               await _userManager.AddToRoleAsync(userRegister, "Admin");
+               await _userManager.AddToRoleAsync(userRegister, "User");
 
             }           
         }

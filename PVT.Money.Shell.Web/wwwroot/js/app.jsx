@@ -44,7 +44,7 @@
 
 
         $.ajax({
-            url: "/User/TransfertMoney",
+            url: location.origin+"/User/TransfertMoney",
             type: "POST",
             data: { value: value, firstWalletId: walletId, secondWalletId: secWalletId },
             contentType: "application/x-www-form-urlencoded",
@@ -68,7 +68,7 @@
         let userId = document.getElementById("userID").value;
         
        $.ajax({
-            url: "/User/GetWallets",
+           url: location.origin+"/User/GetWallets",
             type: "POST",
             data: { walletId: walletId, currency: currency, userID: userId },
             contentType: "application/x-www-form-urlencoded",
