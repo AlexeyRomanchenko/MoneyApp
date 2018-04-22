@@ -1,4 +1,19 @@
-﻿
+﻿let array =
+    [
+        "first",
+        "second",
+        "third"
+    ]
+
+
+let anch = React.createElement("ul",
+    { "data-id": "Datatest" },
+    array.map(list =>
+        React.createElement('li', null, list))
+)
+
+
+
 
 function currencyExchange(walletId, currency, value)
 {
@@ -39,19 +54,8 @@ function currencyExchange(walletId, currency, value)
     }
 
     function ExchangeMoney() {
-        //let curr = {};
-        //curr.value = document.getElementById("MoneyValue").value;
+     
 
-        //curr.firstWalletId = {};
-        //curr.firstWalletId.currency = currency;
-        //curr.firstWalletId.walletId = walletId;
-        //curr.firstWalletId.value = value;
-
-        //curr.secondWalletId = {};
-        //curr.secondWalletId
-        
-        //console.log(curr);
-        //debugger;
         let secWalletId = document.getElementById("secondWalletId").value;
         let value = document.getElementById("MoneyValue").value;
 
@@ -75,6 +79,7 @@ function currencyExchange(walletId, currency, value)
 
 
     function getWallets(walletId, currency) {
+        
         console.log(walletId);
         console.log(currency);
         let userId = document.getElementById("userID").value;
@@ -86,32 +91,24 @@ function currencyExchange(walletId, currency, value)
             contentType: "application/x-www-form-urlencoded",
             dataType: "json",
         }).done(function (data) {
-            let wallets = data.wallets;
             let WalletUL = document.getElementById("WalletList");
             WalletUL.innerHTML = '';
-            let arr = [];
-            for (let count in data.wallet) {
-                console.log(data);
-                let walletName = data.wallet[count].walletName;
-                let walletId = data.wallet[count].walletId;
-                let Currency = data.wallet[count].currency;
 
-                let list = document.createElement('li');
-                let subLi = document.createElement('a');
-                list.appendChild(subLi);
-                subLi.onclick = SelectWallet;
-                subLi.setAttribute("data-id", walletId);
-                subLi.innerHTML = walletName + " (" + Currency+")";
-                arr.push(list);
+            let wallets = data.wallet.map(list => list.walletName+" ("+list.currency+")");
+            let subLi = React.createElement('li',
+                null,
+                wallets.map(wallets => React.createElement('a', { 'onClick' : SelectWallet  }, wallets)))
 
-                WalletUL.appendChild(list);
-            }
-
-
+            ReactDOM.render(
+                subLi,
+                document.getElementById('WalletList')
+            )
         });
 
-
+       
     }
+
+
 
 
     ReactDOM.render(

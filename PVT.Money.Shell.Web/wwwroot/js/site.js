@@ -36,20 +36,19 @@
 
     });
 }
-
 function SelectWallet(event) {
-    const target = event.target;
+const target = event.target;
 
-    let id = target.getAttribute('data-id');
-    let wallet_name = target.innerHTML;
-    let selectedWallet = document.getElementById("wallet");
-    selectedWallet.innerHTML = wallet_name;
+let id = target.getAttribute('data-id');
+let wallet_name = target.innerHTML;
+let selectedWallet = document.getElementById("wallet");
+selectedWallet.innerHTML = wallet_name;
 
-    let secWalletId = document.getElementById("secondWalletId");
-    secWalletId.value = id;
-    console.log(id);
-    console.log(secWalletId);
-   
+let secWalletId = document.getElementById("secondWalletId");
+secWalletId.value = id;
+console.log(id);
+console.log(secWalletId);
+
 }
 
 
@@ -60,19 +59,3 @@ function SelectCurrency(curr) {
     CurrencyDiv.innerHTML = curr;
     hidCurrencyDiv.value = curr;
 }
-
-
-//function transfertOneCurrency() {
-
-//    $.ajax({
-//        url: "/User/GetWallets",
-//        type: "POST",
-//        data: { login: "Alexey" },
-//        contentType: "application/x-www-form-urlencoded",
-//        dataType: "json",
-//    }).done(function (data) {
-        
-//        console.log(data);
-//    });
-//}
-
