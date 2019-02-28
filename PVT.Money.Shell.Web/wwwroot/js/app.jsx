@@ -82,7 +82,7 @@
                 console.log(data);
                 let walletName = data.wallet[count].walletName;
                 let walletId = data.wallet[count].walletId;
-
+               
                 let list = document.createElement('li');
                 let subLi = document.createElement('a');
                 list.appendChild(subLi);

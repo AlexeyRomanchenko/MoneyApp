@@ -58,8 +58,9 @@ function currencyExchange(walletId, currency, value)
 
         let secWalletId = document.getElementById("secondWalletId").value;
         let value = document.getElementById("MoneyValue").value;
-
-
+        console.log(secWalletId);
+        console.log(value);
+        debugger;
         $.ajax({
             url: location.origin+"/User/ExchangeMoney",
             type: "POST",
@@ -93,16 +94,23 @@ function currencyExchange(walletId, currency, value)
         }).done(function (data) {
             let WalletUL = document.getElementById("WalletList");
             WalletUL.innerHTML = '';
+            console.log(data);
+            //let wallets = data.wallet.map(list => list.walletName + " (" + list.currency + ")");
 
-            let wallets = data.wallet.map(list => list.walletName+" ("+list.currency+")");
-            let subLi = React.createElement('li',
-                null,
-                wallets.map(wallets => React.createElement('a', { 'onClick' : SelectWallet  }, wallets)))
 
-            ReactDOM.render(
-                subLi,
-                document.getElementById('WalletList')
-            )
+            for (let count in data.wallet) {
+                let list = document.createElement('li');
+                let subLi = document.createElement('a');
+                list.appendChild(subLi);
+                subLi.onclick = SelectWallet;
+                subLi.setAttribute("data-id", data.wallet[count].walletId);
+                subLi.innerHTML = data.wallet[count].walletName + " (" + data.wallet[count].currency + ")";
+
+                WalletUL.appendChild(list);
+            }
+
+
+            
         });
 
        
